@@ -1,0 +1,10 @@
+
+purpose: remove PCR duplicates
+tool: FastUniq (doi: 10.1371/journal.pone.0052249)
+parameters: default
+
+1) edit input and output directories in code
+2) I used "R1.trim.fastq" and "R2.trim.fastq" as naming convention, adjust as neccessary
+3) run 01_make_fastlist.R to make input files for FastUniq
+4) adjust for loop in 02_dedup.R according to your data, and run
+5) submit sh scripts on command line 

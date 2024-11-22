@@ -1,0 +1,9 @@
+
+purpose: trim adaptors, low quality bases, polyG tails etc from fastq files. Autodetects adaptor sequences
+tool: fastp (https://github.com/OpenGene/fastp)
+parameters: default
+
+1) edit input and output directories in code
+2) I used "R1.fastq.gz" as naming convention for all my read 1's, adjust as neccessary
+3) run 01_make_fastp_sh.R to make sh scripts
+4) submit sh scripts on command line 

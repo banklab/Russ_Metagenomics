@@ -1,0 +1,28 @@
+
+purpose: bin metagenomic data into single genomes
+tools: MetaBAT2, MaxBin2, CONCOCT (doi: 10.7717/peerj.7359, doi: 10.1093/bioinformatics/btv638, doi: 10.1038/nmeth.3103)
+parameters: default/recommended
+
+1) set up directory structure as:
+
+01_MetaBAT2  02_MaxBin2  03_CONCOCT  04_MetaMax  05_MetaCon  06_MaxCon  07_MetaMaxCon
+
+2) adjust input/output directories and DATASET as previously
+ASM_DIR = directory with assemblies
+BAM_DIR = directory with BAM's
+OUTPUT_DIR = output directory for a tool
+Meta_DIR = directory with MetaBAT2 results
+
+3) run 01_MetaBAT2.R first, then other tools
+
+
+purpose: merge and adjust bins from multiple tools to improve quality. Run Binning_Refiner A/B/C/D to combine bins from all pairwise combinations of tools, and the combination of all 3 tools
+tools: binning refiner (doi: 10.1093/bioinformatics/btx086)
+parameters: default
+
+1) adjust input/output directories and DATASET as previous
+2) adjust TOOLA and TOOLB variables, these should point to the directories
+3) adjust TOOLA_PATH and TOOLB_PATH variables, these should point to the bins for each tool
+4) run A_Binning_Refiner.sh on command line
+5) repeat for B/C/D
+

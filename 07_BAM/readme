@@ -1,0 +1,27 @@
+
+purpose: index genome assemblies
+tool: Bowtie 2 (https://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+parameters: default
+
+1) edit input and output directories in code
+2) I used "_DEER.asm" or "_RAS.asm" as naming convention for all my assemblies, adjust as neccessary
+3) I used "DEER" or "RAS" to input/output files according to different projects, adjust as neccessary
+4) run 01_MAKE_INDEX_SH.R to make sh scripts
+5) submit sh scripts on command line 
+
+
+purpose: map processed reads against genome assemblies
+
+1) edit input and output directories in code
+2) adjust DATASET as neccessary
+3) run 02_MAKE_BOWTIE2_SH.R to make sh scripts
+4) submit sh scripts on command line 
+
+
+purpose: sort and index bam files, record stats (mapping rate, insert size etc)
+
+1) edit input and output directories in code
+2) run 03_Sort_Index_Stats
+ANGRY: runs code in parallel for each BAM file
+CALM: runs code in serial for all BAMs
+
