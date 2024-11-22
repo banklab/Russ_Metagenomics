@@ -1,0 +1,6 @@
+
+module load Python/3.10.8-GCCcore-12.2.0
+
+
+cd /storage/scratch/users/rj23k073/04_DEER/REFERENCES/dRep_ONLY_bin_ref_fastANI_genomes
+parse_stb.py --reverse -f *fa -o dRep_ONLY_bin_ref_fastANI_genomes.stb

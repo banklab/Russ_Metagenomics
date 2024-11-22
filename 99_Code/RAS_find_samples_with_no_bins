@@ -1,0 +1,84 @@
+
+
+
+for i in *RAS_metabat
+
+do
+
+cd $i
+cd scaffolds_filtered.fasta.metabat-bins*
+
+res=$(echo | ls | wc -l)
+
+if test $res -le 0
+then echo $i 'no bins'
+fi
+
+cd /storage/scratch/users/rj23k073/01_RAS/08_Binning/01_MetaBAT2
+
+done
+
+
+
+for i in *RAS_maxbin
+
+do
+
+cd $i
+
+res=$(echo | ls *fasta | wc -l)
+
+if test $res -le 0
+then echo $i 'no bins'
+fi
+
+cd /storage/scratch/users/rj23k073/01_RAS/08_Binning/02_MaxBin2
+
+done
+
+
+
+for i in *RAS_concoct
+
+do
+
+cd $i
+cd concoct_output/fasta_bins
+
+res=$(echo | ls | wc -l)
+
+if test $res -le 0
+then echo $i 'no bins'
+fi
+
+cd /storage/scratch/users/rj23k073/01_RAS/08_Binning/03_CONCOCT
+
+done
+
+
+
+
+for i in *Binning_refiner_outputs
+
+do
+
+cd $i
+cd *refined_bins
+
+res=$(echo | ls | wc -l)
+
+if test $res -le 0
+then echo $i 'no bins'
+fi
+
+cd /storage/scratch/users/rj23k073/01_RAS/08_Binning/07_*
+
+done
+
+
+
+
+
+
+
+
