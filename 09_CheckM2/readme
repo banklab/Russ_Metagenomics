@@ -2,4 +2,7 @@ purpose: assess quality of bins resulting from metagenomic assembly
 tools: CheckM2 (doi.org/10.1038/s41592-024-02248-z)
 parameters: default
 
-
+1) edit input and output directories in code
+2) adjust DATASET as neccessary
+3) run 01 scripts for each binning tool
+4) submit sh scripts on command line 
