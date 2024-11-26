@@ -12,4 +12,4 @@ module load SequenceAnalysis/GenePrediction/prodigal/2.6.3
 module load SequenceAnalysis/HMM-Profile/hmmer/3.1b2
 module load UHTS/Analysis/pplacer/1.1.alpha19
 module load Python/3.10.8-GCCcore-12.2.0
-checkm lineage_wf 01_Pre_Bins 02_CheckM -x fa -t 16
+checkm2 predict --input 01_input_bins --output 02_CheckM2 --force -x fa -t 16
