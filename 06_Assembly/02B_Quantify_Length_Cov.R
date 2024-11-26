@@ -22,37 +22,37 @@ for(i in 1:length(file_list)){
   
   asm_df_TEMP[,1] <- gsub("_deer.*","",file_list[i]) ## collect sample id, adjust as needed
   
-  asm_df_TEMP[,2] <- as.numeric(gsub(".*_length_|_cov_.*", "", data2$V1))
+  asm_df_TEMP[,2] <- as.numeric(gsub(".*_length_|_cov_.*", "", data2$V1)) ## collect length
   
-  asm_df_TEMP[,3] <- as.numeric(gsub(".*_cov_", "", data2$V1))
+  asm_df_TEMP[,3] <- as.numeric(gsub(".*_cov_", "", data2$V1)) ## collect coverage
 
   asm_df <- rbind (asm_df, asm_df_TEMP)
   
   
   sample_df[i,1] <-gsub("_deer.*","",file_list[i]) ## collect sample id, adjust as needed
   
-  sample_df[i,2] <- mean(asm_df_TEMP[,2])
+  sample_df[i,2] <- mean(asm_df_TEMP[,2]) ## mean length
   
-  sample_df[i,3] <- mean(asm_df_TEMP[,3])
+  sample_df[i,3] <- mean(asm_df_TEMP[,3]) ## mean coverage
   
-  sample_df[i,4] <- sum(asm_df_TEMP[,2] >= hypothetical_length_filter) / length(asm_df_TEMP[,2])
+  sample_df[i,4] <- sum(asm_df_TEMP[,2] >= hypothetical_length_filter) / length(asm_df_TEMP[,2]) ## proportion of scaffolds that pass length filter
   
-  sample_df[i,5] <- sum(asm_df_TEMP[asm_df_TEMP[,2] >= hypothetical_length_filter,"length"]) / sum(asm_df_TEMP[,2])
+  sample_df[i,5] <- sum(asm_df_TEMP[asm_df_TEMP[,2] >= hypothetical_length_filter,"length"]) / sum(asm_df_TEMP[,2]) ## proportion of total bases that pass length filter
   
-  sample_df[i,6] <- sum(asm_df_TEMP[,3] >= hypothetical_coverage_filter) / length(asm_df_TEMP[,3])
+  sample_df[i,6] <- sum(asm_df_TEMP[,3] >= hypothetical_coverage_filter) / length(asm_df_TEMP[,3]) ## filter metrics for coverage
   
-  sample_df[i,7] <- sum(asm_df_TEMP[asm_df_TEMP[,3] >= hypothetical_coverage_filter,"length"]) / sum(asm_df_TEMP[,2])
+  sample_df[i,7] <- sum(asm_df_TEMP[asm_df_TEMP[,3] >= hypothetical_coverage_filter,"length"]) / sum(asm_df_TEMP[,2]) ## filter metrics for coverage
   
-  sample_df[i,8] <- sum(asm_df_TEMP[,2] >= hypothetical_length_filter & asm_df_TEMP[,3] >= hypothetical_coverage_filter) / length(asm_df_TEMP[,2])
+  sample_df[i,8] <- sum(asm_df_TEMP[,2] >= hypothetical_length_filter & asm_df_TEMP[,3] >= hypothetical_coverage_filter) / length(asm_df_TEMP[,2]) ## proportion of scaffolds that pass BOTH length & coverage
   
-  sample_df[i,9] <- sum(asm_df_TEMP[asm_df_TEMP[,2] >= hypothetical_length_filter & asm_df_TEMP[,3] >= hypothetical_coverage_filter,"length"]) / sum(asm_df_TEMP[,2])
+  sample_df[i,9] <- sum(asm_df_TEMP[asm_df_TEMP[,2] >= hypothetical_length_filter & asm_df_TEMP[,3] >= hypothetical_coverage_filter,"length"]) / sum(asm_df_TEMP[,2]) ## proportion of total bases that pass BOTH length & coverage
   
 }
 
 setwd(OUTDIR)
-write.csv(asm_df, "ASM_Length_and_Cov_RESULTS_by_scaffold.csv", row.names = F)
+write.csv(asm_df, "ASM_Length_and_Cov_RESULTS_by_scaffold.csv", row.names = F) ## length & coverage by scaffold
 
-write.csv(sample_df, "ASM_Length_and_Cov_RESULTS_by_sample.csv", row.names = F)
+write.csv(sample_df, "ASM_Length_and_Cov_RESULTS_by_sample.csv", row.names = F) ## length & coverage by sample
 
 
 
