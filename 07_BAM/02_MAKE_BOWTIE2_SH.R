@@ -19,7 +19,7 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(reads1,"_bowtie2.sh")
   
-  code_block <- paste0("bowtie2 -p 20 -x ",ASM_DIR,"/",reads1,"_",DATASET,".asm/scaffolds_filtered -1 ",READ_DIR,"/",reads1,"_R1.trim.fastq.gz -2 ",READ_DIR,"/",reads1,"_R2.trim.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
+  code_block <- paste0("bowtie2 -p 20 -x ",ASM_DIR,"/",reads1,"_",DATASET,".asm/scaffolds_filtered -1 ",READ_DIR,"/",reads1,"_R1.dedup.fastq.gz -2 ",READ_DIR,"/",reads1,"_R2.dedup.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
   
   code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,".bam")
   
