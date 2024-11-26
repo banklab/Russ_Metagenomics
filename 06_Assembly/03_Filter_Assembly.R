@@ -3,8 +3,8 @@ library(seqinr)
 
 INDIR="/storage/scratch/users/rj23k073/04_DEER/06_Assembly"
 
-MIN_LENGTH <- 1500
-MIN_COV <- 2
+MIN_LENGTH <- 1500 ## choose min length in nucleotides
+MIN_COV <- 2 ## choose min coverage
 
 setwd(INDIR)
 assembly_directories <- list.files(pattern = "asm")
@@ -15,7 +15,7 @@ for(i in 1:length(assembly_directories)){
 
   setwd(asm_sample)
   
-  fasta_file <- read.fasta("scaffolds.fasta")
+  fasta_file <- read.fasta("scaffolds.fasta") ## raw scaffold file
   
   names_list <- names(fasta_file)
   
@@ -24,22 +24,26 @@ for(i in 1:length(assembly_directories)){
   fasta_df[,1] <- names_list
   fasta_df[,2] <- as.numeric(gsub(".*length_|_cov.*","",names_list))
   fasta_df[,3] <- as.numeric(gsub(".*cov_","",names_list))
+
   
-  
-  filter_df <- fasta_df[fasta_df$Length >= MIN_LENGTH & fasta_df$Coverage >= MIN_COV, ]
+  ## filter by length and coverage
+  filter_df <- fasta_df[fasta_df$Length >= MIN_LENGTH & fasta_df$Coverage >= MIN_COV, ] 
   
   
   filter_fasta <- fasta_file[names(fasta_file) %in% filter_df$Name]
-  
+
+  ## write the filtered file to disk, "filtered" suffix
   write.fasta(filter_fasta, names(filter_fasta),"scaffolds_filtered.fasta")
-  
+
+  ## record filtering results
   log_file <- array(NA, dim = c(4,1), dimnames = list(c("Total Sequences", "Pass Length", "Pass Coverage", "Pass Both"),c()))
   
   log_file[1,] <- length(names_list)
   log_file[2,] <- sum(fasta_df$Length >= MIN_LENGTH)
   log_file[3,] <- sum(fasta_df$Coverage >= MIN_COV)
   log_file[4,] <- length(filter_df$Name)
-  
+
+  ## write log file
   write.table(log_file,  gsub("\\.asm.*","_filter_log.txt",asm_sample), row.names = T, col.names = F)
   
   setwd(INDIR)
