@@ -13,12 +13,12 @@ module load Python/3.10.8-GCCcore-12.2.0
 DATASET=deer
 
 TOOLA=01_MetaBAT2
-TOOLA_PATH=metabat/scaffolds_filtered.fasta.metabat-bins*/*fa
+TOOLA_PATH=metabat/scaffolds_filtered.fasta.metabat-bins*/*fa ## point to MetaBAT2 bins
 TOOLB=02_MaxBin2
-TOOLB_PATH=maxbin/*fasta
+TOOLB_PATH=maxbin/*fasta ## point to MaxBin2 bins
 
 INDIR=/storage/scratch/users/rj23k073/04_DEER/08_Binning
-OUTDIR=/storage/scratch/users/rj23k073/04_DEER/08_Binning/04_MetaMax
+OUTDIR=/storage/scratch/users/rj23k073/04_DEER/08_Binning/04_MetaMax ## MetaBAT2 & MaxBin2 results
 
 mkdir $INDIR/TEMP1
 mkdir $INDIR/TEMP1/TOOLA
@@ -28,20 +28,20 @@ rm $INDIR/TEMP1/TOOLA/*
 rm $INDIR/TEMP1/TOOLB/*
 
 cd $INDIR
-for i in $(cat redux_sample_list.txt)
+for i in $(cat redux_sample_list.txt) ## iterate over each sample
 do
 
-cp "$INDIR/"$TOOLA/"$i"_"$DATASET"_$TOOLA_PATH $INDIR/TEMP1/TOOLA
+cp "$INDIR/"$TOOLA/"$i"_"$DATASET"_$TOOLA_PATH $INDIR/TEMP1/TOOLA ## copy bins from first tool to working dir
 
-cp "$INDIR/"$TOOLB/"$i"_"$DATASET"_$TOOLB_PATH $INDIR/TEMP1/TOOLB
+cp "$INDIR/"$TOOLB/"$i"_"$DATASET"_$TOOLB_PATH $INDIR/TEMP1/TOOLB ## copy bins from second tool to working dir
 
 cd $OUTDIR
 
-Binning_refiner -i "$INDIR"/TEMP1 -p $i
+Binning_refiner -i "$INDIR"/TEMP1 -p $i ## run binning refiner on both bin sets
 
 cd $INDIR
 
-rm $INDIR/TEMP1/TOOLA/*
+rm $INDIR/TEMP1/TOOLA/* ## remove the bins we copied to working dir
 rm $INDIR/TEMP1/TOOLB/*
 
 done
