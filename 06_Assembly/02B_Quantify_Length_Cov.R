@@ -8,7 +8,7 @@ hypothetical_coverage_filter <- 2 ## choose min coverage
 
 
 setwd(INDIR)
-file_list <- list.files(pattern = "data.txt")
+file_list <- list.files(pattern = "data.txt") ## length and coverage values from previous
 
 asm_df <- data.frame(array(NA, dim = c(0,3), dimnames = list(c(),c("sample","length","coverage"))))
 
@@ -20,7 +20,7 @@ for(i in 1:length(file_list)){
 
   asm_df_TEMP <- data.frame(array(NA, dim = c(length(data2$V1),3), dimnames = list(c(),c("sample","length","coverage"))))
   
-  asm_df_TEMP[,1] <- gsub("_deer.*","",file_list[i])
+  asm_df_TEMP[,1] <- gsub("_deer.*","",file_list[i]) ## collect sample id, adjust as needed
   
   asm_df_TEMP[,2] <- as.numeric(gsub(".*_length_|_cov_.*", "", data2$V1))
   
@@ -29,7 +29,7 @@ for(i in 1:length(file_list)){
   asm_df <- rbind (asm_df, asm_df_TEMP)
   
   
-  sample_df[i,1] <-gsub("_deer.*","",file_list[i])
+  sample_df[i,1] <-gsub("_deer.*","",file_list[i]) ## collect sample id, adjust as needed
   
   sample_df[i,2] <- mean(asm_df_TEMP[,2])
   
