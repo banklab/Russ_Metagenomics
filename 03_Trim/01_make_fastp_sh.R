@@ -43,12 +43,12 @@ for(i in 1:length(Read_list)){ ## loop over each sample, make an sh script to tr
   write (decompress1, sh_name, append = TRUE)
   write (decompress2, sh_name, append = TRUE)
   write (fastp_code, sh_name, append = TRUE)
-  write (paste0("gzip ",OUTDIR,"/",sub("fastq.gz","trim.fastq",reads1)), sh_name, append = TRUE) ## compress fastq's after trimming
+  write (paste0("gzip ",OUTDIR,"/",sub("fastq.gz","trim.fastq",reads1)), sh_name, append = TRUE) ## compress the trimmed fastq's after fastp
   write (paste0("gzip ",OUTDIR,"/",sub("fastq.gz","trim.fastq",reads2)), sh_name, append = TRUE)
-  write (paste0("wc -l ",OUTDIR,"/",sub("\\.gz","",reads1)), sh_name, append = TRUE)
+  write (paste0("wc -l ",OUTDIR,"/",sub("\\.gz","",reads1)), sh_name, append = TRUE) ## crude comparison between untrimmed/trimmed
   write (paste0("wc -l ",OUTDIR,"/",sub("\\.gz","",reads2)), sh_name, append = TRUE)
-  write (paste0("rm ",OUTDIR,"/",sub("\\.gz","",reads1)), sh_name, append = TRUE)
-  write (paste0("rm ",OUTDIR,"/",sub("\\.gz","",reads2)), sh_name, append = TRUE)
+  write (paste0("rm ",OUTDIR,"/",sub("\\.gz","",reads1)), sh_name, append = TRUE) ## COMMENT OUT IF YOUR INPUT/OUTPUT DIR ARE THE SAME ETC
+  write (paste0("rm ",OUTDIR,"/",sub("\\.gz","",reads2)), sh_name, append = TRUE) ## I was decompressing raw data into a different dir, so just removing the copy after done inputting into fastp
   write ("echo 'Finished fastp'", sh_name, append = TRUE)
   
 }
