@@ -1,7 +1,4 @@
-
-dRep = FRESH TERMINAL
-
-**fastANI algorithm = conda activate fastani
+conda activate drep_env
 
 
 dRep = makes a huge amount of files in data folder (1-2 M etc) -- check quota -l before running
