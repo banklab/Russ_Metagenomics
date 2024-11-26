@@ -1,6 +1,6 @@
 
 ## for each fasta in each sample, add the sample id and bin id to fasta header
-## I do this to keep track of where each fasta came from
+## copy each bin to OUTDIR and rename it according to the sample it came from
 
 DATASET=deer
 
