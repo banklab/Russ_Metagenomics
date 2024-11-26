@@ -28,9 +28,8 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write ("module load vital-it/7", sh_name, append = TRUE)
-  write ("module load UHTS/Aligner/bowtie2", sh_name, append = TRUE)
-  write ("module load UHTS/Analysis/samtools/1.10", sh_name, append = TRUE)
+  write ("module load SAMtools/1.13-GCC-10.3.0", sh_name, append = TRUE)
+  write ("module load Bowtie2/2.4.4-GCC-10.3.0", sh_name, append = TRUE)
   write (code_block, sh_name, append = TRUE)
   
 }
