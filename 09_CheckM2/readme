@@ -1,1 +1,5 @@
+purpose: assess quality of bins resulting from metagenomic assembly
+tools: CheckM2 (doi.org/10.1038/s41592-024-02248-z)
+parameters: default
+
 
