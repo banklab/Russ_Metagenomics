@@ -16,7 +16,8 @@ for(i in 1:length(Read_list)){
   reads_dir <- paste0(reads1,"_maxbin")
   
   setwd(paste0(MetaBat_DIR,"/",reads1,"_metabat/"))
-  
+
+  ## depth file from MetaBAT2
   depth_file <- read.table("scaffolds_filtered.fasta.depth.txt", header = T, stringsAsFactors = F)
   
   mod_file <- depth_file[,c(1,4)]
