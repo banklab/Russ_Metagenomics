@@ -18,11 +18,14 @@ for(i in 1:length(Read_list)){
   reads1 <- Read_list[i]
   
   sh_name <- paste0(reads1,"_bowtie2.sh")
-  
+
+  ## align reads against assemblies
   code_block <- paste0("bowtie2 -p 20 -x ",ASM_DIR,"/",reads1,"_",DATASET,".asm/scaffolds_filtered -1 ",READ_DIR,"/",reads1,".R1.dedup.fastq -2 ",READ_DIR,"/",reads1,".R2.dedup.fastq -S ",OUTPUT_DIR,"/",reads1,".sam")
-  
+
+  ## convert sam to bam
   code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,".bam")
-  
+
+  ## remove sam file
   code_block3 <- paste0("rm ",OUTPUT_DIR,"/",reads1,".sam")
 
   code_block4 <- paste0("echo Finished ",reads1)
