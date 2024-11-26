@@ -14,7 +14,7 @@ for i in *deer
  cd "$i"
  for j in *fa
   do
-  header2=asm_$(echo "$i" | perl -pe 's/_"$DATASET"//')_$(echo "$j" | perl -pe 's/.fa//')
+  header2=asm_$(echo "$i" | perl -pe 's/_'$DATASET'//')_$(echo "$j" | perl -pe 's/.fa//')
   rename="$i"_"$j"
   sed "s/>.*/&_$header2/" $j > "$OUTDIR"/"$rename"
   done
