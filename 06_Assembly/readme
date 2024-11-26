@@ -11,7 +11,7 @@ parameters: I used metagenome mode (--meta) and kmer lengths 21,33,55,77 (-k)
 
 
 Quantify_Length_Cov
-purpose: quantify the length and coverage of each assembly
+purpose: quantify the length and coverage of each assembly, decide on filtering thresholds
 
 Filter_Assembly
 purpose: filter each assembly according to length and coverage
