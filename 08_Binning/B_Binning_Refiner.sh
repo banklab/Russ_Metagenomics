@@ -10,6 +10,8 @@
 module load Python/3.10.8-GCCcore-12.2.0
 
 
+## see A script for annotations
+
 DATASET=deer
 
 TOOLC=01_MetaBAT2
