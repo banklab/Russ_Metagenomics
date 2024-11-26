@@ -10,12 +10,13 @@ Read_list <- gsub(paste0("_",DATASET,".asm"),"",list.files(pattern = paste0("_",
 
 setwd(OUTPUT_DIR)
 
-for(i in 1:length(Read_list)){
+for(i in 1:length(Read_list)){ 
   
   reads1 <- Read_list[i]
   
   sh_name <- paste0("Index_",reads1,".sh")
-  
+
+  ## bowtie2 code block to make indices for filtered assembly
   code_block <- paste0("bowtie2-build ",INPUT_DIR,"/",reads1,"_",DATASET,".asm/scaffolds_filtered.fasta ",INPUT_DIR,"/",reads1,"_",DATASET,".asm/scaffolds_filtered")
   
   
