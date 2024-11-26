@@ -1,12 +1,14 @@
-
+## choose input & output directories
 INPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/03_Trim"
 OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/04_FastUniq"
 
 
 setwd(INPUT_DIR)
 
+## list of all trimmed fasta/fastq files
 fasta_files <- list.files(pattern = "\\.trim.fastq")
 
+## get unique id for each sample
 sample_list <- unique(gsub("\\_R1.*|\\_R2.*","",fasta_files))
 
 length(sample_list)
