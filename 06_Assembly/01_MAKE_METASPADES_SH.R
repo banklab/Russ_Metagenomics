@@ -1,11 +1,11 @@
 
 
-INPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/05_BBNorm"
+INPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/04_FastUniq"
 OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/06_Assembly"
 
 setwd(INPUT_DIR)
 
-sample_list <- gsub("\\.R1.dedup.norm.fastq.gz","",list.files(pattern = "R1.dedup.norm.fastq.gz"))
+sample_list <- gsub("\\.R1.dedup.fastq","",list.files(pattern = "R1.dedup.fastq"))
 
 length(sample_list)
 
@@ -16,7 +16,7 @@ for(i in 1:length(sample_list)){
   
   sh_name <- paste0(samp2,"_assembly.sh")
   
-  code_block <- paste0("metaspades.py --pe1-1 ",INPUT_DIR,"/",samp2,".R1.dedup.norm.fastq.gz --pe1-2 ",INPUT_DIR,"/",samp2,".R2.dedup.norm.fastq.gz --meta -o ",OUTPUT_DIR,"/",samp2,"_deer.asm -t 60 -m 120 -k 21,33,55,77")
+  code_block <- paste0("metaspades.py --pe1-1 ",INPUT_DIR,"/",samp2,".R1.dedup.fastq --pe1-2 ",INPUT_DIR,"/",samp2,".R2.dedup.fastq --meta -o ",OUTPUT_DIR,"/",samp2,"_deer.asm -t 60 -m 120 -k 21,33,55,77")
   
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=124000M", sh_name, append = TRUE)
@@ -27,8 +27,7 @@ for(i in 1:length(sample_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write ("module load vital-it/7", sh_name, append = TRUE)
-  write ("module load UHTS/Assembler/SPAdes/3.15.4", sh_name, append = TRUE)
+  write ("module load SPAdes/3.15.3-GCC-10.3.0", sh_name, append = TRUE)
   write (code_block, sh_name, append = TRUE)
   
 }
