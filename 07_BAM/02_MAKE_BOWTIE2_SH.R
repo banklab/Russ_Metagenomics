@@ -1,7 +1,7 @@
 
-READ_DIR="/storage/scratch/users/rj23k073/01_RAS/04_FastUniq"
-ASM_DIR="/storage/scratch/users/rj23k073/01_RAS/06_Assembly"
-OUTPUT_DIR="/storage/scratch/users/rj23k073/01_RAS/07_BAM"
+READ_DIR="/storage/scratch/users/rj23k073/04_DEER/04_FastUniq"
+ASM_DIR="/storage/scratch/users/rj23k073/04_DEER/06_Assembly"
+OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/07_BAM"
 
 DATASET="deer"
 
