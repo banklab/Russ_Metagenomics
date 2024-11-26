@@ -29,7 +29,7 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE) ## adjust email for job finish/fail etc
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write ("module load SAMtools/1.13-GCC-10.3.0", sh_name, append = TRUE)
+  write ("module load SAMtools/1.13-GCC-10.3.0", sh_name, append = TRUE) ## load samtools/bowtie2 according to server specifications
   write ("module load Bowtie2/2.4.4-GCC-10.3.0", sh_name, append = TRUE)
   write (code_block, sh_name, append = TRUE)
   
