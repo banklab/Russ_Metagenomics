@@ -20,7 +20,8 @@ for(i in 1:length(Read_list)){
   reads_dir <- paste0(reads1,"_concoct")
   
   sh_name <- paste0(reads1,"_concoct.sh")
-  
+
+  ## run CONCOCT
   code_block <- paste0("cut_up_fasta.py ",ASM_DIR,"/",reads1,".asm/scaffolds_filtered.fasta -c 10000 -o 0 --merge_last -b ",sub_reads1,"_",DATASET,"_10K.bed > ",sub_reads1,"_",DATASET,"_10K.fa")
 
   code_block2 <- paste0("concoct_coverage_table.py ",sub_reads1,"_",DATASET,"_10K.bed ",BAM_DIR,"/",sub_reads1,".sorted.bam > ",sub_reads1,"_coverage_table.tsv")
