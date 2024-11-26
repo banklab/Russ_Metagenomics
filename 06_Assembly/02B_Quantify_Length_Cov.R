@@ -2,8 +2,8 @@
 INDIR="/storage/scratch/users/rj23k073/04_DEER/06_Assembly/QUANTIFY_ASM_LENGTH_COV/data"
 OUTDIR="/storage/scratch/users/rj23k073/04_DEER/06_Assembly/QUANTIFY_ASM_LENGTH_COV"
 
-hypothetical_length_filter <- 1500
-hypothetical_coverage_filter <- 2
+hypothetical_length_filter <- 1500 ## choose length filter in nucleotides
+hypothetical_coverage_filter <- 2 ## choo
 
 
 
