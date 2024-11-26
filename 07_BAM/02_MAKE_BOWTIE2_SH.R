@@ -3,7 +3,7 @@ READ_DIR="/storage/scratch/users/rj23k073/01_RAS/04_FastUniq"
 ASM_DIR="/storage/scratch/users/rj23k073/01_RAS/06_Assembly"
 OUTPUT_DIR="/storage/scratch/users/rj23k073/01_RAS/07_BAM"
 
-DATASET="RAS"
+DATASET="deer"
 
 
 setwd(ASM_DIR)
