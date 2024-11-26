@@ -11,7 +11,7 @@ sample_list <- gsub("\\.R1.dedup.fastq","",list.files(pattern = "R1.dedup.fastq"
 length(sample_list)
 
 setwd(OUTPUT_DIR)
-for(i in 1:length(sample_list)){
+for(i in 1:length(sample_list)){ ## loop over each sample, write a new sh script for each sample
   
   samp2 <- sample_list[i]
   
