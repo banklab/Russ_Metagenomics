@@ -4,7 +4,7 @@
 
 DATASET=deer
 
-INDIR=/storage/scratch/users/rj23k073/01_RAS/10_Consolidate_Bins/05_FINAL_BINS
+INDIR=/storage/scratch/users/rj23k073/04_DEER/10_Consolidate_Bins/05_FINAL_BINS
 OUTDIR=/storage/scratch/users/rj23k073/04_DEER/11_dRep
 
 cd $INDIR
