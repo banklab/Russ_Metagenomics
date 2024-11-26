@@ -4,7 +4,7 @@ tool: metaSPADES (doi: 10.1101/gr.213959.116)
 parameters: I used metagenome mode (--meta) and kmer lengths 21,33,55,77 (-k)
 
 1) edit input and output directories in code
-2) I used "R1.dedup.norm.fastq.gz" as naming convention for all my read 1's, adjust as neccessary
+2) I used "R1.dedup.fastq" as naming convention for all my read 1's, adjust as neccessary
 3) run 01_MAKE_METASPADES_SH.R to make sh scripts
 4) submit sh scripts on command line 
 
