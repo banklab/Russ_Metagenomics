@@ -3,9 +3,9 @@ OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/07_BAM/01_Index"
 
 setwd(INPUT_DIR)
 
-Read_list <- gsub("_RAS.asm","",list.files(pattern = "_RAS.asm"))
+Read_list <- gsub("_deer.asm","",list.files(pattern = "_deer.asm"))
 
-DATASET <- "RAS"
+DATASET <- "deer"
 
 setwd(OUTPUT_DIR)
 
