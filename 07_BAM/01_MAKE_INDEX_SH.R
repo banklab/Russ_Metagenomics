@@ -26,7 +26,7 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
   write ("#SBATCH --cpus-per-task=1", sh_name, append = TRUE)
   write ("#SBATCH --time=00:15:00", sh_name, append = TRUE)
-  write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
+  write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE) ## adjust email for job finish/fail etc
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
   write ("module load SAMtools/1.13-GCC-10.3.0", sh_name, append = TRUE)
