@@ -12,7 +12,6 @@ module load Python/3.10.8-GCCcore-12.2.0
 
 ## see A script for annotations
 
-
 DATASET=deer
 
 TOOLE=02_MaxBin2
