@@ -1,5 +1,5 @@
-INPUT_DIR="/storage/scratch/users/rj23k073/01_RAS/06_Assembly"
-OUTPUT_DIR="/storage/scratch/users/rj23k073/01_RAS/07_BAM/01_Index"
+INPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/06_Assembly"
+OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/07_BAM/01_Index"
 
 setwd(INPUT_DIR)
 
