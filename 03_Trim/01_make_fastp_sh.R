@@ -47,7 +47,7 @@ for(i in 1:length(Read_list)){ ## loop over each sample, make an sh script to tr
   write (paste0("gzip ",OUTDIR,"/",sub("fastq.gz","trim.fastq",reads2)), sh_name, append = TRUE)
   write (paste0("wc -l ",OUTDIR,"/",sub("\\.gz","",reads1)), sh_name, append = TRUE) ## crude comparison between untrimmed/trimmed
   write (paste0("wc -l ",OUTDIR,"/",sub("\\.gz","",reads2)), sh_name, append = TRUE)
-  write (paste0("rm ",OUTDIR,"/",sub("\\.gz","",reads1)), sh_name, append = TRUE) ## delete if your input/output dir are the same, to be safe etc
+  write (paste0("rm ",OUTDIR,"/",sub("\\.gz","",reads1)), sh_name, append = TRUE) ## delete if your input/output dir are the same etc
   write (paste0("rm ",OUTDIR,"/",sub("\\.gz","",reads2)), sh_name, append = TRUE) ## I was decompressing raw data into a different dir, so just removing the copy after done inputting into fastp
   write ("echo 'Finished fastp'", sh_name, append = TRUE)
   
