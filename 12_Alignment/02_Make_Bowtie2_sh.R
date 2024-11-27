@@ -9,7 +9,7 @@ DATASET="deer"
 
 setwd(READ_DIR)
 
-Read_list <- gsub("_R1.*","",list.files(pattern="R1.dedup.fastq"))
+Read_list <- gsub("\\.R1.*","",list.files(pattern="R1.dedup.fastq"))
 
 setwd(OUTPUT_DIR)
 
