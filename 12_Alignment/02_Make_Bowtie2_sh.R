@@ -1,5 +1,5 @@
 
-READ_DIR="/storage/scratch/users/rj23k073/04_DEER/03_Trim"
+READ_DIR="/storage/scratch/users/rj23k073/04_DEER/04_FastUniq"
 OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/12_Alignment"
 
 REF="/storage/scratch/users/rj23k073/04_DEER/REFERENCES/dRep_ONLY_bin_ref_fastANI"
