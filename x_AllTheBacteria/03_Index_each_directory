@@ -14,5 +14,6 @@ do
   cd $i
   cat *fa > "$i"_database.fa
   bowtie2-build "$i"_database.fa "$i"_database
+  echo "done" $i
   cd ..
 done
