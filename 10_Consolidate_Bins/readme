@@ -1,3 +1,5 @@
+This step takes the results from multiple different binning programs and finds the best results from ALL programs (and combinations of programs)
+
 
 Consolidate bins
 purpose: take bins sets from different programs, compare analagous bins from the different programs, decide on the best bin from each comparison
