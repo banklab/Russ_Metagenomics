@@ -19,13 +19,13 @@ for(i in 1:length(checkm_dirs)){
     
     checkm_data <- read.table("quality_report.tsv", header=T, stringsAsFactors = F, sep="\t")
     
-    colnames(checkm_data)[1:3] <- c("bin","completeness","contamination")
+    colnames(checkm_data)[1:3] <- c("bin","completeness","contamination") ## rename columns
     
-    colnames(checkm_data)[9:10] <- c("size","GC")
+    colnames(checkm_data)[9:10] <- c("size","GC") ## rename columns
     
     checkm_data$binner <- gsub(".*_","",checkm_dirs[i])
 
-    write.table(checkm_data, paste0(gsub("checkm2","",checkm_files[j]), gsub(".*_","",checkm_dirs[i]), "_stats.txt"), row.names = F, sep="\t", quote = F)
+    write.table(checkm_data, paste0(gsub("checkm2","",checkm_files[j]), gsub(".*_","",checkm_dirs[i]), "_stats.txt"), row.names = F, sep="\t", quote = F) ## copy them to stats dir
     
     setwd("/storage/scratch/users/rj23k073/04_DEER/10_Consolidate_Bins/02_Stats")
     write.table(checkm_data, paste0(gsub("checkm2|concoct_","",checkm_files[j]), gsub(".*_","",checkm_dirs[i]), "_stats.txt"), row.names = F, sep="\t", quote = F)
