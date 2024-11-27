@@ -1,3 +1,5 @@
+## just renaming columns from CheckM2 output, possibly vestigial
+
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/09_CheckM")
 
