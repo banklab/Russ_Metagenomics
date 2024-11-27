@@ -22,7 +22,7 @@ for(i in 1:length(Read_list)){
   
   code_block <- paste0("bowtie2 -p 10 -x ",REF," -1 ",READ_DIR,"/",reads1,".R1.dedup.fastq -2 ",READ_DIR,"/",reads1,".R2.dedup.fastq -S ",OUTPUT_DIR,"/",reads1,".sam")
   
-  code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,".bin_ref.bam")
+  code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,".nonorm.bam")
   
   code_block3 <- paste0("rm ",OUTPUT_DIR,"/",reads1,".sam")
 
