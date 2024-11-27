@@ -1,4 +1,7 @@
 conda activate drep_env
+module load prodigal
+module load FastANI/1.33-GCC-10.3.0
+
 
 
 dRep = makes a huge amount of files in data folder (1-2 M etc) -- check quota -l before running
