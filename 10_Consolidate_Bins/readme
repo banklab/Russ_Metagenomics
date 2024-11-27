@@ -1,3 +1,14 @@
 
 
 Consolidate bins
+purpose: take bins sets from different programs, compare analagous bins from the different programs, decide on the best bin from each comparison
+
+see: github.com/bxlab/metaWRAP/blob/master/bin/metawrap-scripts/consolidate_two_sets_of_bins.py
+
+
+Dereplicate contigs
+purpose: find and remove duplicated contigs to ensure that each contig is only assigned to one bin
+
+see: github.com/bxlab/metaWRAP/blob/master/bin/metawrap-scripts/dereplicate_contigs_in_bins.py
+
+
