@@ -1,4 +1,6 @@
 conda activate drep_env
+IBU
+
 module load prodigal
 module load FastANI/1.33-GCC-10.3.0
 
