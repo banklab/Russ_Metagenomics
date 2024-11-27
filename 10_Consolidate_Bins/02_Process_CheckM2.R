@@ -1,4 +1,4 @@
-## just renaming columns from CheckM2 output and copying them to 02_Stats directory for consolidate bins .py
+## just renaming columns from CheckM2 output and copying them to 02_Stats directory
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/09_CheckM")
