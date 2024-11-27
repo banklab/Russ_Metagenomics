@@ -1,6 +1,13 @@
-
+#!/bin/bash
+#SBATCH --mem=100000M
+#SBATCH --time=24:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
 module load Bowtie2/2.4.4-GCC-10.3.0
-
 
 for i in $(cat dir_list2.txt)
 do
