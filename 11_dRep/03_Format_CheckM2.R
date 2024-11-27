@@ -1,4 +1,5 @@
-
+## rename CheckM2 columns for dRep
+## add file extension to genome name for dRep
 
 checkm <- read.table("quality_report.tsv", header=T, stringsAsFactors=F, sep="\t")
 
