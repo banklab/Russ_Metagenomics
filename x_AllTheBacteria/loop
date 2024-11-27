@@ -1,4 +1,5 @@
 
-for i in $(cat file.txt); do
+for i in $(cat dir_list2.txt)
+do
   echo $i
 done
