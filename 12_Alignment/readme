@@ -1,0 +1,3 @@
+
+purpose: map reads against newly created reference database
+tools: bowtie2
