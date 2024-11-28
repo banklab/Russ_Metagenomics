@@ -6,7 +6,10 @@ cmake ..
 make 
 
 
+module load tbb/2020.3-GCCcore-10.3.0
 
-./build/src/salmon
 
-but needs libtbb?
+./salmon-1.10.1/build/src/salmon --version
+# from 15_Salmon directory
+
+
