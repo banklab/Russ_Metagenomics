@@ -10,7 +10,7 @@ for(i in 1:length(Read_list)){
   
   reads1 <- Read_list[i]
   
-  sh_name <- paste0(sub("\\.bin_ref.bam","",reads1),"_sort_index_stats.sh")
+  sh_name <- paste0(sub("\\.nonorm.bam","",reads1),"_sort_index_stats.sh")
 
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=3000M", sh_name, append = TRUE)
@@ -37,6 +37,6 @@ for(i in 1:length(Read_list)){
   write ("mv $flagfile $OUTDIR", sh_name, append = TRUE)
   write ("mv $insertfile $OUTDIR", sh_name, append = TRUE)
   write ("echo Finished $file2", sh_name, append = TRUE)
-  write ("rm $i", sh_name, append = TRUE)
+  #write ("rm $i", sh_name, append = TRUE)
   
 }
