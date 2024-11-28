@@ -1,14 +1,14 @@
 
-INDIR="/storage/scratch/users/rj23k073/01_RAS/03_Trim"
-OUTDIR="/storage/scratch/users/rj23k073/01_RAS/15_Salmon"
-REF_DIR="/storage/scratch/users/rj23k073/01_RAS/REFERENCES/RAS_bin_ref_extra_index"
+INDIR="/storage/scratch/users/rj23k073/04_DEER/03_Trim"
+OUTDIR="/storage/scratch/users/rj23k073/04_DEER/15_Salmon"
+REF_DIR="/storage/scratch/users/rj23k073/04_DEER/NoNorm_deer"
 
 DATASET="RAS"
 
 
 setwd(INDIR)
 
-Read_list <- list.files(pattern="R1.trim.fastq.gz")
+Read_list <- list.files(pattern="R1.trim.fastq")
 
 
 setwd(OUTDIR)
