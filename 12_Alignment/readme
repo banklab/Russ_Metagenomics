@@ -1,3 +1,4 @@
 
 purpose: map reads against newly created reference database
-tools: bowtie2
+tools: Bowtie 2 (doi.org/10.1038/nmeth.1923)
+
