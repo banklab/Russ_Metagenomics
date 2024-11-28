@@ -3,7 +3,7 @@ INDIR="/storage/scratch/users/rj23k073/04_DEER/03_Trim"
 OUTDIR="/storage/scratch/users/rj23k073/04_DEER/15_Salmon"
 REF_DIR="/storage/scratch/users/rj23k073/04_DEER/NoNorm_deer"
 
-DATASET="RAS"
+DATASET="deer"
 
 
 setwd(INDIR)
