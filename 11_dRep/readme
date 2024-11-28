@@ -5,5 +5,5 @@ parameters: I filtered on 70% completion (-comp) & 10% contamination (-con)
   - mash sketch size 10000 (-ms)
   - 80% average nucleotide identity (ANI) for primary clusters (-pa) and 95% for secondary clusters (-sa)
   - 30% minimum overlap between genomes when comparing (-nc)
-  - included genome size in scoring each genome (-sizeW)
+  - included genome size when scoring genomes (-sizeW)
 
