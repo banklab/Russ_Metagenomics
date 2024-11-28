@@ -14,10 +14,11 @@ DATASET=deer
 for i in $(cat redux_sample_list.txt)
 do
 
+## take bins from Top_Bins and dereplicate - final results are in FINAL_BINS
 python dereplicate_contigs_in_bins.py 04_Top_Bins/STATS/"$i".stats 04_Top_Bins/"$i"_"$DATASET" 05_FINAL_BINS/"$i"_"$DATASET"
 echo $i
 echo "before:"
-wc -l 04_Top_Bins/"$i"_"$DATASET"/* | grep 'total'
+wc -l 04_Top_Bins/"$i"_"$DATASET"/* | grep 'total' ## just gives a crude idea of how much is being removed etc
 echo "after:"
 wc -l 05_FINAL_BINS/"$i"_"$DATASET"/* | grep 'total'
 
