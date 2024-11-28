@@ -1,5 +1,5 @@
 
 purpose: compare all genomes (from all samples at once) and identify replicate genomes, choose the best representative genome from replicates, discard the others
 tool: dRep (doi.org/10.1038/ismej.2017.126)
-parameters: I used metagenome mode (--meta) and kmer lengths 21,33,55,77 (-k)
+parameters:
 
