@@ -34,8 +34,8 @@ python consolidate_two_sets_of_bins.py $DIR/03_Temp_Winner/"$i"_deer/round4 $DIR
 python consolidate_two_sets_of_bins.py $DIR/03_Temp_Winner/"$i"_deer/round5 $DIR/01_Bins/MetaMaxCon/"$i"_Binning_refiner_outputs $DIR/03_Temp_Winner/"$i"_deer/round5.stats $DIR/02_Stats/"$i"_MetaMaxCon_stats.txt $DIR/03_Temp_Winner/"$i"_deer/round6 70 10
 
 mkdir $DIR/04_Top_Bins/"$i"_deer
-cp -r $DIR/03_Temp_Winner/"$i"_deer/round6/*fa $DIR/04_Top_Bins/"$i"_deer
-cp $DIR/03_Temp_Winner/"$i"_deer/round6.stats $DIR/04_Top_Bins/STATS/"$i".stats
+cp -r $DIR/03_Temp_Winner/"$i"_deer/round6/*fa $DIR/04_Top_Bins/"$i"_deer ## Move winning bins from all comparisons into Top_Bins directory
+cp $DIR/03_Temp_Winner/"$i"_deer/round6.stats $DIR/04_Top_Bins/STATS/"$i".stats ## Move stats file from winning bins
 
 echo "Done"
 echo $i
