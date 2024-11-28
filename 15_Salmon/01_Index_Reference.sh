@@ -7,6 +7,4 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-module load vital-it/7
-module load UHTS/Analysis/salmon/0.11.2
-salmon index -p 4 -t DEER_bin_ref_ruminants.fasta -i DEER_bin_ref_ruminants_index
+salmon index -p 4 -t NoNorm_deer.fa -i NoNorm_deer_index
