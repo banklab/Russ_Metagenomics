@@ -9,7 +9,7 @@
 #SBATCH --output=slurm-%x.%j.out
 module load Bowtie2/2.4.4-GCC-10.3.0
 
-for i in $(cat dir_list2.txt)
+for i in $(cat dir_list_all.txt)
 do
   cd $i
   cat *fa > "$i"_database.fa
