@@ -2,6 +2,9 @@
 ## I wanted all bins / stats in the same place and same dir structure to do the consolidate bins
 ## This is the structure I have after: 01_Bins  02_Stats  03_Temp_Winner  04_Top_Bins  05_FINAL_BINS
 
+01_Bins = input bins
+04_Top_Bins = best bins from all comparisons
+05_FINAL_BINS = best bins + dereplicated
 
 
 INDIR=/storage/scratch/users/rj23k073/04_DEER/08_Binning
