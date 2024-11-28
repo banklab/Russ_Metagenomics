@@ -1,5 +1,9 @@
 
 purpose: compare all genomes (from all samples at once) and identify replicate genomes, choose the best representative genome from replicates, discard the others
 tool: dRep (doi.org/10.1038/ismej.2017.126)
-parameters:
+parameters: I filtered on 70% completion (-comp) & 10% contamination (-con)
+  - mash sketch size 10000 (-ms)
+  - 80% average nucleotide identity (ANI) for primary clusters (-pa) and 95% for secondary clusters (-sa)
+  - 30% minimum overlap between genomes when comparing (-nc)
+  - included genome size in scoring each genome (-sizeW)
 
