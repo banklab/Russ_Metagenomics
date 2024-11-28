@@ -4,3 +4,9 @@ module load cmake something
 mkdir build && cd build
 cmake ..  
 make 
+
+
+
+./build/src/salmon
+
+but needs libtbb?
