@@ -17,12 +17,14 @@ do
 
 mkdir "$DIR"/03_Temp_Winner/"$i"_deer
 
-
+## MetaBAT2 vs MaxBin2
 python consolidate_two_sets_of_bins.py $DIR/01_Bins/MetaBAT2/"$i"_deer_metabat $DIR/01_Bins/MaxBin2/"$i"_deer_maxbin $DIR/02_Stats/"$i"_MetaBAT2_stats.txt $DIR/02_Stats/"$i"_MaxBin2_stats.txt $DIR/03_Temp_Winner/"$i"_deer/round1 70 10
 
-## CONCOCT NAME STUFF
+## CONCOCT NAME STUFF ###########
+## Previous winners vs CONCOCT
 python consolidate_two_sets_of_bins.py $DIR/03_Temp_Winner/"$i"_deer/round1 $DIR/01_Bins/CONCOCT/"$i"_concoct $DIR/03_Temp_Winner/"$i"_deer/round1.stats $DIR/02_Stats/"$i"_CONCOCT_stats.txt $DIR/03_Temp_Winner/"$i"_deer/round2 70 10
 
+## Previous winners vs (MaxBin2 + CONCOCT) ... and so on
 python consolidate_two_sets_of_bins.py $DIR/03_Temp_Winner/"$i"_deer/round2 $DIR/01_Bins/MaxCon/"$i"_Binning_refiner_outputs $DIR/03_Temp_Winner/"$i"_deer/round2.stats $DIR/02_Stats/"$i"_MaxCon_stats.txt $DIR/03_Temp_Winner/"$i"_deer/round3 70 10
 
 python consolidate_two_sets_of_bins.py $DIR/03_Temp_Winner/"$i"_deer/round3 $DIR/01_Bins/MetaCon/"$i"_Binning_refiner_outputs $DIR/03_Temp_Winner/"$i"_deer/round3.stats $DIR/02_Stats/"$i"_MetaCon_stats.txt $DIR/03_Temp_Winner/"$i"_deer/round4 70 10
