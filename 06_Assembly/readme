@@ -1,6 +1,6 @@
 
 purpose: assemble processed samples into genome assemblies
-tool: metaSPADES (doi: 10.1101/gr.213959.116)
+tool: metaSPAdes (doi: 10.1101/gr.213959.116)
 parameters: I used metagenome mode (--meta) and kmer lengths 21,33,55,77 (-k)
 
 1) edit input and output directories in code
