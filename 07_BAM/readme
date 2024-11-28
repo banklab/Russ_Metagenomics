@@ -1,6 +1,6 @@
 
 purpose: index genome assemblies
-tool: Bowtie 2 (https://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+tool: Bowtie 2 (doi.org/10.1038/nmeth.1923)
 parameters: default
 
 1) edit input and output directories in code
