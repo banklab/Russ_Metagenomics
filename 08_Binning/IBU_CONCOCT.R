@@ -8,7 +8,7 @@ DATASET="deer"
 
 setwd(ASM_DIR)
 
-Read_list <- gsub("_scaffolds.*","",list.files(pattern="_scaffolds_filtered_NoNorm.fasta"))
+Read_list <- gsub("_deer.*","",list.files(pattern="_deer.asm_scaffolds_filtered.fasta"))
 
 setwd(OUTPUT_DIR)
 for(i in 1:length(Read_list)){
@@ -21,13 +21,13 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(reads1,"_concoct.sh")
   
-  code_block <- paste0("cut_up_fasta.py ",ASM_DIR,"/",reads1,"_scaffolds_filtered_NoNorm.fasta -c 10000 -o 0 --merge_last -b ",sub_reads1,"_",DATASET,"_10K.bed > ",sub_reads1,"_",DATASET,"_10K.fa")
+  code_block <- paste0("cut_up_fasta.py ",ASM_DIR,"/",reads1,"_deer.asm_scaffolds_filtered.fasta -c 10000 -o 0 --merge_last -b ",sub_reads1,"_",DATASET,"_10K.bed > ",sub_reads1,"_",DATASET,"_10K.fa")
 
-  code_block2 <- paste0("concoct_coverage_table.py ",sub_reads1,"_",DATASET,"_10K.bed ",BAM_DIR,"/",sub_reads1,"_nonorm.sorted.bam > ",sub_reads1,"_coverage_table.tsv")
+  code_block2 <- paste0("concoct_coverage_table.py ",sub_reads1,"_",DATASET,"_10K.bed ",BAM_DIR,"/",sub_reads1,".sorted.bam > ",sub_reads1,"_coverage_table.tsv")
   
   code_block3 <- paste0("concoct --composition_file ",sub_reads1,"_",DATASET,"_10K.fa --coverage_file ",sub_reads1,"_coverage_table.tsv -b concoct_output/")
   
-  code_block4 <- paste0("extract_fasta_bins.py ",ASM_DIR,"/",reads1,"_scaffolds_filtered_NoNorm.fasta concoct_output/clustering_merged.csv --output_path concoct_output/fasta_bins")
+  code_block4 <- paste0("extract_fasta_bins.py ",ASM_DIR,"/",reads1,"_deer.asm_scaffolds_filtered.fasta concoct_output/clustering_merged.csv --output_path concoct_output/fasta_bins")
   
   
   write ("#!/bin/bash", sh_name)
@@ -40,8 +40,8 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write (paste0("mkdir ",reads_dir), sh_name, append = TRUE)
-  write (paste0("cd ",reads_dir), sh_name, append = TRUE)
+  write (paste0("mkdir ",reads_dir,"_",DATASET), sh_name, append = TRUE)
+  write (paste0("cd ",reads_dir,"_",DATASET), sh_name, append = TRUE)
   write (code_block, sh_name, append = TRUE)
   write (code_block2, sh_name, append = TRUE)
   write (code_block3, sh_name, append = TRUE)
