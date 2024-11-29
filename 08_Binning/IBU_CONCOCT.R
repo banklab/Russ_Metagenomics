@@ -17,7 +17,7 @@ for(i in 1:length(Read_list)){
   
   sub_reads1 <- reads1
   
-  reads_dir <- paste0(reads1,"_concoct")
+  reads_dir <- paste0(reads1,"_",DATASET,"_concoct")
   
   sh_name <- paste0(reads1,"_concoct.sh")
   
@@ -40,8 +40,8 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write (paste0("mkdir ",reads_dir,"_",DATASET,"_concoct"), sh_name, append = TRUE)
-  write (paste0("cd ",reads_dir,"_",DATASET,"_concoct"), sh_name, append = TRUE)
+  write (paste0("mkdir ",reads_dir), sh_name, append = TRUE)
+  write (paste0("cd ",reads_dir), sh_name, append = TRUE)
   write (code_block, sh_name, append = TRUE)
   write (code_block2, sh_name, append = TRUE)
   write (code_block3, sh_name, append = TRUE)
