@@ -25,7 +25,7 @@ for(i in 1:length(Read_list)){
   setwd(OUTPUT_DIR)
   write.table(mod_file, paste0(reads1,"_abundance_table.txt"), row.names = F, col.names = F, quote=F)
   
-  code_block <- paste0("perl /storage/scratch/users/rj23k073/programs/Maxbin2/MaxBin-2.2.7/run_MaxBin.pl -contig ",ASM_DIR,"/",reads1,".asm/scaffolds_filtered.fasta -abund ",reads1,"_abundance_table.txt -out maxbin -thread 10")
+  code_block <- paste0("perl /storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/programs/Maxbin2/MaxBin-2.2.7/run_MaxBin.pl -contig ",ASM_DIR,"/",reads1,".asm/scaffolds_filtered.fasta -abund ",reads1,"_abundance_table.txt -out maxbin -thread 10")
   
   
   write ("#!/bin/bash", sh_name)
