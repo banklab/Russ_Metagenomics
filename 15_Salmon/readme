@@ -8,3 +8,8 @@ make py file executable
 
 module load Python/3.10.8-GCCcore-12.2.0
 pyinstaller --onefile 'script.py'
+
+
+
+names_list
+grep '>' > names_list.txt
