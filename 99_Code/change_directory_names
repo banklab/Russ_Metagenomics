@@ -2,7 +2,7 @@
 for i in *maxbin
 do
 file2=$(echo $i | perl -pe 's/maxbin/deer_maxbin/')
-#mv $i $file2
+cp -r $i $file2
 echo $file2
 done
 
