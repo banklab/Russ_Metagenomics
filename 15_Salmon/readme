@@ -12,4 +12,4 @@ pyinstaller --onefile 'script.py'
 
 
 names_list
-grep '>' > names_list.txt
+grep '>' NoNorm_deer.fa > names_list.txt
