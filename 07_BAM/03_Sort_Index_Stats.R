@@ -36,7 +36,7 @@ for(i in 1:length(Read_list)){
   write ("mv $flagfile $OUTDIR", sh_name, append = TRUE)
   write ("mv $insertfile $OUTDIR", sh_name, append = TRUE)
   write ("echo Finished $file2", sh_name, append = TRUE)
-  write ("rm $i", sh_name, append = TRUE)
+  #write ("rm $i", sh_name, append = TRUE)
   
 }
 
