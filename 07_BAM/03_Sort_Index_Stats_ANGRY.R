@@ -1,6 +1,6 @@
 
-INDIR="/storage/scratch/users/rj23k073/01_RAS/07_BAM"
-OUTDIR="/storage/scratch/users/rj23k073/01_RAS/07_BAM/02_Stats"
+INDIR="/storage/scratch/users/rj23k073/04_DEER/07_BAM"
+OUTDIR="/storage/scratch/users/rj23k073/04_DEER/07_BAM/02_Stats"
 
 setwd(INDIR)
 
