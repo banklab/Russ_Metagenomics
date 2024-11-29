@@ -22,6 +22,4 @@ purpose: sort and index bam files, record stats (mapping rate, insert size etc)
 
 1) edit input and output directories in code
 2) run 03_Sort_Index_Stats
-ANGRY: runs code in parallel for each BAM file
-CALM: runs code in serial for all BAMs
 
