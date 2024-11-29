@@ -39,6 +39,7 @@ stats <- read.table("dRep_ONLY_bin_ref_fastANI_STATS.txt", header=T, stringsAsFa
 
 #stats$Species <- NA
 
+## EDIT THE GSUB PARTS - WITH NEW NAME FORMATTING ETC
 names_list <- read.table("names_list.txt", header=F, stringsAsFactors=F)
 names_list$Scaffold <- sub(">","",names_list$V1)
 names_list$Species <- gsub("_NODE.*","",names_list$Scaffold)
