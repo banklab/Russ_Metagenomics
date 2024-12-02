@@ -1,0 +1,2 @@
+
+samtools view deer_1_1_atb.assembly.incr_release.202408.batch.100.bam  | awk '{print $3}' | sort | uniq -c | sort -nr > scaffs1.txt
