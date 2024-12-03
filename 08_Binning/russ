@@ -1,14 +1,3 @@
-UBELIX
-
-conda activate maxbin2
-(fraggenescan)
-(perl-lwp-simple)
-
-module load HMMER/3.3.2-gompi-2021a
-
-
-
-
 
 IBU
 
