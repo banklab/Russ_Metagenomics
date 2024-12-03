@@ -15,7 +15,7 @@ for(i in 1:length(Read_list)){
   
   sub_reads1 <- sub(paste0("_",DATASET,".*"),"",reads1)
   
-  sh_name <- paste0(sub_reads1,"_checkm2_metabat2.sh")
+  sh_name <- paste0(sub_reads1,"_checkm2_maxbin2.sh")
   
   code_block <- paste0("checkm2 predict --input ",INDIR,"/",sub_reads1,"_deer_maxbin --output_directory ",sub_reads1,"_checkm2 --force -x fasta -t 1")
   
