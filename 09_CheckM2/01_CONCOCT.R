@@ -17,7 +17,7 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(sub_reads1,"_checkm2_concoct.sh")
   
-  code_block <- paste0("checkm2 predict --input ",INDIR,"/",sub_reads1,"/concoct_output/fasta_bins --output_directory ",sub_reads1,"_checkm2 --force -x fa -t 1")
+  code_block <- paste0("checkm2 predict --input ",INDIR,"/",sub_reads1,"_",DATASET,"_concoct/concoct_output/fasta_bins --output_directory ",sub_reads1,"_checkm2 --force -x fa -t 1")
   
   
   write ("#!/bin/bash", sh_name)
