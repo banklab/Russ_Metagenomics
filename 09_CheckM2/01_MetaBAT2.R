@@ -17,7 +17,7 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(sub_reads1,"_checkm2_metabat2.sh")
   
-  code_block <- paste0("checkm2 predict --input ",INDIR,"/",sub_reads1,"_deer_metabat/scaffolds_filtered_NoNorm.fasta.metabat* --output_directory ",sub_reads1,"_checkm2 --force -x fa -t 1")
+  code_block <- paste0("checkm2 predict --input ",INDIR,"/",sub_reads1,"_deer_metabat/scaffolds_filtered.fasta.metabat* --output_directory ",sub_reads1,"_checkm2 --force -x fa -t 1")
   
   
   write ("#!/bin/bash", sh_name)
