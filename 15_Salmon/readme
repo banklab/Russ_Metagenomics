@@ -1,15 +1,5 @@
-salmon/1.10.2 (compute canada)
-
-UBELIX: conda activate SALMON
 
 
-
-make py file executable
-
-module load Python/3.10.8-GCCcore-12.2.0
-pyinstaller --onefile 'script.py'
-
-
-
-names_list
-grep '>' NoNorm_deer.fa > names_list.txt
+purpose: estimate species abundances
+tool Salmon (10.1038/nmeth.4197)
+parameters:
