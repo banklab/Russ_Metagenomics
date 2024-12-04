@@ -2,6 +2,10 @@ This step takes the results from multiple different binning tools and finds the 
 
 Scripts are borrowed from metaWRAP (Uritskiy et al. 2018)
 
+Parameters:
+  -filter completeness >=70%
+  -filter contamination <=10%
+
 
 Consolidate bins
 purpose: take bins sets from different programs, compare analagous bins from the different programs, decide on the best bin from each comparison
