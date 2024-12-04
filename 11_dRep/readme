@@ -6,5 +6,4 @@ parameters:
   - mash sketch size 10000 (-ms) (ie, subsample of hashed k-mers from a sequence)
   - 80% average nucleotide identity (ANI) for primary clusters (-pa) and 95% for secondary clusters (-sa)
   - 30% minimum overlap between genomes when comparing (-nc)
-  - included genome size when scoring genomes (-sizeW)
 
