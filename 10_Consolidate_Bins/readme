@@ -1,6 +1,6 @@
 This step takes the results from multiple different binning tools and finds the best results from ALL tools (and combinations of tools)
 
-Scripts are borrow from metaWRAP (Uritskiy et al. 2018)
+Scripts are borrowed from metaWRAP (Uritskiy et al. 2018)
 
 
 Consolidate bins
