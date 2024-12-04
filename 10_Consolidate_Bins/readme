@@ -2,6 +2,7 @@ This step takes the results from multiple different binning tools and finds the 
 
 Scripts are borrow from metaWRAP (Uritskiy et al. 2018)
 
+
 Consolidate bins
 purpose: take bins sets from different programs, compare analagous bins from the different programs, decide on the best bin from each comparison
 
