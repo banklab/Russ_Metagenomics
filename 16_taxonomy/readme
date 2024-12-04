@@ -1,5 +1,4 @@
 
-
 purpose: infer taxonomical classification of assembled genomes
 tools: GTDB-tk and GTDB database
 parameters: default
