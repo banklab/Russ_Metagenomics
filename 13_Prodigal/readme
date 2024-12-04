@@ -1,3 +1,6 @@
 
+purpose: infer gene space in assembled genomes
+tool: Prodigal (doi.org/10.1186/1471-2105-11-119)
+parameters:
 
 
