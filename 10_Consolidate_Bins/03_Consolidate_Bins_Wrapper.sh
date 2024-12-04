@@ -11,6 +11,7 @@ module load Python/3.10.8-GCCcore-12.2.0
 
 DIR=/storage/scratch/users/rj23k073/04_DEER/10_Consolidate_Bins
 
+mkdir $DIR/04_Top_Bins/STATS
 
 for i in $(cat redux_sample_list.txt)
 do
