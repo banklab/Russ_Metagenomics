@@ -29,7 +29,7 @@ cd 01_MetaBAT2
 for i in *deer_metabat
 do
  mkdir "$OUTDIR"/MetaBAT2/"$i"
- cd "$i"/scaffolds_filtered_NoNorm.fasta.metabat-bins*
+ cd "$i"/scaffolds_filtered.fasta.metabat-bins*
  cp *fa "$OUTDIR"/MetaBAT2/"$i"
  cd "$INDIR"/01_MetaBAT2
 done
@@ -56,7 +56,7 @@ cd $INDIR
 
 cd 03_CONCOCT
 
-for i in *concoct ## misnamed when I did CONCOCT on IBU
+for i in *deer_concoct
 do
  mkdir "$OUTDIR"/CONCOCT/"$i"
  cd "$i"/concoct_output/fasta_bins
