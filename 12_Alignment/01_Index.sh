@@ -8,4 +8,4 @@
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
 module load Bowtie2/2.4.4-GCC-10.3.0
-bowtie2-build NoNorm_deer.fa NoNorm_deer
+bowtie2-build DEER.fa DEER
