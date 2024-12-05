@@ -2,3 +2,8 @@
 ## make deer sample list
 
 write.table(data.frame(sort(paste0(c(1:7),"_",rep(1:10, each=7)))), "redux_sample_list.txt", row.names=F, col.names=F, quote=F)
+
+
+ADDAGMA
+http://addagma.omicsbio.info/
+microbe-phenotype associations data - cattle etc
