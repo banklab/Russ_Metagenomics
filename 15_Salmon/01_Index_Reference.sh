@@ -7,4 +7,4 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-salmon index -p 4 -t NoNorm_deer.fa -i NoNorm_deer_index
+salmon index -p 4 -t DEER.fa -i DEER_salmon_index
