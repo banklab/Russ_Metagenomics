@@ -11,7 +11,7 @@ Prodigal="/storage/scratch/users/rj23k073/04_DEER/REFERENCES/DEER.genes.fna"
 setwd(BAM_DIR)
 
 Read_list <- list.files(pattern="sorted.bam")[!grepl("bai",list.files(pattern="sorted.bam"))]
-Read_list <- Read_list[1]
+
 
 setwd(OUTPUT_DIR)
 
