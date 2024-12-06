@@ -10,7 +10,7 @@ for(i in 1:length(Read_list)){
   
   reads1 <- Read_list[i]
   
-  sh_name <- paste0(sub("\\.nonorm.bam","",reads1),"_sort_index_stats.sh")
+  sh_name <- paste0(sub("\\.bam","",reads1),"_sort_index_stats.sh")
 
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=3000M", sh_name, append = TRUE)
