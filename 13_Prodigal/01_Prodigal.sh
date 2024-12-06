@@ -9,7 +9,7 @@
 #SBATCH --cpus-per-task=1
 module load prodigal/2.6.3-GCCcore-10.3.0
 
-INDIR=/storage/scratch/users/rj23k073/04_DEER/11_dRep/03_drep_bins
+INDIR=/storage/scratch/users/rj23k073/04_DEER/REFERENCES/genomes
 OUTDIR=/storage/scratch/users/rj23k073/04_DEER/13_Prodigal
 
 
