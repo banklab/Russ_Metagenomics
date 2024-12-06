@@ -20,7 +20,7 @@ for(i in 1:length(Read_list)){
   
   reads1 <- Read_list[i]
   
-  sub_reads <- gsub("\\.bin.*","",reads1)
+  sub_reads <- gsub("\\.sort.*","",reads1)
   
   sh_name <- paste0(sub_reads,"_InStrain.sh")
   
