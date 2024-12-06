@@ -3,4 +3,4 @@ module load Python/3.10.8-GCCcore-12.2.0
 
 
 cd /storage/scratch/users/rj23k073/04_DEER/REFERENCES
-parse_stb.py --reverse -f DEER.fa -o DEER.stb
+parse_stb.py --reverse -f *fa -o DEER.stb
