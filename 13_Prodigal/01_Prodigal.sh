@@ -7,13 +7,10 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-
-#module load vital-it/7
-#module load SequenceAnalysis/GenePrediction/prodigal/2.6.3
 module load prodigal/2.6.3-GCCcore-10.3.0
 
-INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REFERENCES/dRep_ONLY_bin_ref_fastANI_genomes
-OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/13_Prodigal
+INDIR=/storage/scratch/users/rj23k073/04_DEER/11_dRep/03_drep_bins
+OUTDIR=/storage/scratch/users/rj23k073/04_DEER/13_Prodigal
 
 
 cd $INDIR
