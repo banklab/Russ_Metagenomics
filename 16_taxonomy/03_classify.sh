@@ -13,5 +13,5 @@ module load prodigal/2.6.3-GCCcore-10.3.0
 module load HMMER/3.3.2-gompi-2021a
 export GTDBTK_DATA_PATH=/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/programs/GTDB/release220/
 
-gtdbtk classify --genome_dir /storage/scratch/users/rj23k073/04_DEER/11_dRep/03_drep_bins/dereplicated_genomes/ --align_dir . --out_dir . -x fa --cpus 1 --mash_db mash_db
+gtdbtk classify --genome_dir /storage/scratch/users/rj23k073/04_DEER/REFERENCES/genomes --align_dir . --out_dir . -x fa --cpus 1 --mash_db mash_db
 
