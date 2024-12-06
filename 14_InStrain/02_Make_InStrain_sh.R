@@ -11,7 +11,7 @@ Prodigal="/storage/scratch/users/rj23k073/04_DEER/REFERENCES/DEER.genes.fna"
 setwd(BAM_DIR)
 
 Read_list <- list.files(pattern="sorted.bam")[!grepl("bai",list.files(pattern="sorted.bam"))]
-Read_list <-  Read_list[1]
+
 
 setwd(OUTPUT_DIR)
 
@@ -36,6 +36,7 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
   write ("module load SAMtools/1.13-GCC-10.3.0", sh_name, append = TRUE)
+  write ("export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH", sh_name, append = TRUE)
   write (code_block, sh_name, append = TRUE)
   write ("echo 'Finished InStrain'", sh_name, append = TRUE)
   
