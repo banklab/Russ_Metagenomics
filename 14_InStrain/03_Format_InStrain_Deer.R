@@ -8,7 +8,7 @@ for(DEER in 1:7){
   setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/01_One_Population/RAW")
   snv_file <- data.frame(fread(paste0(DEER,"_",ENV,"_InStrain_SNVs.tsv"), header=T, stringsAsFactors = F))
   
-  snv_file$bin <- gsub("asm_.*","",snv_file$scaffold)
+  snv_file$bin <- gsub(".*asm_","",snv_file$scaffold)
   
   if(sum(grep("scaffold",snv_file$bin))>0){message("ERROR");break}
   
