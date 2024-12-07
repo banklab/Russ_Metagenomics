@@ -51,7 +51,7 @@ for(DEER in 1:7){
 
   if(DEER==1){full_df <- snv_file3} else {full_df <- rbind(full_df, snv_file3)}
 
-  write.csv(full_df, paste0(ENV,"_snps.csv"), row.names = F)
+  write.csv(full_df, paste0("ENV",ENV,"_SNPS.csv"), row.names = F)
 
   if(length(unique(full_df$ENV))>1){message("ERROR");break}
   
