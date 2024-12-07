@@ -1,7 +1,7 @@
 
-INDIR="/home/russjasp/scratch/deer/03_Trim"
-OUTDIR="/home/russjasp/scratch/deer/15_Salmon"
-REF_DIR="/home/russjasp/scratch/deer/REFERENCES/dRep_ONLY_bin_ref_fastANI_index"
+INDIR="/home/russjasp/scratch/Salmon/04_FastUniq"
+OUTDIR="/home/russjasp/scratch/Salmon"
+REF_DIR="/home/russjasp/scratch/Salmon/DEER_salmon_index"
 
 DATASET="deer"
 
