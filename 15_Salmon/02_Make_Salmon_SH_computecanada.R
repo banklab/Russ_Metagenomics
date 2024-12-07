@@ -17,7 +17,7 @@ setwd(OUTDIR)
 for(i in 1:length(Read_list)){
   
   reads1 <- Read_list[i]
-  reads2 <- gsub("_R1","_R2",reads1)
+  reads2 <- gsub("R1","R2",reads1)
   
   sub_reads <- gsub("R1.*","",reads1)
   
