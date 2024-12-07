@@ -19,9 +19,9 @@ for(DEER in 1:7){
   setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/02_Two_Populations/RAW2")
   snv_file <- data.frame(fread(paste0("deer",DEER,"_env",EnvA,"_env",EnvB,"_InStrain_SNVs.tsv"), header=T, stringsAsFactors = F))
   
-  snv_file$Species <- gsub("_NODE_.*","",snv_file$scaffold)
+  snv_file$bin <- gsub(".*asm_","",snv_file$scaffold)
   
-  if(sum(grep("scaffold",snv_file$Species))>0){message("ERROR");break}
+  if(sum(grep("scaffold",snv_file$bin))>0){message("ERROR");break}
   
   snv_file$Deer <- DEER
   
@@ -39,9 +39,9 @@ for(DEER in 1:7){
 
   snv_file2$ID <- paste0(snv_file2$Scaffold,"_",snv_file2$POS)
 
-  snv_file2$Sp.ID <- paste0(snv_file2$Species,"_sc",snv_file2$Scaffold,"_pos",snv_file2$POS)
+  snv_file2$Sp.ID <- paste0(snv_file2$bin,"_sc",snv_file2$Scaffold,"_pos",snv_file2$POS)
 
-  snv_file2$Sp.ID.deer <- paste0(snv_file2$Species,"_sc",snv_file2$Scaffold,"_pos",snv_file2$POS,"_d",snv_file2$Deer)
+  snv_file2$Sp.ID.deer <- paste0(snv_file2$bin,"_sc",snv_file2$Scaffold,"_pos",snv_file2$POS,"_d",snv_file2$Deer)
 
 
   if(DEER==1){full_df <- snv_file2} else {full_df <- rbind(full_df, snv_file2)}
