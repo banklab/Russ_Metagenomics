@@ -34,7 +34,7 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write ("#SBATCH --account=def-yeaman", sh_name, append = TRUE)
+  write ("#SBATCH --account=", sh_name, append = TRUE) ### ACCOUNT
   write ("module load StdEnv/2023", sh_name, append = TRUE)
   write ("module load gcc/12.3", sh_name, append = TRUE)
   write ("module load openmpi/4.1.5", sh_name, append = TRUE)
