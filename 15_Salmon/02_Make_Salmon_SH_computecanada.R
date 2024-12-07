@@ -8,7 +8,7 @@ DATASET="deer"
 
 setwd(INDIR)
 
-Read_list <- list.files(pattern="R1.trim.fastq.gz")
+Read_list <- list.files(pattern="R1.dedup.fastq.gz")
 
 
 setwd(OUTDIR)
