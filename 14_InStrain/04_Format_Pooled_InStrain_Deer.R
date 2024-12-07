@@ -27,7 +27,7 @@ for(DEER in 1:7){
   
   snv_file$Env <- paste0("Env",EnvA,"_Env",EnvB)
   
-  snv_file$Scaffold <- gsub(".*_NODE_|_length_.*","",snv_file$scaffold)
+  snv_file$Scaffold <- gsub(".*NODE_|_length_.*","",snv_file$scaffold)
   
   snv_file$POS <- snv_file$position
   
