@@ -19,7 +19,7 @@ for(i in 1:length(Read_list)){
   reads1 <- Read_list[i]
   reads2 <- gsub("R1","R2",reads1)
   
-  sub_reads <- gsub("R1.*","",reads1)
+  sub_reads <- gsub("\\.R1.*","",reads1)
   
   sh_name <- paste0(sub_reads,"_Salmon.sh")
   
