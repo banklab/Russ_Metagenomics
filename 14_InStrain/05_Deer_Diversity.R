@@ -90,7 +90,6 @@ diversity_df$H.mean <- NA
 diversity_df$H.var <- NA
 diversity_df$dN <- NA
 diversity_df$dS <- NA
-diversity_df$dNdS <- NA
 diversity_df$Multiallelic.SNV <- NA
 diversity_df$Intergenic.SNV <- NA
 
@@ -155,7 +154,7 @@ for(i in 1:length(snp_file_list)){
     
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"dN"] <- Ns
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"dS"] <- Ss
-    diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"dNdS"] <- Ns/Ss
+
     
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Multiallelic.SNV"] <- sum(single_pop_df$mutation_type=="M")
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Intergenic.SNV"] <- sum(single_pop_df$mutation_type=="I")
