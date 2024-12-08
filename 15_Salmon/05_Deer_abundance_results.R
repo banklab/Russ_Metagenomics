@@ -34,7 +34,7 @@ calc.abund.function <- function(pick.species){
 ## gives (relative) abundance of species in sample
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/REFERENCES")
-stats <- read.table("dRep_ONLY_bin_ref_fastANI_STATS.txt", header=T, stringsAsFactors = F)
+stats <- read.table("DEER_fa_STATS.txt", header=T, stringsAsFactors = F)
 #colnames(stats) <- c("transcript","Length")
 
 #stats$Species <- NA
