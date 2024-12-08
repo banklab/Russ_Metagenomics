@@ -95,14 +95,14 @@ missing.pop.function <- function(one_snp){
     
     setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/03_Formatted_Results")
     
-    GOOD_DF <- data.frame(fread(paste0("Env",Good_Env,"_snps.csv"), header=T, stringsAsFactors = F))
-    MISS_DF <- data.frame(fread(paste0("Env",Miss_Env,"_snps.csv"), header=T, stringsAsFactors = F))
+    GOOD_DF <- data.frame(fread(paste0("Env",Good_Env,"_SNPS.csv"), header=T, stringsAsFactors = F))
+    MISS_DF <- data.frame(fread(paste0("Env",Miss_Env,"_SNPS.csv"), header=T, stringsAsFactors = F))
     
     if(length(unique(GOOD_DF$Env))>1){message("error1");break}
     if(length(unique(MISS_DF$Env))>1){message("error2");break}
     
     
-    setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/02_Two_Populations")
+    setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/02_Two_Populations/FORMAT")
     
     pool_name <- c(list.files(pattern=paste0("Pooled_Env",Good_Env,"_Env",Miss_Env,"_snps.csv")),list.files(pattern=paste0("Pooled_Env",Miss_Env,"_Env",Good_Env,"_snps.csv")))
     
