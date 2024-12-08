@@ -5,9 +5,9 @@ DP_threshold <- 5
 AF_threshold <- 0.95
 
 ## Environment with Sites Called
-Good_Env <- 1
+Good_Env <- 8
 ## Environment with Missing Sites
-Miss_Env <- 2
+Miss_Env <- 10
 
 
 
