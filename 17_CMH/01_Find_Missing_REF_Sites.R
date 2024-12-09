@@ -60,7 +60,7 @@ missing.pop.function <- function(one_snp){
   
   rownames(fin.allele.tab) <- NULL
   
-  fin.allele.tab$Species <- one_snp["Species"]
+  fin.allele.tab$bin <- one_snp["bin"]
   fin.allele.tab$Sp.ID.deer <- one_snp["Sp.ID.deer"]
   
   
@@ -74,7 +74,7 @@ missing.pop.function <- function(one_snp){
   calc_missing_Site[,"T"] <- fin.allele.tab$T.Miss
   
   
-  calc_missing_Site$Species <- one_snp["Species"]
+  calc_missing_Site$bin <- one_snp["bin"]
   calc_missing_Site$Deer <- one_snp["Deer"]
   calc_missing_Site$Env <- Miss_Env
   calc_missing_Site$Scaffold <- one_snp["Scaffold"]
