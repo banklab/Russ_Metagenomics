@@ -4,19 +4,19 @@
 
 calc.abund.function <- function(pick.species){
   
-  species.quant <- quant_file[quant_file$Species==pick.species,]
+  species.quant <- quant_file[quant_file$bin==pick.species,]
   
   unq.contigs <- unique(species.quant$transcript)
   
   num.contigs <- length(unq.contigs)
   
-  species.quant2 <- merge(species.quant, stats[,!names(stats) %in% "Species"], by="transcript", all = FALSE)
+  species.quant2 <- merge(species.quant, stats[,!names(stats) %in% "bin"], by="transcript", all = FALSE)
   
   species.quant2$abundance <- species.quant2$count * species.quant2$Length
   
   species.base.pairs <- sum(species.quant2$abundance)
   
-  species.genome.length <- Species_Length[Species_Length$Species==pick.species,"Length"]
+  species.genome.length <- Species_Length[Species_Length$bin==pick.species,"Length"]
   
   species.abundance <- species.base.pairs / species.genome.length
   
@@ -34,36 +34,19 @@ calc.abund.function <- function(pick.species){
 ## gives (relative) abundance of species in sample
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/REFERENCES")
-stats <- read.table("DEER_fa_STATS.txt", header=T, stringsAsFactors = F)
-#colnames(stats) <- c("transcript","Length")
+stats <- read.table("DEER_fa_STATS.txt", header=F, stringsAsFactors = F)
+colnames(stats) <- c("transcript","Length")
 
-#stats$Species <- NA
-
-## EDIT THE GSUB PARTS - WITH NEW NAME FORMATTING ETC
-names_list <- read.table("names_list.txt", header=F, stringsAsFactors=F)
-names_list$Scaffold <- sub(">","",names_list$V1)
-names_list$Species <- gsub("_NODE.*","",names_list$Scaffold)
-names_list$transcript <- gsub(".*NODE_","NODE_",names_list$Scaffold)
-names_list$V1 <- NULL
+stats$bin <- gsub(".*_asm_","",stats$transcript)
 
 
-#for(i in 1:length(unique(names_list$Species))){
-#
-# target1 <- unique(names_list$Species)[i]
-#
-# scaffolds_of_species <- names_list[names_list$Species==target1,"transcript"]
-#
-# stats[stats$transcript %in% scaffolds_of_species,"Species"] <- target1
-#}
+cat("Number of ubique species:",length(unique(stats$bin)))
 
-cat("Number of ubique species:",length(unique(stats$Species)))
-## should be 695 for bin ref + ruminants (dereplicated)
-
-max_species <- 695 ## just for doublechecking my work below
+max_species <- 909 ## just for doublechecking my work below
 
 
-Species_Length <- data.frame(tapply(stats$Length, stats$Species, sum))
-Species_Length$Species <- rownames(Species_Length)
+Species_Length <- data.frame(tapply(stats$Length, stats$bin, sum))
+Species_Length$bin <- rownames(Species_Length)
 rownames(Species_Length) <- NULL
 colnames(Species_Length)[1] <- "Length"
 
@@ -79,29 +62,31 @@ for(i in 1:length(quant_files)){
   setwd("/storage/scratch/users/rj23k073/04_DEER/15_Salmon")
   quant_file <- read.table(quant_files[i], header=T, stringsAsFactors = F)
   
-  quant_file$Species <- NA
+  quant_file$bin <- NA
 
-  for(ii in 1:length(unique(names_list$Species))){
+  for(ii in 1:length(unique(stats$bin))){
 
-   target1 <- unique(names_list$Species)[ii]
+   target1 <- unique(stats$bin)[ii]
 
-   scaffolds_of_species <- names_list[names_list$Species==target1,"transcript"]
+   scaffolds_of_species <- stats[stats$bin==target1,"transcript"]
 
-   quant_file[quant_file$transcript %in% scaffolds_of_species,"Species"] <- target1
+   quant_file[quant_file$transcript %in% scaffolds_of_species,"bin"] <- target1
   } 
+
+if(sum(is.na(quant_file$bin))>0){message("error11");break}
   
-  unq_species <- unique(quant_file$Species)
+  unq_species <- unique(quant_file$bin)
   
   num_species <- length(unq_species)
   
   if(num_species>max_species){message("ERROR");break}
   
-  Sys.time() ## 4 min - 3527 species ## 10 seconds - 695 species
+  
   abundance_results <- data.frame(t(mapply(unq_species, FUN=calc.abund.function)))
-  Sys.time()
+  
   
   colnames(abundance_results) <- c("base.pairs","abundance")
-  abundance_results$Species <- rownames(abundance_results)
+  abundance_results$bin <- rownames(abundance_results)
   rownames(abundance_results) <- NULL
   
   setwd("/storage/scratch/users/rj23k073/04_DEER/15_Salmon/01_Abundance_Results")
