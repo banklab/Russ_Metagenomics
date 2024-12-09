@@ -1,9 +1,9 @@
 
 library(data.table)
 
-EnvA <- 2
+EnvA <- 8
 
-EnvB <- 6
+EnvB <- 10
 
 
 ## missing sites
