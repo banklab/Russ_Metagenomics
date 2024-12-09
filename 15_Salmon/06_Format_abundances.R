@@ -1,33 +1,24 @@
 
-setwd("~/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS/RAS")
 
-RAS_data <- read.csv("RAS_metadata.csv", header=T, stringsAsFactors = F)
-
-
-
-
-setwd("~/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS/RAS/15_Salmon/01_Abundance_Results")
+setwd("/storage/scratch/users/rj23k073/04_DEER/15_Salmon/01_Abundance_Results")
 
 abund_list <- list.files(pattern="csv")
 
 for(i in 1:length(abund_list)){
   
   abund_raw <- read.csv(abund_list[i], header=T, stringsAsFactors = F)
-  
-  abund_raw$Sample <- as.numeric(gsub("RAS_|_abundance.*","",abund_list[i]))
-  
-  abund_raw$Name <- gsub("|_abundance.*","",abund_list[i])
-  
-  if(gsub("|_abundance.*","",abund_list[i])=="RAS_601_correct"){abund_raw$Sample <- 601}
-  
+
+  abund_raw$Sample <- gsub("deer_|_abund.*","",abund_list[i])
+
+  abund_raw$Deer <- as.numeric(gsub("_.*","",abund_raw$Sample))
+
+  abund_raw$Env <- as.numeric(gsub(".*_","",abund_raw$Sample))
+
   total_abundance <- sum(abund_raw$abundance)
   
   abund_raw$percent.abundance <- (abund_raw$abundance / total_abundance)*100
   
-  RAS_metadata_line <- RAS_data[RAS_data$ID == unique(abund_raw$Sample),]
-  
-  if(dim(RAS_metadata_line)[1] != 1){message("ERROR1");break}
-  
+   
   
   if(sum(abund_raw$percent.abundance) < 99.99){message("ERROR");break}
   
@@ -37,9 +28,9 @@ for(i in 1:length(abund_list)){
 
 table(tapply(abund_total$percent.abundance, abund_total$Sample, sum))
 
-table(tapply(abund_total$Species, abund_total$Sample, length))
+table(tapply(abund_total$bin, abund_total$Sample, length))
 
 
 
-setwd("~/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS/RAS/15_Salmon")
-write.csv(abund_total[,3:6], "RAS_bin_ref_extra_fastANI_abundance2.csv", row.names = F)
+setwd("/storage/scratch/users/rj23k073/04_DEER/15_Salmon")
+write.csv(abund_total, "DEER_Abundance.csv", row.names = F)
