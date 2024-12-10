@@ -83,13 +83,16 @@ cmh.function <- function(one.Site, metric){
   ## TEST
   tryCatch(cmh.res <- mantelhaen.test(contingency.table), error = function(err) cat(one.Site," NA \n"))
 
-  cmh.full <- data.frame(array(NA, dim=c(1,6), dimnames = list(c(),c("Scaffold","POS","pvalue","statistic","num.alleles","num.deer"))))
-  
+  cmh.full <- data.frame(array(NA, dim=c(1,7), dimnames = list(c(),c("Scaffold","POS","pvalue","statistic","num.alleles","num.deer","deer"))))
+           
   cmh.full$pvalue <- cmh.res$p.value
   cmh.full$statistic <- cmh.res$statistic
   
   cmh.full$num.alleles <- num.alleles
   cmh.full$num.deer <- num.deer
+
+  cmh.full$deer <- paste0(usable.deer, collapse="")
+
   
   cmh.full$Scaffold <- as.numeric(gsub("_.*","",one.Site))
   cmh.full$POS <- as.numeric(gsub(".*_","",one.Site))
