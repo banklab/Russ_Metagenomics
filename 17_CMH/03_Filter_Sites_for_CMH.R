@@ -1,12 +1,12 @@
 
 
 # This many sites in at least 2 deer shared between Environments 
-SNPs_Threshold <- 5e3
+SNPs_Threshold <- 10e3
 
 
-EnvA <- 6
+EnvA <- 8
 
-EnvB <- 7
+EnvB <- 10
 
 
 
