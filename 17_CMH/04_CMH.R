@@ -114,14 +114,14 @@ pop1 <- data.frame(fread(paste0("Env",EnvA,"_x_Env",EnvB,"_final_sites_Threshold
 
 pop2 <- data.frame(fread(paste0("Env",EnvB,"_x_Env",EnvA,"_final_sites_Threshold",SNPs_Threshold,".csv"), header=T, stringsAsFactors = F))
 
-SPECIES <- unique(pop1$Species)
+SPECIES <- unique(pop1$bin)
 
 length(SPECIES)
 
 for(i in 1:length(SPECIES)){
   
-  pop1_sp <- pop1[pop1$Species==SPECIES[i],]
-  pop2_sp <- pop2[pop2$Species==SPECIES[i],]
+  pop1_sp <- pop1[pop1$bin==SPECIES[i],]
+  pop2_sp <- pop2[pop2$bin==SPECIES[i],]
   
   Sites <- unique(c(pop1_sp$ID,pop2_sp$ID))
   Sites1 <- unique(pop1_sp$ID);Sites2 <- unique(pop2_sp$ID)
