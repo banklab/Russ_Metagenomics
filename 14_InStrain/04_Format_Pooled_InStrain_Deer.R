@@ -49,7 +49,7 @@ for(DEER in 1:7){
 }
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/02_Two_Populations")
-write.csv(full_df, paste0("Pooled_Env",EnvA,"_Env",EnvB,"_SNPS.csv"), row.names = F)
+write.csv(full_df, paste0("Pooled_Env",EnvA,"_Env",EnvB,"_snps.csv"), row.names = F)
 
 }
 }
