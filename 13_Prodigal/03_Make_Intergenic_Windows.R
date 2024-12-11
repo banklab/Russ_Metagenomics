@@ -13,7 +13,7 @@ unq_species <- unique(genes2$bin)
 new_genes2 <- genes2
 
 minimum_gene_length <- min(new_genes2$Size)
-maximum_gene_length <- max(new_genes2$Size)
+median_gene_length <- median(new_genes2[new_genes2$Type=="Gene","Size"])
 
 for(i in 1:length(unq_species)){
   
