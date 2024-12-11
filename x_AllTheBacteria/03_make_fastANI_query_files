@@ -1,4 +1,7 @@
 
+## go into each directory of sequences - make query file of paths to each fasta for fastANI input
+
+
 cd /storage/scratch/users/rj23k073/04_DEER/AllTheBacteria
 
 
