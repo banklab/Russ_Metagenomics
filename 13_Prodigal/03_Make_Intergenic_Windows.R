@@ -211,6 +211,6 @@ cat("extra window counter:",extra_windows,"\n")
 new_genes3 <- rbind(new_genes2[new_genes2$Type=="Gene",], new_intergenic_windows)
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
-write.csv(new_genes3, "DEER_Gene_and_Intergenic.csv", row.names = F)
+write.csv(new_genes3, "deer_gene_and_intergenic_intermediate2.csv", row.names = F)
 
 
