@@ -12,8 +12,7 @@ unq_species <- unique(genes2$bin)
 
 new_genes2 <- genes2
 
-minimum_gene_length <- min(new_genes2$Size)
-median_gene_length <- median(new_genes2[new_genes2$Type=="Gene","Size"])
+minimum_intergenic_length <- 10
 
 for(i in 1:length(unq_species)){
   
@@ -86,12 +85,12 @@ for(i in 1:length(unq_species)){
       intergenic_windows <- rbind(intergenic_windows, last_window)
     }
     
-    intergenic_windows[,"Size"] <- intergenic_windows[,"End"] - intergenic_windows[,"Start"]
+    intergenic_windows[,"Size"] <- intergenic_windows[,"End"] - intergenic_windows[,"Start"] + 1
     
     
     ## remove windows that are smaller than the minimum gene length
     
-    final_windows <- intergenic_windows[!is.na(intergenic_windows$Size) & intergenic_windows$Size >= minimum_gene_length,]
+    final_windows <- intergenic_windows[!is.na(intergenic_windows$Size) & intergenic_windows$Size >= minimum_intergenic_length,]
     
     if(j==1){ combine_inter_windows <- final_windows } else {
       
@@ -116,7 +115,102 @@ for(i in 1:length(unq_species)){
 
 new_genes2$ID <- paste0(new_genes2$bin,"_scaff",new_genes2$Scaffold,"_start",new_genes2$Start,"_end",new_genes2$End,"_type_",new_genes2$Type)
 
-setwd("~/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS/DEER/13_Prodigal")
-write.csv(new_genes2, "DEER_Gene_and_Intergenic.csv", row.names = F)
+setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
+write.csv(new_genes2, "deer_gene_and_intergenic_intermediate.csv", row.names = F)
+
+
+intergenic_windows <- new_genes2[new_genes2$Type=="Intergenic",]
+summary(intergenic_windows$Size)
+
+## ecoli mean: 118 nt
+## choose max to shift data distribution towards ecoli numbers
+max_intergenic_length <- 200
+
+extra_windows <- 0
+
+
+
+split_these_windows <- intergenic_windows[intergenic_windows$Size > max_intergenic_length,]
+old_windows <- intergenic_windows[intergenic_windows$Size <= max_intergenic_length,]
+
+
+Sys.time()
+for(i in 1:dim(split_these_windows)[1]){
+  
+  if(split_these_windows[i,"Size"] <= max_intergenic_length){
+    
+    if(i==1){ new_split_these_windows <- split_these_windows[i,] } else { new_split_these_windows <- rbind(new_split_these_windows,  split_these_windows[i,]) }
+    next
+  }
+  
+  inter_dat <- split_these_windows[i,]
+  
+  chop_into_this_many <- ceiling(inter_dat$Size / max_intergenic_length)
+  
+  
+  ## final window is less than min intergenic size
+  if( inter_dat$Size%%max_intergenic_length < minimum_intergenic_length ){ chop_into_this_many <- chop_into_this_many - 1 }
+  if(chop_into_this_many==1){
+    if(i==1){ new_split_these_windows <- split_these_windows[i,] } else { new_split_these_windows <- rbind(new_split_these_windows,  split_these_windows[i,]) }
+    next}
+
+  new_inter_dat <- data.frame(array(NA, dim = c(chop_into_this_many, 12), dimnames = list(c(),c(colnames(split_these_windows)))))
+  
+  new_inter_dat[,1:dim(new_inter_dat)[2]] <- inter_dat
+  new_inter_dat$Start <- NA ## just want to make sure don't accidentally carry through old values etc
+  new_inter_dat$End <- NA
+  new_inter_dat$Size <- NA
+  new_inter_dat$ID <- NA
+  
+  new_starts <- seq(inter_dat$Start, by=max_intergenic_length, length.out=chop_into_this_many)
+  
+  new_ends <- seq((new_starts[2]-1), by=max_intergenic_length, length.out=chop_into_this_many)
+  
+  final_end <- min(c(new_ends[chop_into_this_many],inter_dat$End))
+  
+  new_ends[chop_into_this_many] <- final_end
+  
+  new_inter_dat$Start <- new_starts
+  
+  new_inter_dat$End <- new_ends
+  
+  
+  ## if deleted final intergenic window (because smaller than min value) add it to last real window
+  if( inter_dat$Size%%max_intergenic_length < minimum_intergenic_length ){
+    
+    new_inter_dat[dim(new_inter_dat)[1],"End"] <- inter_dat$End
+    
+  }
+  
+  new_inter_dat$Size <- new_inter_dat$End - new_inter_dat$Start + 1
+  
+  new_inter_dat$ID <- paste0(new_inter_dat$bin,"_scaff",new_inter_dat$Scaffold,"_start",new_inter_dat$Start,"_end",new_inter_dat$End,"_type_",new_inter_dat$Type)
+  
+  
+  if(i==1){ new_split_these_windows <- new_inter_dat } else { new_split_these_windows <- rbind(new_split_these_windows,  new_inter_dat) }
+  
+  
+  extra_windows <- extra_windows + (dim(new_inter_dat)[1]-1)
+  
+}
+Sys.time()
+
+
+
+new_intergenic_windows <- rbind(old_windows, new_split_these_windows)
+
+
+summary(new_intergenic_windows$Size)
+
+
+cat("dim before:",dim(intergenic_windows)[1],"\n")
+cat("dim after:",dim(new_intergenic_windows)[1],"\n")
+
+cat("extra window counter:",extra_windows,"\n")
+
+new_genes3 <- rbind(new_genes2[new_genes2$Type=="Gene",], new_intergenic_windows)
+
+setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
+write.csv(new_genes3, "DEER_Gene_and_Intergenic.csv", row.names = F)
 
 
