@@ -119,6 +119,16 @@ setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
 write.csv(new_genes2, "deer_gene_and_intergenic_intermediate.csv", row.names = F)
 
 
+
+library(data.table)
+
+setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
+new_genes2 <- data.frame(fread("deer_gene_and_intergenic_intermediate.csv", header=T, stringsAsFactors = F))
+
+minimum_intergenic_length <- 10
+
+
+
 intergenic_windows <- new_genes2[new_genes2$Type=="Intergenic",]
 summary(intergenic_windows$Size)
 
@@ -132,6 +142,10 @@ extra_windows <- 0
 
 split_these_windows <- intergenic_windows[intergenic_windows$Size > max_intergenic_length,]
 old_windows <- intergenic_windows[intergenic_windows$Size <= max_intergenic_length,]
+
+cat("split_these_windows", dim(split_these_windows)[1],"\n")
+cat("old_windows", dim(old_windows)[1],"\n")
+
 
 
 Sys.time()
@@ -213,4 +227,73 @@ new_genes3 <- rbind(new_genes2[new_genes2$Type=="Gene",], new_intergenic_windows
 setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
 write.csv(new_genes3, "deer_gene_and_intergenic_intermediate2.csv", row.names = F)
 
+
+new_genes4 <- new_genes3
+
+setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_Good_Sites")
+DF1 <- data.frame(fread("Env10_x_Env8_final_sites_Threshold10000.csv", header=T, stringsAsFactors = F))
+DF2 <- data.frame(fread("Env8_x_Env10_final_sites_Threshold10000.csv", header=T, stringsAsFactors = F))
+
+DF <- rbind(DF1,DF2)
+
+DF$Scaff.ID <- paste0(DF$bin,"_sc",as.numeric(DF$Scaffold))
+
+
+new_genes4$Scaffold <- as.numeric(new_genes4$Scaffold)
+
+new_genes4$Scaff.ID <- paste0(new_genes4$bin,"_sc",new_genes4$Scaffold)
+
+
+extra_scaffolds <- setdiff(DF$Scaff.ID, new_genes4$Scaff.ID)
+
+extra_scaffolds1 <- DF[DF$Scaff.ID %in% extra_scaffolds,]
+
+extra_scaffolds2 <- extra_scaffolds1[!duplicated(extra_scaffolds1$Scaffold),]
+
+if(dim(extra_scaffolds2)[1] != length(unique(extra_scaffolds1$Scaffold))){message("Error");break}
+
+
+extra_scaffolds2$Scaffold.length <- as.numeric(gsub(".*length_|_cov_.*","",extra_scaffolds2$scaffold2))
+
+extra_scaffolds2$Scaffold.coverage <- as.numeric(gsub(".*_cov_|_asm_.*","",extra_scaffolds2$scaffold2))
+
+
+
+for(i in 1:dim(extra_scaffolds2)[1]){
+  
+  extra_s <- extra_scaffolds2[i,]
+  
+  num_windows <- floor(extra_s$Scaffold.length/max_intergenic_length)
+  
+  start_seq <- seq(1, by=max_intergenic_length, length.out=num_windows)
+  end_seq <- seq(max_intergenic_length, by=max_intergenic_length, length.out=num_windows)
+  
+  end_seq[length(end_seq)] <- extra_s$Scaffold.length
+  
+  new_scaff_df <- data.frame(array(NA, dim = c(num_windows,13), dimnames = list(c(),c(colnames(new_genes4)))))
+  
+  new_scaff_df$bin <- extra_s$bin
+  new_scaff_df$Scaffold <- extra_s$Scaffold
+  
+  new_scaff_df$Scaffold.length <- extra_s$Scaffold.length
+  new_scaff_df$Scaffold.coverage <- extra_s$Scaffold.coverage
+  
+  new_scaff_df$Start <- start_seq
+  new_scaff_df$End <- end_seq
+  
+  if(i==1){ extra_scaff_Df <- new_scaff_df } else { extra_scaff_Df <- rbind(extra_scaff_Df, new_scaff_df) }
+  
+}
+
+extra_scaff_Df$Type <- "Intergenic"
+extra_scaff_Df$Size <- (extra_scaff_Df$End - extra_scaff_Df$Start + 1)
+extra_scaff_Df$ID <- paste0(extra_scaff_Df$bin,"_scaff",extra_scaff_Df$Scaffold,"_start",extra_scaff_Df$Start,"_end",extra_scaff_Df$End,"_type_",extra_scaff_Df$Type)
+
+
+new_genes5 <- rbind(new_genes4, extra_scaff_Df)
+
+new_genes5$Scaff.ID <- NULL
+
+setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
+write.csv(new_genes5, "DEER_Gene_and_Intergenic.csv", row.names = F)
 
