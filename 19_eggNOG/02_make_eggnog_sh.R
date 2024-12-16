@@ -1,7 +1,7 @@
 
 
-INUT_DIR="/storage/scratch/users/rj23k073/04_DEER/13_Prodigal/faa"
-OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/85_eggNOG"
+INUT_DIR="/storage/scratch/users/rj23k073/04_DEER/13_Prodigal/FAA"
+OUTPUT_DIR="/storage/scratch/users/rj23k073/04_DEER/18_eggNOG"
 
 setwd(INUT_DIR)
 
