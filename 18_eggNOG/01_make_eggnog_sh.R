@@ -20,6 +20,8 @@ for(i in 1:length(sample_list)){
   setwd(INPUT_DIR)
   files_here <- length(list.files(pattern=glob2rx(paste0(samp2,"*faa"))))
   setwd(OUTPUT_DIR)
+
+  if(files_here>20){CPUS<- 4} else {CPUS<-2}
   
   code_block <- paste0("emapper.py -m diamond -i $i -o $file3 --data_dir ./data/ --cpu ",CPUS)
   
