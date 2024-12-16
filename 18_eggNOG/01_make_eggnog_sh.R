@@ -38,7 +38,7 @@ for(i in 1:length(sample_list)){
  write (paste0("for i in ",INPUT_DIR,"/",samp2,"*faa"), sh_name, append = TRUE)
 write ("do", sh_name, append = TRUE)
  write ("file2=$(basename $i)", sh_name, append = TRUE)
-write ("file3=$(echo $file2 | perl -pe 's/faa/out/')", sh_name, append = TRUE)
+write ("file3=$(echo $file2 | perl -pe 's/fa.genes.faa/genes/')", sh_name, append = TRUE)
  write (code_block, sh_name, append = TRUE)
  write ("echo Finished $file3", sh_name, append = TRUE)
 write ("done", sh_name, append = TRUE)
