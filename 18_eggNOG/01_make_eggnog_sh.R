@@ -16,15 +16,19 @@ for(i in 1:length(sample_list)){
   samp2 <- sample_list[i]
   
   sh_name <- paste0(samp2,"_eggnog.sh")
+
+  setwd(INPUT_DIR)
+  files_here <- length(list.files(pattern=glob2rx(paste0(samp2,"*faa"))))
+  setwd(OUTPUT_DIR)
   
-  code_block <- paste0("emapper.py -m diamond -i $i -o $file3 --data_dir ./data/ --cpu 2")
+  code_block <- paste0("emapper.py -m diamond -i $i -o $file3 --data_dir ./data/ --cpu ",CPUS)
   
   
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=16000M", sh_name, append = TRUE)
   write ("#SBATCH --nodes=1", sh_name, append = TRUE)
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
-  write ("#SBATCH --cpus-per-task=2", sh_name, append = TRUE)
+  write (paste0("#SBATCH --cpus-per-task=",CPUS), sh_name, append = TRUE)
   write ("#SBATCH --time=36:00:00", sh_name, append = TRUE)
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
