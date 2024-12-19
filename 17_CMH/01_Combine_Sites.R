@@ -208,7 +208,7 @@ pool3$Env <- gsub("Env|_","",pool3$Env)
 
 pool3$Env <- as.numeric(pool3$Env)
 
-species_list <- unique(pool3$bin)
+species_list <- unique(c(pool2$bin,pool3$bin))
 
 
 for(s in 1:length(species_list)){
