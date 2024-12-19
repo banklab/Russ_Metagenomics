@@ -285,12 +285,14 @@ for(i in 1:dim(extra_scaffolds2)[1]){
   
 }
 
+
 extra_scaff_Df$Type <- "Intergenic"
 extra_scaff_Df$Size <- (extra_scaff_Df$End - extra_scaff_Df$Start + 1)
 extra_scaff_Df$ID <- paste0(extra_scaff_Df$bin,"_scaff",extra_scaff_Df$Scaffold,"_start",extra_scaff_Df$Start,"_end",extra_scaff_Df$End,"_type_",extra_scaff_Df$Type)
 
+extra_scaff_Df2 <- extra_scaff_Df[!duplicated(extra_scaff_Df$ID),]
 
-new_genes5 <- rbind(new_genes4, extra_scaff_Df)
+new_genes5 <- rbind(new_genes4, extra_scaff_Df2)
 
 new_genes5$Scaff.ID <- NULL
 
