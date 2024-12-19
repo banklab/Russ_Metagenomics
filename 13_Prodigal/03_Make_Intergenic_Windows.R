@@ -273,10 +273,10 @@ for(i in 1:dim(extra_scaffolds2)[1]){
   new_scaff_df <- data.frame(array(NA, dim = c(num_windows,13), dimnames = list(c(),c(colnames(new_genes4)))))
   
   new_scaff_df$bin <- extra_s$bin
-  new_scaff_df$Scaffold <- extra_s$Scaffold
+  new_scaff_df$Scaffold <- as.numeric(extra_s$Scaffold)
   
-  new_scaff_df$Scaffold.length <- extra_s$Scaffold.length
-  new_scaff_df$Scaffold.coverage <- extra_s$Scaffold.coverage
+  new_scaff_df$Scaffold.length <- as.numeric(extra_s$Scaffold.length)
+  new_scaff_df$Scaffold.coverage <- as.numeric(extra_s$Scaffold.coverage)
   
   new_scaff_df$Start <- start_seq
   new_scaff_df$End <- end_seq
