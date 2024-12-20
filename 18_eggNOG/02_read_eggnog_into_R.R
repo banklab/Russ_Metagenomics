@@ -33,13 +33,3 @@ total_egg$Gene <- gsub(".*asm_","",total_egg$query_name)
 
 write.csv(total_egg, "Eggnog_annotations.csv", row.names = F)
 
-
-
-
-
-library(data.table)
-
-eggy <- data.frame(fread("Eggnog_annotations.csv", header=T, stringsAsFactors = F))
-
-eggy[1,]
-
