@@ -162,13 +162,18 @@ for(i in 1:length(snp_file_list)){
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Multiallelic.SNV"] <- sum(single_pop_df$mutation_type=="M")
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Intergenic.SNV"] <- sum(single_pop_df$mutation_type=="I")
 
+    if(j==1){ div_by_site <- single_pop_df } else { div_by_site <- rbind(div_by_site,single_pop_df) }
+    
   }
   Sys.time()
+
+  setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
+  write.csv(div_by_site, paste0(DEER,"_",ENV, "_Diversity_by_site.csv"), row.names = F)
   
   diversity_df_for_sample <- diversity_df[diversity_df$Deer==DEER & diversity_df$Env==ENV,]
   
-  setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
-  write.csv(diversity_df_for_sample, paste0(DEER,"_",ENV, "_Diversity.csv"), row.names = F)
+ 
+  write.csv(diversity_df_for_sample, paste0(DEER,"_",ENV, "_Diversity_by_sample.csv"), row.names = F)
   
 }
 
