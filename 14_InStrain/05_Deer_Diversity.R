@@ -92,6 +92,7 @@ diversity_df$dN <- NA
 diversity_df$dS <- NA
 diversity_df$Multiallelic.SNV <- NA
 diversity_df$Intergenic.SNV <- NA
+diversity_df$genome.size <- NA
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/REFERENCES")
 genome_size <- read.csv("genome_sizes.csv", header=T, stringsAsFactors=F)
@@ -107,7 +108,7 @@ for(i in 1:length(snp_file_list)){
   setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/01_One_Population/FORMAT")
   snp_DF <- data.frame(fread(snp_file_list[i], header=T, stringsAsFactors = F))
   
-  species_list <- unique(snp_DF$Species)
+  species_list <- unique(snp_DF$bin)
   
   DEER <- as.numeric(gsub("_.*","",snp_file_list[i]))
   ENV <- as.numeric(gsub(".*_","",gsub("_InStrain.*","",snp_file_list[i])))
@@ -115,7 +116,7 @@ for(i in 1:length(snp_file_list)){
   Sys.time()
   for(j in 1:length(species_list)){
     
-    single_pop_df <- snp_DF[snp_DF$Species==species_list[j],]
+    single_pop_df <- snp_DF[snp_DF$bin==species_list[j],]
     
     single_pop_df$H <- apply(single_pop_df, MARGIN=1, FUN=hetero.function2)
     single_pop_df$pi <- apply(single_pop_df, MARGIN=1, FUN=pi_w.function)
@@ -124,7 +125,7 @@ for(i in 1:length(snp_file_list)){
     ## heterozygosity
     if(sum(is.na(single_pop_df$H))>0){message("NA hetero");break}
     
-    genome_H <- sum(single_pop_df$H) / diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"genome.length"]
+    genome_H <- sum(single_pop_df$H) / genome_size[genome_size$bin==species_list[j],"genome.size"]
     
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"genome.H"] <- genome_H
     
@@ -133,7 +134,7 @@ for(i in 1:length(snp_file_list)){
     
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"diallelic"] <- diallelic
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"multiallelic"] <- multiallelic
-    diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"polymorphic"] <- sum(diallelic, multiallelic) / diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"genome.length"]
+    diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"polymorphic"] <- sum(diallelic, multiallelic) / genome_size[genome_size$bin==species_list[j],"genome.size"]
     
     H_no_zero <- single_pop_df[single_pop_df$H>0,"H"]
     
@@ -142,7 +143,7 @@ for(i in 1:length(snp_file_list)){
     
     
     ## pi within
-    genome_pi <- sum(single_pop_df$pi) / diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"genome.length"]
+    genome_pi <- sum(single_pop_df$pi) / genome_size[genome_size$bin==species_list[j],"genome.size"]
     
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"genome.pi"] <- genome_pi
     
@@ -161,6 +162,8 @@ for(i in 1:length(snp_file_list)){
     
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Multiallelic.SNV"] <- sum(single_pop_df$mutation_type=="M")
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Intergenic.SNV"] <- sum(single_pop_df$mutation_type=="I")
+
+    diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"genome.size"] <- genome_size[genome_size$bin==species_list[j],"genome.size"]
     
   }
   Sys.time()
