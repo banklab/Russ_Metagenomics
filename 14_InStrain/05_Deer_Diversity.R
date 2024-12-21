@@ -93,6 +93,8 @@ diversity_df$dS <- NA
 diversity_df$Multiallelic.SNV <- NA
 diversity_df$Intergenic.SNV <- NA
 
+getwd("/storage/scratch/users/rj23k073/04_DEER/REFERENCES")
+genome_size <- read.csv("genome_sizes.csv", header=T, stringsAsFactors=F)
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/01_One_Population/FORMAT")
 
