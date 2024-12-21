@@ -1,0 +1,18 @@
+
+ grep '>' *fa > genome_size.txt
+
+dat <- read.table("genome_size.txt", header=F, stringsAsFactors=F)
+
+length(dat$V1)
+length(unique(dat$V1))
+
+dat$bin <- gsub(".*_asm_","",dat$V1)
+
+dat$length <- as.numeric(gsub(".*_length_|_cov_.*","",dat$V1))
+
+genome_df <- data.frame(array(NA, dim=c(length(unique(dat$bin)), 2), dimnames=list(c(),c("bin","genome.size"))))
+
+genome_df$bin <- names(tapply(dat$length, dat$bin, sum))
+genome_df$genome.size <- tapply(dat$length, dat$bin, sum)
+
+write.csv(genome_df, "genome_sizes.csv", row.names=F)
