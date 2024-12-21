@@ -170,7 +170,7 @@ for(i in 1:length(snp_file_list)){
   
   diversity_df_for_sample <- diversity_df[diversity_df$Deer==DEER & diversity_df$Env==ENV,]
   
-  setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/01_One_Population/DIVERSITY")
+  setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
   write.csv(diversity_df_for_sample, paste0(DEER,"_",ENV, "_Diversity.csv"), row.names = F)
   
 }
@@ -186,7 +186,7 @@ for(i in 1:length(Diversity_files)){
 
 }
 
-setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/01_One_Population/DIVERSITY")
-write.csv(all_div, "DIVERSITY_Deer.csv", row.names=F)
+setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
+write.csv(all_div, "DEER_diversity.csv", row.names=F)
 
 
