@@ -94,14 +94,14 @@ diversity_df$Multiallelic.SNV <- NA
 diversity_df$Intergenic.SNV <- NA
 
 
-setwd("/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/14_InStrain/01_One_Population/FORMAT")
+setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/01_One_Population/FORMAT")
 
 snp_file_list <- list.files(pattern="InStrain_SNVs_format.csv")
 
 
 for(i in 1:length(snp_file_list)){
   
-  setwd("/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/14_InStrain/01_One_Population/FORMAT")
+  setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/01_One_Population/FORMAT")
   snp_DF <- data.frame(fread(snp_file_list[i], header=T, stringsAsFactors = F))
   
   species_list <- unique(snp_DF$Species)
