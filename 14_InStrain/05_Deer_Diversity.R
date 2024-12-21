@@ -92,7 +92,6 @@ diversity_df$dN <- NA
 diversity_df$dS <- NA
 diversity_df$Multiallelic.SNV <- NA
 diversity_df$Intergenic.SNV <- NA
-diversity_df$genome.size <- NA
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/REFERENCES")
 genome_size <- read.csv("genome_sizes.csv", header=T, stringsAsFactors=F)
@@ -163,8 +162,6 @@ for(i in 1:length(snp_file_list)){
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Multiallelic.SNV"] <- sum(single_pop_df$mutation_type=="M")
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"Intergenic.SNV"] <- sum(single_pop_df$mutation_type=="I")
 
-    diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"genome.size"] <- genome_size[genome_size$bin==species_list[j],"genome.size"]
-    
   }
   Sys.time()
   
@@ -186,7 +183,9 @@ for(i in 1:length(Diversity_files)){
 
 }
 
+all_div2 <- merge(all_div, genome_size, by="bin")
+
 setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
-write.csv(all_div, "DEER_diversity.csv", row.names=F)
+write.csv(all_div2, "DEER_diversity.csv", row.names=F)
 
 
