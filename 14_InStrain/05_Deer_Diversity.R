@@ -178,7 +178,7 @@ for(i in 1:length(snp_file_list)){
 }
 
 
-Diversity_files <- list.files(pattern="Diversity.csv")
+Diversity_files <- list.files(pattern="Diversity_by_sample.csv")
 
 for(i in 1:length(Diversity_files)){
 
