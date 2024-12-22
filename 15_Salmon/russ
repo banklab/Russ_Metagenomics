@@ -11,4 +11,4 @@ names_list
 grep '>' DEER.fa > names_list.txt
 
 
-split_salmon_out_into_bins.py /storage/scratch/users/rj23k073/04_DEER/15_Salmon/Counts /storage/scratch/users/rj23k073/04_DEER/11_dRep/03_drep_bins/dereplicated_genomes /storage/scratch/users/rj23k073/04_DEER/REFERENCES/DEER.fa > bin_abundance_table.tab
+python split_salmon_out_into_bins.py /storage/scratch/users/rj23k073/04_DEER/15_Salmon/Counts /storage/scratch/users/rj23k073/04_DEER/11_dRep/03_drep_bins/dereplicated_genomes /storage/scratch/users/rj23k073/04_DEER/REFERENCES/DEER.fa > bin_abundance_table.tab
