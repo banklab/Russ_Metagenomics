@@ -15,7 +15,6 @@ gene.function <- function(one.gene, N.scale){
   
   # if(N.proxy<1){stop("N.proxy less than 1")}
   
-  # output <- data.frame(array(NA, dim = c(1,14), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","pi","H","theta.W","Tajimas.D","N","Scaffold","Start","End"))))
   output <- data.frame(array(NA, dim = c(1,11), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","pi","H","Scaffold","Start","End"))))
   
   output[,"bin"] <- one.gene["bin"]
@@ -23,7 +22,6 @@ gene.function <- function(one.gene, N.scale){
   output[,"Type"] <- one.gene["Type"]
   output[,"Size"] <- Size
   output[,"S"] <- polymorphic.sites
-  # output[,"N"] <- N.proxy
   output[,"Scaffold"] <- one.gene["Scaffold"]
   output[,"Start"] <- one.gene["Start"]
   output[,"End"] <- one.gene["End"]
@@ -36,22 +34,13 @@ gene.function <- function(one.gene, N.scale){
     H.gene <- sum(sites.in.gene$H, na.rm=T) / Size
     # H.var <- var(sites.in.gene$H, na.rm=T)
     
-    
-    # alpha1 <- a1.function(N.proxy)
-    # theta.w <- polymorphic.sites / alpha1
-    # tajima.var.out <- tajima.variance(pi=pi.gene, theta_w=theta.w, n=N.proxy)
-    # tajima.D <- (pi.gene - theta.w) / sqrt(tajima.var.out)
-    
-    
+  
     output[,"pi"] <- pi.gene
     output[,"H"] <- H.gene
     output[,"prop.S"] <- polymorphic.sites/Size
-    # output[,"theta.W"] <- theta.w
-    # output[,"Tajimas.D"] <- tajima.D
   } else {
     ## zero polymorphic sites
     output[,c("pi","H","prop.S")] <- 0
-    # output[,c("pi","H","prop.S","theta.W")] <- 0
   }
   
   
@@ -77,9 +66,6 @@ abund <- data.frame(fread("DEER_Abundance.csv", header=T, stringsAsFactors = F))
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/13_Prodigal")
 gene_intergenic_data <- data.frame(fread("DEER_Gene_and_Intergenic.csv", header=T, stringsAsFactors = F))
-
-genes <- gene_intergenic_data[gene_intergenic_data$Type=="Gene",]
-intergenic <- gene_intergenic_data[gene_intergenic_data$Type=="Intergenic",]
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
