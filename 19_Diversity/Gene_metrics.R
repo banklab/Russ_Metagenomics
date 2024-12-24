@@ -15,7 +15,7 @@ gene.function <- function(one.gene, N.scale){
   
   # if(N.proxy<1){stop("N.proxy less than 1")}
   
-  output <- data.frame(array(NA, dim = c(1,11), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","pi","H","Scaffold","Start","End"))))
+  output <- data.frame(array(NA, dim = c(1,12), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","gene.pi","poly.pi","gene.H","Scaffold","Start","End"))))
   
   output[,"bin"] <- one.gene["bin"]
   output[,"Gene"] <- one.gene["Gene"]
@@ -29,18 +29,20 @@ gene.function <- function(one.gene, N.scale){
   if(polymorphic.sites>0){
     
     pi.gene <- sum(sites.in.gene$pi, na.rm=T) / Size
+    pi.at.poly.sites <- mean(sites.in.gene$pi, na.rm=T)
     # pi.var <- var(sites.in.gene$pi, na.rm=T)
     
     H.gene <- sum(sites.in.gene$H, na.rm=T) / Size
     # H.var <- var(sites.in.gene$H, na.rm=T)
     
   
-    output[,"pi"] <- pi.gene
-    output[,"H"] <- H.gene
+    output[,"gene.pi"] <- pi.gene ## mean pi across gene
+    output[,"poly.pi"] <- pi.at.poly.sites ## mean pi at polymorphic sites
+    output[,"gene.H"] <- H.gene
     output[,"prop.S"] <- polymorphic.sites/Size
   } else {
     ## zero polymorphic sites
-    output[,c("pi","H","prop.S")] <- 0
+    output[,c("gene.pi","poly.pi","gene.H","prop.S")] <- 0
   }
   
   
@@ -103,9 +105,12 @@ for(i in 1:length(diversity_files)){
     
   } # species
   
+  gene_results2$Scaffold <- as.numeric(gene_results2$Scaffold)
+  gene_results2$Start <- as.numeric(gene_results2$Start)
+  gene_results2$End <- as.numeric(gene_results2$End)
+  
   setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
   write.csv(gene_results2, paste0(SAMPLE,"_Gene_results.csv"), row.names = F)
   
 } # div
-
 
