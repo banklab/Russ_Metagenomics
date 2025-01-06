@@ -60,7 +60,6 @@ gene.function <- function(one.gene, N.scale){
   } else {
     ## zero polymorphic sites
     output[,c("gene.pi","poly.pi","gene.H","prop.S")] <- 0
-    output[,c("major.mean","minor.mean")] <- NA
   }
   
   
