@@ -1,6 +1,12 @@
 
 library(data.table)
 
+
+first.minor.function <- function(df){
+  sort(df, decreasing = TRUE)[2]
+}
+
+
 gene.function <- function(one.gene, N.scale){
   
   sites.in.gene <- diversity_sub[diversity_sub$Scaffold==as.numeric(one.gene["Scaffold"]) & diversity_sub$POS>=as.numeric(one.gene["Start"]) & diversity_sub$POS<=as.numeric(one.gene["End"]),]
@@ -15,7 +21,7 @@ gene.function <- function(one.gene, N.scale){
   
   # if(N.proxy<1){stop("N.proxy less than 1")}
   
-  output <- data.frame(array(NA, dim = c(1,14), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","gene.pi","poly.pi","gene.H","maj.mean","min.mean","Scaffold","Start","End"))))
+  output <- data.frame(array(NA, dim = c(1,14), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","gene.pi","poly.pi","gene.H","major.mean","minor.mean","Scaffold","Start","End"))))
   
   output[,"bin"] <- one.gene["bin"]
   output[,"Gene"] <- one.gene["Gene"]
@@ -34,15 +40,26 @@ gene.function <- function(one.gene, N.scale){
     
     H.gene <- sum(sites.in.gene$H, na.rm=T) / Size
     # H.var <- var(sites.in.gene$H, na.rm=T)
+
+    depths <- rowSums(sites.in.gene[,c("A","C","G","T")], na.rm=T)
     
-  
+    major.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, max)) / depths
+
+    minor.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, first.minor.function)) / depths
+
+    if(sum(colSums(rbind(major.allele.freqs,minor.allele.freqs))>1)>1){stop("error allele freqs")}
+    
     output[,"gene.pi"] <- pi.gene ## mean pi across gene
     output[,"poly.pi"] <- pi.at.poly.sites ## mean pi at polymorphic sites
     output[,"gene.H"] <- H.gene
     output[,"prop.S"] <- polymorphic.sites/Size
+
+    output[,"major.mean"] <- mean(major.allele.freqs, na.rm=T)
+    output[,"minor.mean"] <- mean(minor.allele.freqs, na.rm=T)
+   
   } else {
     ## zero polymorphic sites
-    output[,c("gene.pi","poly.pi","gene.H","prop.S","","")] <- 0
+    output[,c("gene.pi","poly.pi","gene.H","prop.S","major.mean","minor.mean")] <- 0
   }
   
   
