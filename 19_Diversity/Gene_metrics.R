@@ -15,7 +15,7 @@ gene.function <- function(one.gene, N.scale){
   
   # if(N.proxy<1){stop("N.proxy less than 1")}
   
-  output <- data.frame(array(NA, dim = c(1,12), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","gene.pi","poly.pi","gene.H","Scaffold","Start","End"))))
+  output <- data.frame(array(NA, dim = c(1,14), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","gene.pi","poly.pi","gene.H","maj.mean","min.mean","Scaffold","Start","End"))))
   
   output[,"bin"] <- one.gene["bin"]
   output[,"Gene"] <- one.gene["Gene"]
@@ -42,7 +42,7 @@ gene.function <- function(one.gene, N.scale){
     output[,"prop.S"] <- polymorphic.sites/Size
   } else {
     ## zero polymorphic sites
-    output[,c("gene.pi","poly.pi","gene.H","prop.S")] <- 0
+    output[,c("gene.pi","poly.pi","gene.H","prop.S","","")] <- 0
   }
   
   
