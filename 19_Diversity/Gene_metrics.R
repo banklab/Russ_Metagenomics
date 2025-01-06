@@ -127,7 +127,7 @@ for(i in 1:length(diversity_files)){
   gene_results2$End <- as.numeric(gene_results2$End)
   
   setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
-  write.csv(gene_results2, paste0(SAMPLE,"_Gene_results.csv"), row.names = F)
+  write.csv(gene_results2, paste0(SAMPLE,"_Gene_results_v2.csv"), row.names = F)
   
 } # div
 
