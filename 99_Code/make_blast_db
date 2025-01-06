@@ -1,0 +1,1 @@
+/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/programs/blast/ncbi-blast-2.15.0+/bin/makeblastdb -in 2_9_deer_bin.10.fa -dbtype nucl -out 2_9_deer_bin.10.blast
