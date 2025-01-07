@@ -41,11 +41,11 @@ gene.function <- function(one.gene, N.scale){
     H.gene <- sum(sites.in.gene$H, na.rm=T) / Size
     # H.var <- var(sites.in.gene$H, na.rm=T)
 
-    depths <- rowSums(sites.in.gene[,c("A","C","G","T")], na.rm=T)
+    depths <- rowSums(sites.in.gene[,c("A","C","G","T")], na.rm=T) ## this is roundabout now, can be streamlined
     
-    major.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, max)) / depths
+    major.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, max)) / depths ##
 
-    minor.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, first.minor.function)) / depths
+    minor.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, first.minor.function)) / depths ##
 
     if(sum(colSums(rbind(major.allele.freqs,minor.allele.freqs))>1)>1){stop("error allele freqs")}
     
