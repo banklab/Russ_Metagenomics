@@ -10,7 +10,8 @@ finish remaining gene metrics/tajimas jobs on server
 figure out plotting nucleotide div heatmaps, so genes are same size, and plot top to bottom
 taxonomy of top species and outlier species, many faecousia species - fisher test says more than expected, is this genus more locally adaptive?
 fastANI of top species - make sure they are all different species - the closest one is 90% ani - so safe
-
+finished tajima's D calculations
+code tajima's D - if I guess at population size and get it wrong does it change the identify of tajima's D value (positive vs negative)?
 Claudia meet
 
 
