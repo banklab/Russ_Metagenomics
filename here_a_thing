@@ -1,7 +1,7 @@
 jan 6
 redo gene metrics script - add maj/min af
 fix tajimas d script so pi is called properly
-2_10_bin.9 outlier peak - gaia says transposase is5377 -- cannot blast this IS sequence in genome or in raw data (IS sequence is from different phylum though)
+2_10_bin.9 outlier peak - gaia says transposase is5377 -- cannot find (blast) this IS sequence in genome or in raw data (IS sequence is from different phylum though)
 Mado meet
 lab meet
 
