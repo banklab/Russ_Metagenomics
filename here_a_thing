@@ -2,6 +2,8 @@ jan 6
 redo gene metrics script - add maj/min af
 fix tajimas d script so pi is called properly
 2_10_bin.9 outlier peak - gaia says transposase is5377 -- cannot blast this IS sequence in genome or in raw data (IS sequence is from different phylum though)
+Mado meet
+lab meet
 
 jan 7
 finish remaining gene metrics/tajimas jobs on server
@@ -9,3 +11,4 @@ figure out plotting nucleotide div heatmaps, so genes are same size, and plot to
 taxonomy of top species and outlier species, many faecousia species - fisher test says more than expected, is this genus more locally adaptive?
 fastANI of top species - make sure they are all different species - the closest one is 90% ani - so safe
 
+Claudia meet
