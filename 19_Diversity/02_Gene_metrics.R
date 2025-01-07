@@ -43,7 +43,7 @@ gene.function <- function(one.gene, N.scale){
 
     depths <- rowSums(sites.in.gene[,c("A","C","G","T")], na.rm=T) ## this is roundabout now, can be streamlined
     
-    major.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, max)) / depths ##
+    major.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, max)) / depths ## can streamline now that you are recording maj/min af in 01 diversity
 
     minor.allele.freqs <- (apply(sites.in.gene[, c("A","C","G","T")], 1, first.minor.function)) / depths ##
 
