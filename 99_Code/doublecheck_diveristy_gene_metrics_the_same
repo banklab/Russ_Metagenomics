@@ -1,0 +1,50 @@
+
+
+
+for(i in 1:10){
+for(j in 1:7){
+
+setwd("/rs_scratch/users/rj23k073/04_DEER/19_Diversity/02_Diversity")
+
+new <- fread(paste0(j,"_",i,"_Diversity_by_site.csv"), header=T, stringsAsFactors=F)
+
+new2 <- new[,-c(29:30)]
+
+PI <- new2$pi
+
+new2$pi <- NULL
+
+new2$pi <- PI
+
+setwd("/rs_scratch/users/rj23k073/04_DEER/19_Diversity/draft")
+
+old <- fread(paste0(j,"_",i,"_Diversity_by_site.csv"), header=T, stringsAsFactors=F)
+
+if(identical(old,new2)==FALSE){message("ejrn");break}
+
+}}
+
+
+
+
+
+
+for(i in 1:10){
+for(j in 1:7){
+
+
+new <- fread(paste0(j,"_",i,"_Gene_results_v2.csv"), header=T, stringsAsFactors=F)
+
+old <- fread(paste0(j,"_",i,"_Gene_results.csv"), header=T, stringsAsFactors=F)
+
+
+new2 <- new
+
+new2$major.mean <- NULL
+
+new2$minor.mean <- NULL
+
+if(identical(old,new2)==FALSE){message("ejrn");break}
+
+}}
+
