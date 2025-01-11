@@ -32,7 +32,7 @@ PBS plot
 
 jan 11
 code combined plots - cmh + pi/maf/pbs for all deer and both env
-PBS epiphany - the PBS for CMH outliers is 0 - why? because CMH preferentially identifies loci with CONCORDANT signal across the ~7 deer, so the signal is concordant so therefor the locus is NOT diverged between deer, because it is not diverged PBS=0
+PBS epiphany - the PBS for CMH outliers is 0 - why? because CMH preferentially identifies loci with CONCORDANT signal across the ~7 deer, so the signal is concordant so therefor the locus is NOT diverged BETWEEN deer, because it is not diverged PBS=0
 So the CMH outliers being centred on 0 for PBS is actually accurate
 
 
