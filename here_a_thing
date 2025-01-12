@@ -35,4 +35,7 @@ code combined plots - cmh + pi/maf/pbs for all deer and both env
 PBS epiphany - the PBS for CMH outliers is 0 - why? because CMH preferentially identifies loci with CONCORDANT signal across the ~7 deer, so the signal is concordant so therefor the locus is NOT diverged BETWEEN deer, because it is not diverged PBS=0
 So the CMH outliers being centred on 0 for PBS is actually accurate
 
-
+jan 12
+PBS - what explains loci that are pos B and neg A -- this would be migration back from 10 into 8 but this doesn't make sense
+- it seems like it should be selection - but not repeated between deer - check FST values for these loci are they very disparate between deer
+- maybe these are locally adaptive loci with high redundancy
