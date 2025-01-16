@@ -167,7 +167,7 @@ EnvB <- 10
 
 ## Pooled
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/02_Two_Populations/FORMAT")
-pool <- data.frame(fread("NEW_Pooled_Env8_Env10_snps.csv", header=T, stringsAsFactors = F))
+pool <- data.frame(fread(paste0("NEW_Pooled_Env",EnvA,"_Env",EnvB,"_snps.csv"), header=T, stringsAsFactors = F))
 
 
 ## Single
