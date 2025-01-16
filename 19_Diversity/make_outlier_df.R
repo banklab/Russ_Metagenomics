@@ -184,7 +184,7 @@ for(s in 1:length(cmh_files2)){
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
 write.csv(outlier_df, "outlier_df_v2.csv", row.names = F) ## outlier genes
-write.csv(snp_df, "outlier_SNPS.csv", row.names = F) ## outlier genes
+write.csv(snp_df, "outlier_SNPS.csv", row.names = F) ## outlier snps
 
 
 ## Collect the Gene results for the top 20 species
