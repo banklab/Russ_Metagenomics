@@ -2,6 +2,7 @@
 library(data.table)
 
 snp_range <- 4
+# snp_range <- 12
 
 
 
@@ -27,7 +28,12 @@ for(i in 1:length(outlier_species)){
     
     find_deer <- snps[snps$Scaffold==one_out$Scaffold & snps$POS==one_out$POS,] ## gets all deer that have the outlier snp in either or both env
     
-    scaffold_snps <- snps[snps$Scaffold==one_out$Scaffold,]
+    scaffold_snps_all <- snps[snps$Scaffold==one_out$Scaffold,]
+    
+    ## just keep sites that are called in both env in at least 2 deer
+    keep_these <- table(scaffold_snps_all$Sp.ID)[table(scaffold_snps_all$Sp.ID)>2]
+    
+    scaffold_snps <- scaffold_snps_all[scaffold_snps_all$Sp.ID %in% names(keep_these),]
     
     unique_positions <- unique(sort(scaffold_snps$POS))
     
@@ -38,16 +44,19 @@ for(i in 1:length(outlier_species)){
     
     range_of_positions <- unique_positions[c(snp_index-snp_range):c(snp_index+snp_range)]
        
-    # cat(range_of_positions[9] - range_of_positions[1],"bp\n")
+    # cat(range_of_positions[length(range_of_positions)] - range_of_positions[1],"bp\n")
     
-    if((range_of_positions[9] - range_of_positions[1])>1e3){stop("too large?")}
+    if((range_of_positions[length(range_of_positions)] - range_of_positions[1])>1e3){stop("too large?")}
     
     bracketing_snps <- scaffold_snps[scaffold_snps$POS %in% range_of_positions,]
  
+    if(length(unique(table(bracketing_snps$Sp.ID.deer))) > 1){break}
+    
     unique_genes_check <- unique(bracketing_snps$gene)
     unique_genes_check <- unique_genes_check[unique_genes_check!=""]
     
-    if(length(unique_genes_check)>1){stop("multiple genes?")}
+    # if(length(unique_genes_check)>1){stop("multiple genes?")}
+    if(length(unique_genes_check)>1){message("multiple genes?")}
     
     bracketing_snps$First.Freq <- NA
     bracketing_snps$Second.Freq <- NA
