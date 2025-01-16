@@ -72,7 +72,7 @@ for(i in 1:length(outlier_species)){
     ## 'First.Freq' is the major allele frequency according to the count taken over ALL deer-env points at a given site
     ## 'Maj/Min.Freq' is still the major/minor frequency according to count at a single deer (both env)
     
-    recalc_snps2$Gene.Outlier.Index <- j
+    recalc_snps2$Gene.Outlier.Index <- paste0(i,"_",j)
     
     if(j==1){ collect_sites <- recalc_snps2 } else { collect_sites <- rbind(collect_sites, recalc_snps2) }
     
