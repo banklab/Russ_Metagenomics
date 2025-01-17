@@ -109,7 +109,14 @@ snps.function <- function(one.site){
   
   if(length(unique(site.table[,"ref_base"]))>1){stop("too many REF base? - error?")}
   
-  if( sum(site.table[,c("A","C","G","T")]<0)>1 ){stop("too many negative base calls?")}
+  if( sum(site.table[,c("A","C","G","T")]<0)>1 ){message("too many negative base calls? ",one.site)
+      if( sum(site.table[1,c("A","C","G","T")]<0)>1 ){
+        site.table[1,c("DP","A","C","G","T")] <- 0
+      }
+      if( sum(site.table[2,c("A","C","G","T")]<0)>1 ){
+        site.table[2,c("DP","A","C","G","T")] <- 0
+      }
+    }
   
   if( sum(site.table[,c("A","C","G","T")]<0)==1 ){
     ## adjust max allele count down
@@ -138,9 +145,19 @@ snps.function <- function(one.site){
   ## both single pops are 
   # if( sum(site.table$Maj.Freq[1:2]==1)==2 & identical(site.table$con_base[1], site.table$con_base[2]) ){ return(NULL) }
   
+  if( sum(site.table[1,c("A","C","G","T")])==0 & site.table[1,"DP"] !=0 ){
+    site.table[1,"DP"] <- 0
+    message("set DP to zero: ",one.site)
+  }
   
-  if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){message(one.site);stop("error depth 1?")}
-  if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){message(one.site);stop("error depth 2?")}
+  if( sum(site.table[2,c("A","C","G","T")])==0 & site.table[2,"DP"] !=0 ){
+    site.table[2,"DP"] <- 0
+    message("set DP to zero: ",one.site)
+  }
+  
+  
+  if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){stop("error depth 1? ",one.site)}
+  if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){stop("error depth 2? ",one.site)}
   
   
   site.table[3,c("bin","Deer","Scaffold","POS","gene","mutation","mutation_type","cryptic","class","scaffold2","ID","Sp.ID","Sp.ID.deer")] <- pool.X[,c("bin","Deer","Scaffold","POS","gene","mutation","mutation_type","cryptic","class","scaffold2","ID","Sp.ID","Sp.ID.deer")]
@@ -208,8 +225,9 @@ pool3$Env <- gsub("Env|_","",pool3$Env)
 
 pool3$Env <- as.numeric(pool3$Env)
 
-species_list <- unique(c(pool2$bin,pool3$bin))
+# species_list <- unique(c(pool2$bin,pool3$bin))
 
+species_list <- unique(pool3$bin)
 
 for(s in 1:length(species_list)){
   
@@ -236,17 +254,20 @@ for(s in 1:length(species_list)){
   
   cat("format sites:",length(format_sites),"\n")
   
-  Sys.time() ## ~8.5k sites / min
-  format_sites_list <- lapply(format_sites, FUN=format.function)
-  Sys.time()
+  if(length(format_sites)>0){
+    Sys.time() ## ~8.5k sites / min
+    format_sites_list <- lapply(format_sites, FUN=format.function)
+    Sys.time()
+    
+    format_sites_df <- as.data.frame(do.call(rbind, format_sites_list))
+    format_sites_df$Original <- TRUE
   
-  format_sites_df <- as.data.frame(do.call(rbind, format_sites_list))
-  format_sites_df$Original <- TRUE
+    cat("min format depth:", min(format_sites_df$DP),"\n")
+    
+    combined_sites <- rbind(format_sites_df, new_sites_df[new_sites_df$Env %in% c(EnvA,EnvB),])
+    
+  } else { combined_sites <- new_sites_df[new_sites_df$Env %in% c(EnvA,EnvB),] }
   
-  cat("min format depth:", min(format_sites_df$DP),"\n")
-  
-  
-  combined_sites <- rbind(format_sites_df, new_sites_df[new_sites_df$Env %in% c(EnvA,EnvB),])
   
   if( length(unique(combined_sites$Sp.ID.deer)) != sum(length(format_sites),length(all_sites)) ){message(paste0("error final size ",SPECIES));break}
   
@@ -259,10 +280,4 @@ for(s in 1:length(species_list)){
   cat("\n")
   
 }
-
-
-
-
-
-
 
