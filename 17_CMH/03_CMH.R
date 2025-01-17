@@ -57,25 +57,46 @@ cmh.function <- function(one.site){
 EnvA <- 8
 EnvB <- 10
 
+
+SNP_filter <- 20e3
+
+
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/05_Filtered_Sites")
-sites_df <- data.frame(fread(paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_Filtered_Sites.csv"), header=T, stringsAsFactors = F))
+cmh_list <- list.files(pattern=(paste0("_Env",EnvA,"xEnv",EnvB,"_Filter_snps")))
+snp_count <- as.numeric(gsub(".*snps|\\.csv","",cmh_list))
 
-sites_table <- table(sites_df$Sp.ID)
-
-## each site in at least 2 deer
-cmh_input <- sites_df[sites_df$Sp.ID %in% names(sites_table[sites_table>2]),]
-
-sites <- unique(cmh_input$Sp.ID)
+cmh_list2 <- cmh_list[snp_count>=SNP_filter]
 
 
-Sys.time() ## 4.4k sites / min
-cmh_list <- lapply(sites, FUN=cmh.function)
-Sys.time()
 
-cmh_results <- as.data.frame(do.call(rbind, cmh_list))
+for(i in 1:length(cmh_list2)){
 
-num_tests <- sum(!is.na(cmh_results$pvalue))
-
-setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
-write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_snps",num_tests,"_CMH.csv"), row.names = F)
-
+  SPECIES <- gsub("_Env.*","",cmh_list2[i])
+  
+  cat(SPECIES,"\n")
+  
+  setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/05_Filtered_Sites")
+  sites_df <- data.frame(fread(cmh_list2[i], header=T, stringsAsFactors = F))
+  
+  sites_table <- table(sites_df$Sp.ID)
+  
+  ## each site in at least 2 deer
+  cmh_input <- sites_df[sites_df$Sp.ID %in% names(sites_table[sites_table>2]),]
+  
+  sites <- unique(cmh_input$Sp.ID)
+  
+  
+  cat("input sites:",length(sites),"\n")
+  
+  Sys.time() ## 4.4k sites / min
+  cmh_list <- lapply(sites, FUN=cmh.function)
+  Sys.time()
+  
+  cmh_results <- as.data.frame(do.call(rbind, cmh_list))
+  
+  num_tests <- sum(!is.na(cmh_results$pvalue))
+  
+  setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
+  write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_snps",num_tests,"_CMH.csv"), row.names = F)
+  
+}
