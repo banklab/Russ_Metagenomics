@@ -139,8 +139,8 @@ snps.function <- function(one.site){
   # if( sum(site.table$Maj.Freq[1:2]==1)==2 & identical(site.table$con_base[1], site.table$con_base[2]) ){ return(NULL) }
   
   
-  if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){stop("error depth 1?");message(one.site)}
-  if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){stop("error depth 2?");message(one.site)}
+  if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){message(one.site);stop("error depth 1?")}
+  if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){message(one.site);stop("error depth 2?")}
   
   
   site.table[3,c("bin","Deer","Scaffold","POS","gene","mutation","mutation_type","cryptic","class","scaffold2","ID","Sp.ID","Sp.ID.deer")] <- pool.X[,c("bin","Deer","Scaffold","POS","gene","mutation","mutation_type","cryptic","class","scaffold2","ID","Sp.ID","Sp.ID.deer")]
