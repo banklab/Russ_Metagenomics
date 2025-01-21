@@ -75,5 +75,6 @@ lab meeting
 
 jan 21
 CMH plot outliers by functions
+fix scaffolds in CMH plotting - scaffold number is coming from assembly - and then the different numbers get binned into species - so only one species from a given assmebly has Scaffold 1, only one species has Scaffold 2 etc - so this means there are gaps on the genome of each species if you try and count 1 to n etc - fix so at least when plotting the scaffolds go 1,2,...n
 florian day 1
 meet
