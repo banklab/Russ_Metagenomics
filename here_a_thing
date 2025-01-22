@@ -86,4 +86,5 @@ Change CMH outlier thresholds - revert SNP thresh back to 20k, and change qvalue
 cmh plot, trying to fix the gaps, why are they there ## nevermind they are supposed to be here
 CMH labels by species now
 CMH change how outlier intergenic are highlighted now that not using dbinom, highlight flanking 810 nt, because 810 nt is median gene size
-
+Florin slim code
+update "make outlier df" code - to add top snp in each gene
