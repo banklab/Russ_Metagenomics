@@ -4,6 +4,9 @@ library(data.table)
 snp_range <- 4
 # snp_range <- 12
 
+EnvA <- 8
+EnvB <- 9
+EnvC <- 10
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
@@ -18,15 +21,15 @@ for(i in 1:length(outlier_species)){
   cat(out_species,"\n")
   
   setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/05_Filtered_Sites")
-  snps <- data.frame(fread(list.files(pattern=out_species), header=T, stringsAsFactors = F))
+  snps <- data.frame(fread(list.files(pattern=paste0(out_species,"_Env",EnvA,"xEnv",EnvC,"_Filter")), header=T, stringsAsFactors = F))
+  snps1 <- data.frame(fread(list.files(pattern=paste0(out_species,"_Env",EnvA,"xEnv",EnvB,"_Filter")), header=T, stringsAsFactors = F))
+  snps2 <- data.frame(fread(list.files(pattern=paste0(out_species,"_Env",EnvB,"xEnv",EnvC,"_Filter")), header=T, stringsAsFactors = F))
   
   out_df_all <- snp_df[snp_df$bin == out_species,]
-  
+
   for(j in 1:dim(out_df_all)[1]){
     
     one_out <- out_df_all[j,]
-    
-    find_deer <- snps[snps$Scaffold==one_out$Scaffold & snps$POS==one_out$POS,] ## gets all deer that have the outlier snp in either or both env
     
     scaffold_snps_all <- snps[snps$Scaffold==one_out$Scaffold,]
     
@@ -58,8 +61,13 @@ for(i in 1:length(outlier_species)){
     # if(length(unique_genes_check)>1){stop("multiple genes?")}
     if(length(unique_genes_check)>1){message("multiple genes?")}
     
+    bracketing_snps <- rbind(bracketing_snps, 
+                             snps1[snps1$Scaffold==one_out$Scaffold & snps1$POS %in% range_of_positions,],
+                             snps2[snps2$Scaffold==one_out$Scaffold & snps2$POS %in% range_of_positions,])
+    
     bracketing_snps$First.Freq <- NA
     bracketing_snps$Second.Freq <- NA
+    bracketing_snps$Third.Freq <- NA
     
     bracketing_snps$SNP.Outlier.Index <- 0
     
@@ -73,6 +81,7 @@ for(i in 1:length(outlier_species)){
       
       recalc_snps$First.Freq <- recalc_snps[,names(alleles)[1]] / rowSums(recalc_snps[,c("A","C","G","T")])
       recalc_snps$Second.Freq <- recalc_snps[,names(alleles)[2]] / rowSums(recalc_snps[,c("A","C","G","T")])
+      recalc_snps$Third.Freq <- recalc_snps[,names(alleles)[3]] / rowSums(recalc_snps[,c("A","C","G","T")])
       
       if(p==1){ recalc_snps2 <- recalc_snps } else { recalc_snps2 <- rbind(recalc_snps2, recalc_snps) }
       
