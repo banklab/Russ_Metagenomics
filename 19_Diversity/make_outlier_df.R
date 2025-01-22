@@ -4,10 +4,11 @@ library(data.table)
 EnvA <- 8
 EnvB <- 10
 
-SNP_filter <- 21e3
+SNP_filter <- 20e3
 
 
-q_threshold <- 1e-4 ## m1 threshold
+q_threshold <- 1e-4 ## top 1e-4 snps
+q_min_thresh <- 0.05 ## if top snps are less than this == no outliers
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
@@ -36,7 +37,8 @@ for(s in 1:length(cmh_files2)){
   
   cat("Species:",SPECIES1,"\n")
   
-  setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
+  # setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
+  setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/17_CMH/CSV")
   cmh_data <- data.frame(fread(cmh_files2[s], header=T, stringsAsFactors = F))
   
   cmh_data2 <- cmh_data[!is.na(cmh_data$pvalue),]
@@ -57,7 +59,7 @@ for(s in 1:length(cmh_files2)){
   ## take top 0.1% SNPs based on FDR, ie, no dbinom
   m1_thresh <- quantile(cmh_data2$qvalue, q_threshold)
   
-  if(m1_thresh>0.1){m1_thresh<-0.1}
+  if(m1_thresh>q_min_thresh){m1_thresh<-q_min_thresh}
   
   cmh_data2$M1_OUTLIER <- cmh_data2$qvalue <= m1_thresh
   
@@ -182,8 +184,13 @@ for(s in 1:length(cmh_files2)){
   
 }
 
-setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
-write.csv(outlier_df, "outlier_df_v2.csv", row.names = F) ## outlier genes
+outlier_df$Scaffold <- as.numeric(gsub(".*_scaff|_start.*","",outlier_df$ID))
+outlier_df$Start <- as.numeric(gsub(".*_start|_end.*","",outlier_df$ID))
+outlier_df$End <- as.numeric(gsub(".*_end|_type.*","",outlier_df$ID))
+
+setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/19_Diversity")
+# setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
+write.csv(outlier_df, "outlier_df.csv", row.names = F) ## outlier genes
 write.csv(snp_df, "outlier_SNPS.csv", row.names = F) ## outlier snps
 
 
@@ -192,7 +199,7 @@ setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
 
 species_list <- gsub("_Env.*","",cmh_files2)
 
-gene_df_list <- list.files(pattern="Gene_results_v2.csv")
+gene_df_list <- list.files(pattern="Gene_results.csv")
 
 dd<-1
 
@@ -224,6 +231,6 @@ for(i in 1:length(gene_df_list)){
 }
 
 
-write.csv(all_df, "Top_Species_Gene_Results_v2.csv", row.names=F)
+write.csv(all_df, "Top_Species_Gene_Results.csv", row.names=F)
 
 
