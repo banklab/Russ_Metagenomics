@@ -81,5 +81,7 @@ meet
 PBS negative values??
 
 jan 22
+Change CMH outlier thresholds - revert SNP thresh back to 20k, and change qvalue min to 0.05 (before 0.10) -- this keeps 10 outlier species still but switches out the worst guy for a different worst guy
+  I lose that energy/carbohydrate metabolism outlier but I think the threshold sounds better like this
 cmh plot, trying to fix the gaps, why are they there ## nevermind they are supposed to be here
 
