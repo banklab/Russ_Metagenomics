@@ -28,7 +28,7 @@ gene_intergenic_data <- data.frame(fread("DEER_Gene_and_Intergenic.csv", header=
 for(s in 1:length(cmh_files2)){
   
   if(s==1){
-  outlier_df <- data.frame(array(NA, dim = c(0,4), dimnames = list(c(),c("bin","type","description","category"))))
+  outlier_df <- data.frame(array(NA, dim = c(0,7), dimnames = list(c(),c("bin","type","description","category","ID","top.snp","q.top.snp"))))
   snp_df <- data.frame(array(NA, dim = c(0,9), dimnames = list(c(),c('Scaffold','POS','pvalue','statistic','num.alleles','num.deer','deer','bin','qvalue'))))
   }
   
@@ -37,8 +37,8 @@ for(s in 1:length(cmh_files2)){
   
   cat("Species:",SPECIES1,"\n")
   
-  # setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
-  setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/17_CMH/CSV")
+  setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
+  # setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/17_CMH/CSV")
   cmh_data <- data.frame(fread(cmh_files2[s], header=T, stringsAsFactors = F))
   
   cmh_data2 <- cmh_data[!is.na(cmh_data$pvalue),]
@@ -56,7 +56,7 @@ for(s in 1:length(cmh_files2)){
   cmh_data2$qvalue <- p.adjust(cmh_data2$pvalue, method = "BH")
   
   ## Method 1
-  ## take top 0.1% SNPs based on FDR, ie, no dbinom
+  ## take top 0.01% SNPs based on FDR, ie, no dbinom
   m1_thresh <- quantile(cmh_data2$qvalue, q_threshold)
   
   if(m1_thresh>q_min_thresh){m1_thresh<-q_min_thresh}
@@ -143,10 +143,10 @@ for(s in 1:length(cmh_files2)){
   
   eggy_sub <- eggy[eggy$bin==SPECIES1,]
   
-  outlier_temp <- data.frame(array(NA, dim = c(dim(gene_outs)[1],5), dimnames = list(c(),c("bin","type","description","category","ID"))))
+  outlier_temp <- data.frame(array(NA, dim = c(dim(gene_outs)[1],7), dimnames = list(c(),c("bin","type","description","category","ID","top.snp","q.top.snp"))))
   outlier_temp$bin <- SPECIES1
   
-  
+
   if(dim(gene_outs)[1]>0 ){
     
     for(g in 1:dim(gene_outs)[1]){
@@ -175,6 +175,12 @@ for(s in 1:length(cmh_files2)){
       
       outlier_temp[g,5] <- outlier_gene$ID
       
+      top_snp <- cmh_in_outlier_gene[cmh_in_outlier_gene$qvalue ==min(cmh_in_outlier_gene$qvalue, na.rm=T),][1,]
+      
+      outlier_temp[g,6] <- paste0(top_snp$Scaffold,"_",top_snp$POS)
+      
+      outlier_temp[g,7] <- min(cmh_in_outlier_gene$qvalue, na.rm=T)
+      
     } ## loop
   } ## if
   
@@ -199,7 +205,7 @@ setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
 
 species_list <- gsub("_Env.*","",cmh_files2)
 
-gene_df_list <- list.files(pattern="Gene_results.csv")
+gene_df_list <- list.files(pattern="Gene_results_v2.csv")
 
 dd<-1
 
