@@ -28,10 +28,12 @@ cmh_files2 <- cmh_files[snp_count>=SNP_filter]
 # setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/13_Prodigal")
 # gene_intergenic_data <- data.frame(fread("DEER_Gene_and_Intergenic.csv", header=T, stringsAsFactors = F))
 
+median(gene_intergenic_data[gene_intergenic_data$Type=="Gene","Size"])
+## median all genes 810 nt
+## median for outliers ~1300 nt
 
 setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/19_Diversity")
 outlier_df <- read.csv("outlier_df.csv", header=T, stringsAsFactors = F)
-# outlier_df2 <- read.csv("outlier_df_v2.csv", header=T, stringsAsFactors = F)
 
 
 
@@ -119,7 +121,18 @@ for(s in 1:length(cmh_files2)){
     }
     
     if(outlier_gene$type=="Intergenic"){
-      cmh_data2[cmh_data2$Scaffold==outlier_gene$Scaffold & cmh_data2$POS >= outlier_gene$Start & cmh_data2$POS <  outlier_gene$End,"annotate"] <- "int"
+      
+      ## median gene size 810 nt
+      ## if intergenic outlier, highlight 810 nucleotides
+      
+      max_snp <- max(cmh_data2[cmh_data2$Scaffold==outlier_gene$Scaffold & cmh_data2$POS >= outlier_gene$Start & cmh_data2$POS <  outlier_gene$End,"logq"])
+      
+      max_pos <- cmh_data2[cmh_data2$Scaffold==outlier_gene$Scaffold & cmh_data2$POS >= outlier_gene$Start & cmh_data2$POS <  outlier_gene$End & cmh_data2$logq == max_snp,"POS"]
+      
+      cmh_data2[cmh_data2$Scaffold==outlier_gene$Scaffold & cmh_data2$POS >= (max_pos-405) & cmh_data2$POS <  (max_pos+405),"annotate"] <- "int"
+
+      # old way of intergenic - chopping up intergenic windows etc - this was only relevant when I was doing dbinom
+      # cmh_data2[cmh_data2$Scaffold==outlier_gene$Scaffold & cmh_data2$POS >= outlier_gene$Start & cmh_data2$POS <  outlier_gene$End,"annotate"] <- "int"
     }
     
     
@@ -181,13 +194,103 @@ qthreshold_df2$bin2 <- factor(qthreshold_df2$bin, levels=unique(cmh_by_qval$bin)
     scale_color_manual(values = man_cols) +
     # geom_hline(data=qthreshold_df2, aes(yintercept=-log10(threshold)), linetype = "dashed", color = "red") +
     theme_classic() +
-    theme(legend.position = "none", panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
+    theme(legend.position = "bottom", panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
           panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(),
           axis.text.x = element_blank()) +
     facet_wrap(~bin2, scales = "free", nrow=5, ncol=2) +
     xlab("Scaffold") + ylab(expression(-log[10](qvalue)))
   
   
+setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/16_Taxonomy")
+taxonomy <- data.frame(fread("DEER_Taxonomy.csv", header=T, stringsAsFactors = F))
+
+top_species <- gsub("_Env.*","",cmh_files2)
+tax_top_species <- taxonomy[taxonomy$bin %in% top_species,]
+
+table(tax_top_species$Genus)
+
+outlier_species <- unique(outlier_df$bin)
+tax_outlier_species <- taxonomy[taxonomy$bin %in% outlier_species,]
+
+table(tax_outlier_species$Genus)
+table(tax_outlier_species$Species)
+
+## so that I keep the order of the bins
+cmh_by_qval2 <- merge(cmh_all, tax_outlier_species, by="bin")
+
+cmh_by_qval2 <- cmh_by_qval2[order(cmh_by_qval2$qvalue),]
+
+cmh_by_qval2$bin2 <- factor(cmh_by_qval2$bin, levels=unique(cmh_by_qval2$bin))
+
+
+print(unique(paste0(cmh_by_qval2$Genus,"_",cmh_by_qval2$bin2)))
+
+cmh_by_qval2$Genus2 <- factor(paste0(cmh_by_qval2$Genus,"_",cmh_by_qval2$bin2), levels=unique(paste0(cmh_by_qval2$Genus,"_",cmh_by_qval2$bin2)),
+                              labels = c("HGM04593 sp017451695", "Cryptobacteroides sp.", "Faecousia sp. A", "Faecousia sp. B", "Faecousia sp. C", "Phocaeicola sp017467385", "Faecousia sp. D", "Phocaeicola A sp.", "Faecousia sp. E", "Faecousia sp. F"))
+
+outlier_df$Species <- NA
+for(i in 1:dim(outlier_df)[1]){
+  
+  outlier_df[i,"Species"] <- unique(cmh_by_qval2[outlier_df[i,"bin"] == cmh_by_qval2[,"bin"],"Genus2"])
+  
+}
+
+
+CMH_PLOT <- ggplot(cmh_by_qval2, aes(x = cum_pos, y = logq, color = factor(annotate))) +
+              geom_point(size = 1, alpha=0.75) +
+              geom_point(data=cmh_by_qval2[!cmh_by_qval2$annotate %in% c("0","1"),], aes(x = cum_pos, y = logq, fill=factor(annotate)), size = 1) +
+              scale_color_manual(values = man_cols) +
+              # geom_hline(data=qthreshold_df2, aes(yintercept=-log10(threshold)), linetype = "dashed", color = "red") +
+              theme_minimal() +
+              theme(legend.position = "none", panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
+                    panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(),
+                    axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+                    panel.border = element_rect(color = "black", fill = NA, size=0.5)) +
+              facet_wrap(~Genus2, scales = "free", nrow=5, ncol=2) +
+              xlab("Scaffold") + ylab(expression(-log[10](qvalue)))
+
+
+## split the 5x2 data up into 2
+CMH1 <- cmh_by_qval2[cmh_by_qval2$Genus2 %in% unique(cmh_by_qval2$Genus2)[seq(1,9,by=2)],]
+CMH2 <- cmh_by_qval2[cmh_by_qval2$Genus2 %in% unique(cmh_by_qval2$Genus2)[seq(2,10,by=2)],]
+
+CMH_1 <- ggplot(CMH1, aes(x = cum_pos, y = logq, color = factor(annotate))) +
+              geom_point(size = 1, alpha=0.75) +
+              geom_point(data=CMH1[!CMH1$annotate %in% c("0","1"),], aes(x = cum_pos, y = logq, fill=factor(annotate)), size = 1) +
+              scale_color_manual(values = man_cols) +
+              # geom_hline(data=qthreshold_df2, aes(yintercept=-log10(threshold)), linetype = "dashed", color = "red") +
+              theme_minimal() +
+              theme(legend.position = "none", panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
+                    panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(),
+                    axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+                    panel.border = element_rect(color = "black", fill = NA, size=0.5)) +
+              facet_wrap(~Genus2, scales = "free", nrow=5, ncol=1) +
+              xlab("Scaffold") + ylab(expression(-log[10](qvalue)))
+
+CMH_2 <- ggplot(CMH2, aes(x = cum_pos, y = logq, color = factor(annotate))) +
+              geom_point(size = 1, alpha=0.75) +
+              geom_point(data=CMH2[!CMH2$annotate %in% c("0","1"),], aes(x = cum_pos, y = logq, fill=factor(annotate)), size = 1) +
+              scale_color_manual(values = man_cols) +
+              # geom_hline(data=qthreshold_df2, aes(yintercept=-log10(threshold)), linetype = "dashed", color = "red") +
+              theme_minimal() +
+              theme(legend.position = "none", panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
+                    panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(),
+                    axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+                    panel.border = element_rect(color = "black", fill = NA, size=0.5)) +
+              facet_wrap(~Genus2, scales = "free", nrow=5, ncol=1) +
+              xlab("Scaffold") + ylab("    ")
+
+
+CMH_combine <- ggarrange(CMH_1, CMH_2,
+                          nrow = 1, ncol=2)
+  
+## FIG 3
+ggarrange(CMH_combine, cmh_legend,
+          ncol=1,
+          heights = c(10,1))  
+
+
+
 ## first 2 are genome background
 ## letters are outliers
 man_cols <- c("0" = "lightgrey", "1" = "darkgrey",
@@ -206,3 +309,79 @@ man_cols <- c("0" = "lightgrey", "1" = "darkgrey",
 
 "#FFFF99" 
 "#CAB2D6"
+
+
+
+# make legend
+
+library(cowplot)
+
+
+legend_df <- cmh_by_qval2[!cmh_by_qval2$annotate %in% c(0,1),]
+
+legend_cols <- c("Cell division, chromosome partitioning" = "#FDBF6F",
+                 "Energy production and conversion" = "#33A02C",
+                 "Intracellular trafficking, secretion, vesicular transport" = "#FB9A99",
+                 "Macromolecule metabolism and transport" = "#E31A1C",
+                 "Cell wall structure and biogenesis, outer membrane" = "#B2DF8A",
+                 "Replication, recombination, repair" = "#FF7F00",
+                 "Secondary metabolites biosynthesis, transport and catabolism" = "#6A3D9A",
+                 "Transcription, translation, ribosome structure and biogenesis" = "#1F78B4",
+                 "Intergenic region" = "#A6CEE3",
+                 "Unknown" = "#B15928")
+
+
+legend_plot <- ggplot(legend_df, aes(x = cum_pos, y = logq, color = factor(annotate))) +
+                geom_point(size=2) +
+                theme_classic() +
+                theme(legend.position = "bottom", legend.text = element_text(size=8)) +
+                scale_color_manual(values =legend_cols, name="")
+  
+cmh_legend <- get_legend(legend_plot)
+
+
+plot_grid(CMH_PLOT, cmh_legend, ncol = 1)
+ 
+
+
+
+
+
+
+
+
+
+## plot with only genes / intergenic
+
+man_cols1 <- c("0" = "lightgrey", "1" = "darkgrey",
+              "Gene" = "#1F78B4",
+              "int" = "#A6CEE3",
+              "NA" = "#1F78B4")
+
+CMH_B <- cmh_by_qval2
+
+CMH_B$annotate2 <- CMH_B$annotate
+
+CMH_B[!CMH_B$annotate2 %in% c("0","1","int"),"annotate2"] <- "Gene"
+
+CMH_BB <- CMH_B[order(CMH_B$Genus2, CMH_B$annotate2, CMH_B$Scaffold, CMH_B$POS),]
+
+CMH1B <- CMH_BB[CMH_BB$Genus2 %in% unique(CMH_BB$Genus2)[seq(1,9,by=2)],]
+CMH2B <- CMH_BB[CMH_BB$Genus2 %in% unique(CMH_BB$Genus2)[seq(1,9,by=2)],]
+
+
+ggplot(CMH1B, aes(x = cum_pos, y = logq, color = factor(annotate2))) +
+  geom_point(size = 1, alpha=0.75) +
+  geom_point(data=CMH1B[CMH1B$annotate2 %in% c("int"),], aes(x = cum_pos, y = logq, fill=factor(annotate2)), size = 1) +
+  geom_point(data=CMH1B[CMH1B$annotate2 %in% c("Gene","NA"),], aes(x = cum_pos, y = logq, fill=factor(annotate2)), size = 1) +
+  geom_text(data=CMH1B[CMH1B$M1_OUTLIER,], aes(label = annotate2), vjust = -0.5, size = 3) +
+  scale_color_manual(values = man_cols1) +
+  theme_minimal() +
+  theme(legend.position = "none", panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(),
+        axis.text.x = element_blank(), axis.ticks.x = element_blank(),
+        panel.border = element_rect(color = "black", fill = NA, size=0.5)) +
+  facet_wrap(~Genus2, scales = "free", nrow=5, ncol=1) +
+  xlab("Scaffold") + ylab(expression(-log[10](qvalue)))
+
+
