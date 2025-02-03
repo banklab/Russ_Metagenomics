@@ -116,5 +116,14 @@ jan 30
 regulatory regions, and functions
 good copy figs
 
+jan 31
+adjust pvalues because of changing DF between different loci (biallelic vs multiallelic)
+redo cmh stuff
+
+feb 1
+adjust pvalues
+redo top dataframes and figures
+new gene functions for new outliers
+
 outliers by MAF
 new FST?
