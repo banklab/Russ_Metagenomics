@@ -62,6 +62,45 @@ for(i in 1:length(Read_list)){
 
 module load SAMtools/1.13-GCC-10.3.0
 
-samtools fastq 1_8.bam  > 1_8_mapped.fa
+samtools fasta 1_8.bam > 1_8_mapped.fa
+samtools fasta 4_8.bam > 4_8_mapped.fa
+samtools fasta 4_9.bam > 4_9_mapped.fa
+samtools fasta 5_8.bam > 5_8_mapped.fa
+samtools fasta 5_9.bam > 5_9_mapped.fa
+samtools fasta 6_10.bam > 6_10_mapped.fa
+
+
+## JELLYFISH ## 
+
+# SLURM #
+
+#!/bin/bash
+#SBATCH --mem=124000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=20
+#SBATCH --time=02:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+module load  Jellyfish/2.3.0-GCC-10.3.0
+jellyfish count -m 21 -t 20 -s 10G -o 1_8_kmer_counts.jf ../BAM/1_8_mapped.fa
+jellyfish histo -t 20 1_8_kmer_counts.jf > 1_8_kmer_hist.txt
+
+jellyfish count -m 21 -t 20 -s 10G -o 4_8_kmer_counts.jf ../BAM/4_8_mapped.fa
+jellyfish histo -t 20 4_8_kmer_counts.jf > 4_8_kmer_hist.txt
+
+jellyfish count -m 21 -t 20 -s 10G -o 4_9_kmer_counts.jf ../BAM/4_9_mapped.fa
+jellyfish histo -t 20 4_9_kmer_counts.jf > 4_9_kmer_hist.txt
+
+jellyfish count -m 21 -t 20 -s 10G -o 5_8_kmer_counts.jf ../BAM/5_8_mapped.fa
+jellyfish histo -t 20 5_8_kmer_counts.jf > 5_8_kmer_hist.txt
+
+jellyfish count -m 21 -t 20 -s 10G -o 5_9_kmer_counts.jf ../BAM/5_9_mapped.fa
+jellyfish histo -t 20 5_9_kmer_counts.jf > 5_9_kmer_hist.txt
+
+jellyfish count -m 21 -t 20 -s 10G -o 6_10_kmer_counts.jf ../BAM/6_10_mapped.fa
+jellyfish histo -t 20 6_10_kmer_counts.jf > 6_10_kmer_hist.txt
+
 
 
