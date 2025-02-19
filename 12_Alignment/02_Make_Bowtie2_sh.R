@@ -6,7 +6,7 @@ REF="/storage/scratch/users/rj23k073/04_DEER/REFERENCES/DEER"
 
 setwd(READ_DIR)
 
-Read_list <- gsub("\\.R1.*","",list.files(pattern="R1.dedup.fastq"))
+Read_list <- gsub("\\.R1.*","",list.files(pattern="R1.dedup.fastq.gz"))
 
 setwd(OUTPUT_DIR)
 
@@ -17,7 +17,7 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(reads1,"_bowtie2.sh")
   
-  code_block <- paste0("bowtie2 -p 10 -x ",REF," -1 ",READ_DIR,"/",reads1,".R1.dedup.fastq -2 ",READ_DIR,"/",reads1,".R2.dedup.fastq -S ",OUTPUT_DIR,"/",reads1,".sam")
+  code_block <- paste0("bowtie2 -p 10 -x ",REF," -1 ",READ_DIR,"/",reads1,".R1.dedup.fastq.gz -2 ",READ_DIR,"/",reads1,".R2.dedup.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
   
   code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,".bam")
   
