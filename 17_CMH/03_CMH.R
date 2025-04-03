@@ -9,21 +9,21 @@ cmh.function <- function(one.site){
   if(dim(site.df)[1]<4){stop("not enough dims on input 1")}
   if(length(unique(site.df$Env))<2){stop("not enough dims on input 2")}
   
-  usable.deer <- unique(site.df$Deer)
+  usable.deer <- unique(site.df$Deer) ## need at least 2 deer (replicates) to perform a test
   
   usable.alleles <- names(colSums(site.df[,c("A","C","G","T")]))[ colSums(site.df[,c("A","C","G","T")])>0]
   
-  num.alleles <- length(usable.alleles)
+  num.alleles <- length(usable.alleles) ## need at least 2 alleles to perform test
   
   
   if(num.alleles<2){stop("number of alleles")}
-  
+  ## fill in contingency table
   contingency.table <- array(NA,  dim = c(2, num.alleles, length(usable.deer)), dimnames = list(
     Env = c(paste0("Env",EnvA), paste0("Env",EnvB)),
     Allele = c(usable.alleles),
     Deer = c(usable.deer)))
   
-  for(d in 1:length(usable.deer)){
+  for(d in 1:length(usable.deer)){ ## fill in allele counts for each deer (replicate)
     
     contingency.table[1,usable.alleles,d] <- as.numeric(site.df[site.df$Env==EnvA & site.df$Deer==usable.deer[d],usable.alleles])
     contingency.table[2,usable.alleles,d] <- as.numeric(site.df[site.df$Env==EnvB & site.df$Deer==usable.deer[d],usable.alleles])
@@ -31,7 +31,7 @@ cmh.function <- function(one.site){
   }
   
   
-  cmh.res <- data.frame(array(NA, dim=c(1,2), dimnames = list(c(),c("p.value","statistic"))))
+  cmh.res <- data.frame(array(NA, dim=c(1,2), dimnames = list(c(),c("p.value","statistic")))) ## collect results
   
   
   ## TEST
@@ -45,7 +45,7 @@ cmh.function <- function(one.site){
   cmh.full$num.alleles <- num.alleles
   cmh.full$num.deer <- length(usable.deer)
   
-  cmh.full$deer <- paste0(usable.deer, collapse="")
+  cmh.full$deer <- paste0(usable.deer, collapse="") ## here I am just recording specifically which deer ID contributed to the test
   
   
   cmh.full$Scaffold <- as.numeric(gsub(".*_sc|_pos.*","",one.site))
@@ -58,7 +58,7 @@ EnvA <- 8
 EnvB <- 10
 
 
-SNP_filter <- 20e3
+SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/05_Filtered_Sites")
