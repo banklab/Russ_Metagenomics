@@ -5,3 +5,10 @@ Go through snp callsets from individual populations and from the pooled populati
 Find sites that were polymorphic over the pooled population but fixed in one of the individual populations
 Add the fixed base calls back into the callset for the individual population callset
 
+02_Filter_Sites
+
+Go through all sites and keep only those sites that pass thresholds (DP, var freq) in BOTH environments
+
+3_CMH
+
+Perform CMH tests
