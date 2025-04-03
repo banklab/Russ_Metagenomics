@@ -109,7 +109,7 @@ for(i in 1:length(diversity_files)){
     abund_sub <- abund[abund$bin==SPECIES,]
     instrain_gene_sub <-instrain_gene_df[instrain_gene_df$bin==SPECIES,]
     
-    gene_list <- apply(gene_intergenic_data[gene_intergenic_data$bin==SPECIES,], MARGIN=1, FUN=gene.function, N.scale=1)
+    gene_list <- apply(gene_intergenic_data[gene_intergenic_data$bin==SPECIES,], MARGIN=1, FUN=gene.function)
     
     gene_results <- as.data.frame(do.call(rbind, gene_list))
     
