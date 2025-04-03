@@ -1,1 +1,7 @@
-CMH
+
+01_Combine_Sites
+
+Go through snp callsets from individual populations and from the pooled populations
+Find sites that were polymorphic over the pooled population but fixed in one of the individual populations
+Add the fixed base calls back into the callset for the individual population callset
+
