@@ -3,9 +3,9 @@ library(data.table)
 
 format.function <- function(one.site){
   
-  DF.AX <- DF_A_sub[DF_A_sub$Sp.ID.deer==one.site]
-  DF.BX <- DF_B_sub[DF_B_sub$Sp.ID.deer==one.site]
-  pool.X <- pool3_sub[pool3_sub$Sp.ID.deer==one.site]
+  DF.AX <- DF_A_sub[DF_A_sub$Sp.ID.deer==one.site] ## snps from first environment
+  DF.BX <- DF_B_sub[DF_B_sub$Sp.ID.deer==one.site] ## snps from second environment
+  pool.X <- pool3_sub[pool3_sub$Sp.ID.deer==one.site] ## snps from both environments pooled together
   
   if(dim(DF.AX)[1] != 1 | dim(DF.BX)[1] != 1){stop("pop missing site - error?")}
   
@@ -18,10 +18,10 @@ format.function <- function(one.site){
   site.table[2,c("ref_base","con_base","var_base","ref_freq","con_freq","var_freq","gene","mutation","mutation_type","cryptic","class","scaffold2","ID","Sp.ID","Sp.ID.deer")] <- DF.BX[1,c("ref_base","con_base","var_base","ref_freq","con_freq","var_freq","gene","mutation","mutation_type","cryptic","class","scaffold2","ID","Sp.ID","Sp.ID.deer")]
   
   
-  alleles1 <- sort(colSums(site.table[1,c("A","C","G","T")]), decreasing=T)
+  alleles1 <- sort(colSums(site.table[1,c("A","C","G","T")]), decreasing=T) ## allele counts
   alleles2 <- sort(colSums(site.table[2,c("A","C","G","T")]), decreasing=T)
   
-  site.table[1,"Maj.Freq"] <- site.table[1,names(alleles1)[1]] / site.table$DP[1]
+  site.table[1,"Maj.Freq"] <- site.table[1,names(alleles1)[1]] / site.table$DP[1] ## calculate major frequency based on ACGT bases -- I don't use ref/var/con reported by InStrain because, for example, which base is var can change between different environments
   site.table[1,"Min.Freq"] <- site.table[1,names(alleles1)[2]] / site.table$DP[1]
   site.table[1,"Min2"] <- site.table[1,names(alleles1)[3]] / site.table$DP[1]
   site.table[1,"Min3"] <- site.table[1,names(alleles1)[4]] / site.table$DP[1]
@@ -38,9 +38,9 @@ format.function <- function(one.site){
 
 snps.function <- function(one.site){
   
-  DF.AX <- DF_A_sub[DF_A_sub$Sp.ID.deer==one.site]
-  DF.BX <- DF_B_sub[DF_B_sub$Sp.ID.deer==one.site]
-  pool.X <- pool3_sub[pool3_sub$Sp.ID.deer==one.site]
+  DF.AX <- DF_A_sub[DF_A_sub$Sp.ID.deer==one.site] ## first environment
+  DF.BX <- DF_B_sub[DF_B_sub$Sp.ID.deer==one.site] ## second environment
+  pool.X <- pool3_sub[pool3_sub$Sp.ID.deer==one.site] ## both environments pooled
   
   
   if(dim(DF.AX)[1]>0 & dim(DF.BX)[1]>0){stop("both pops have site - error?")}
@@ -48,26 +48,26 @@ snps.function <- function(one.site){
   site.table <- data.frame(array(NA, dim = c(3,30), dimnames = list(c(),c("bin","Deer","Env","Scaffold","POS","DP","A","C","G","T","Maj.Freq","Min.Freq","Min2","Min3","Original","ref_base","con_base","var_base","ref_freq","con_freq","var_freq","gene","mutation","mutation_type","cryptic","class","scaffold2","ID","Sp.ID","Sp.ID.deer"))))
   
   site.table[3,c("Env","DP","A","C","G","T","ref_base","con_base","var_base","ref_freq","con_freq","var_freq")] <- pool.X[,c("Env","DP","A","C","G","T","ref_base","con_base","var_base","ref_freq","con_freq","var_freq")]
-  site.table[3,"Original"] <- TRUE
+  site.table[3,"Original"] <- TRUE ## snps that were called by InStrain originally
   
   
   if(dim(DF.AX)[1]>0){
     site.table[1,c("Env","DP","A","C","G","T","ref_base","con_base","var_base","ref_freq","con_freq","var_freq")] <- DF.AX[,c("Env","DP","A","C","G","T","ref_base","con_base","var_base","ref_freq","con_freq","var_freq")]
-  } else {
+  } else { ## if snp is called in second environment but fixed in first
     site.table[1,"Env"] <- EnvA
     
     site.table[1,"ref_base"] <- site.table[3,"ref_base"]
     
-    site.table[1,"Original"] <- FALSE
+    site.table[1,"Original"] <- FALSE ## this is to remind me that I am adding this site back in (it was not originally called by InStrain, ie, was fixed ref)
     site.table[2,"Original"] <- TRUE
   }
   
   if(dim(DF.BX)[1]>0){
     site.table[2,c("Env","DP","A","C","G","T","ref_base","con_base","var_base","ref_freq","con_freq","var_freq")] <- DF.BX[,c("Env","DP","A","C","G","T","ref_base","con_base","var_base","ref_freq","con_freq","var_freq")]
-    site.table[1,c("DP","A","C","G","T")] <- (site.table[3,c("DP","A","C","G","T")] - site.table[2,c("DP","A","C","G","T")])
+    site.table[1,c("DP","A","C","G","T")] <- (site.table[3,c("DP","A","C","G","T")] - site.table[2,c("DP","A","C","G","T")]) ## back calculate first environment information
     
     if(site.table[1,"ref_base"] != "N"){
-      site.table[1,"ref_freq"] <- site.table[1,site.table[1,"ref_base"]] / site.table[1,"DP"]
+      site.table[1,"ref_freq"] <- site.table[1,site.table[1,"ref_base"]] / site.table[1,"DP"] ## calculate ref freq as long as base called isn't 'N'
     }
     
     site.table[1,"con_base"] <- c("A","C","G","T")[which(site.table[1,c("A","C","G","T")]==max(site.table[1,c("A","C","G","T")]))][1]
@@ -81,14 +81,14 @@ snps.function <- function(one.site){
     
     site.table[1,"var_freq"] <- site.table[1,site.table[1,"var_base"]] / site.table[1,"DP"]
     
-  } else {
+  } else { ## if snp is called in first environment but fixed in second
     site.table[2,"Env"] <- EnvB
-    site.table[2,c("DP","A","C","G","T")] <- (site.table[3,c("DP","A","C","G","T")] - site.table[1,c("DP","A","C","G","T")])
+    site.table[2,c("DP","A","C","G","T")] <- (site.table[3,c("DP","A","C","G","T")] - site.table[1,c("DP","A","C","G","T")]) ## back calculate information
     
     site.table[2,"ref_base"] <- site.table[3,"ref_base"]
     
     if(site.table[2,"ref_base"] != "N"){
-      site.table[2,"ref_freq"] <- site.table[2,site.table[2,"ref_base"]] / site.table[2,"DP"]
+      site.table[2,"ref_freq"] <- site.table[2,site.table[2,"ref_base"]] / site.table[2,"DP"] ## same as above, when base call is not 'N' add in information
     }
     
     site.table[2,"con_base"] <- c("A","C","G","T")[which(site.table[2,c("A","C","G","T")]==max(site.table[2,c("A","C","G","T")]))][1]
@@ -102,13 +102,15 @@ snps.function <- function(one.site){
     
     site.table[2,"var_freq"] <- site.table[2,site.table[2,"var_base"]] / site.table[2,"DP"]
     
-    site.table[2,"Original"] <- FALSE
+    site.table[2,"Original"] <- FALSE ## reminding myself I am adding back in a fixed site
     site.table[1,"Original"] <- TRUE
   }
   
   
   if(length(unique(site.table[,"ref_base"]))>1){stop("too many REF base? - error?")}
-  
+
+  ## here I set any back calculated DP<0 to 0
+  ## this was happening when InStrain calls a DP in a pooled BAM that doesn't equal the summed DP it called in both single BAM's
   if( sum(site.table[,c("A","C","G","T")]<0)>1 ){message("too many negative base calls? ",one.site)
       if( sum(site.table[1,c("A","C","G","T")]<0)>1 ){
         site.table[1,c("DP","A","C","G","T")] <- 0
@@ -135,16 +137,14 @@ snps.function <- function(one.site){
     
     alleles <- sort(unlist(site.table[i,c("A","C","G","T")]), decreasing=T)
     
-    site.table[i,"Maj.Freq"] <- site.table[i,names(alleles)[1]] / site.table$DP[i]
+    site.table[i,"Maj.Freq"] <- site.table[i,names(alleles)[1]] / site.table$DP[i] ## calculating major allele frequency based on ACGT not on InStrains ref/var/con
     site.table[i,"Min.Freq"] <- site.table[i,names(alleles)[2]] / site.table$DP[i]
     site.table[i,"Min2"] <- site.table[i,names(alleles)[3]] / site.table$DP[i]
     site.table[i,"Min3"] <- site.table[i,names(alleles)[4]] / site.table$DP[i]
     
   }
   
-  ## both single pops are 
-  # if( sum(site.table$Maj.Freq[1:2]==1)==2 & identical(site.table$con_base[1], site.table$con_base[2]) ){ return(NULL) }
-  
+  ## setting DP to zero when no bases are called (same fix as before, when InStrain calls DP differently between pooled BAM and single BAM's)
   if( sum(site.table[1,c("A","C","G","T")])==0 & site.table[1,"DP"] !=0 ){
     site.table[1,"DP"] <- 0
     message("set DP to zero: ",one.site)
