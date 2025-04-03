@@ -177,7 +177,7 @@ snps.function <- function(one.site){
 }
 
 
-EnvA <- 8
+EnvA <- 8 ## choose which environments
 EnvB <- 10
 
 
@@ -229,7 +229,7 @@ pool3$Env <- as.numeric(pool3$Env)
 
 species_list <- unique(pool3$bin)
 
-for(s in 1:length(species_list)){
+for(s in 1:length(species_list)){ ## loop over species
   
   SPECIES <- species_list[s]
   
