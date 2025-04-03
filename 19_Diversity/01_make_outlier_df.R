@@ -134,7 +134,8 @@ for(s in 1:length(cmh_files2)){
   cat("method 1 outliers:",sum(gene_array$num.out>0),"\n")
   
   
-  ## Annotate
+  ## Annotate genic outliers according to their COG functional category
+  ## intergenic windows just placeholder tag
   cmh_data2$method1 <- 0
   
   gene_outs <- gene_array[gene_array$num.out>0,]
@@ -160,26 +161,26 @@ for(s in 1:length(cmh_files2)){
       function_here <- eggy_sub[eggy_sub$query_name==outlier_gene$query,] ## get function of the outlier
       
       
-      if(outlier_gene$type=="Gene"){
+      if(outlier_gene$type=="Gene"){ ## label gene outliers with COG category
         cmh_data2[cmh_data2$Scaffold==outlier_gene$scaffold & cmh_data2$POS >= outlier_gene$start & cmh_data2$POS <  outlier_gene$end,"method1"] <- paste0(function_here$COG_Functional_cat.,g)
-      } else {
+      } else { ## intergenic placeholder label
         cmh_data2[cmh_data2$Scaffold==outlier_gene$scaffold & cmh_data2$POS >= outlier_gene$start & cmh_data2$POS <  outlier_gene$end,"method1"] <- paste0("int",g)
       }
       
       
       outlier_temp[g,2] <- outlier_gene$type
       if(outlier_gene$type=="Gene"){
-        outlier_temp[g,3] <- function_here$eggNOG_free_text_desc.
-        outlier_temp[g,4] <- function_here$COG_Functional_cat.
+        outlier_temp[g,3] <- function_here$eggNOG_free_text_desc. ## eggNOG description of gene function
+        outlier_temp[g,4] <- function_here$COG_Functional_cat. ## COG category
       }
       
       outlier_temp[g,5] <- outlier_gene$ID
       
-      top_snp <- cmh_in_outlier_gene[cmh_in_outlier_gene$qvalue ==min(cmh_in_outlier_gene$qvalue, na.rm=T),][1,]
+      top_snp <- cmh_in_outlier_gene[cmh_in_outlier_gene$qvalue ==min(cmh_in_outlier_gene$qvalue, na.rm=T),][1,] ## most extreme snp (qvalue) in the outlier gene/intergenic window
       
-      outlier_temp[g,6] <- paste0(top_snp$Scaffold,"_",top_snp$POS)
+      outlier_temp[g,6] <- paste0(top_snp$Scaffold,"_",top_snp$POS) ## scaffold/position of most extreme snp in outlier
       
-      outlier_temp[g,7] <- min(cmh_in_outlier_gene$qvalue, na.rm=T)
+      outlier_temp[g,7] <- min(cmh_in_outlier_gene$qvalue, na.rm=T) ## qvalue of most extreme snp
       
     } ## loop
   } ## if
@@ -198,45 +199,3 @@ setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/R
 # setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
 write.csv(outlier_df, "outlier_df.csv", row.names = F) ## outlier genes
 write.csv(snp_df, "outlier_SNPS.csv", row.names = F) ## outlier snps
-
-
-## Collect the Gene results for the top 20 species
-setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
-
-species_list <- gsub("_Env.*","",cmh_files2)
-
-gene_df_list <- list.files(pattern="Gene_results_v2.csv")
-
-dd<-1
-
-for(i in 1:length(gene_df_list)){
-  
-  gene_df0 <- data.frame(fread(gene_df_list[i], header=T, stringsAsFactors = F))
-  
-  gene_df <- gene_df0
-  
-  gene_df[gene_df$S==0,"major.mean"] <- NA
-  gene_df[gene_df$S==0,"minor.mean"] <- NA
-  
-  if(sum(gene_df$bin %in% species_list) < 1 ){next}
-  
-  top_species_df <- gene_df[gene_df$bin %in% species_list,]
-  
-  top_species_df$Sample <- gsub("_Gene.*","",gene_df_list[i])
-  
-  top_species_df$Deer <- as.numeric(gsub("_.*","",gene_df_list[i]))
-  
-  top_species_df$Env <- as.numeric(sub(".*_","",gsub("_Gene.*","",gene_df_list[i])))
-  
-  if(dd==1){ all_df <- top_species_df } else { all_df <- rbind(all_df,top_species_df) }
-  
-  
-  write.csv(gene_df, gsub("v2","v3",gene_df_list[i]), row.names = F)
-  
-  dd <- dd + 1
-}
-
-
-write.csv(all_df, "Top_Species_Gene_Results.csv", row.names=F)
-
-
