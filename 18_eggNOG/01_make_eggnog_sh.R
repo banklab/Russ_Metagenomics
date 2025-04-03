@@ -7,7 +7,7 @@ setwd(INPUT_DIR)
 
 sample_list <- unique(gsub("_bin.*","",list.files(pattern="genes.faa")))
 
-## may not be exactly equal to 70 - because not all samples will be good enough for genes
+## may not be exactly equal to 70 (total samples in dataset) - because not all samples will be good enough for genes
 length(sample_list)
 
 setwd(OUTPUT_DIR)
