@@ -2,10 +2,18 @@
 library(data.table)
 
 
-setwd("/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/19_Diversity")
-outlier_df <- data.frame(fread("outlier_df.csv", header=T, stringsAsFactors = F))
+EnvA <- 8
+EnvB <- 10
 
-top_species <- unique(outlier_df$bin)
+SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
+
+setwd("/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/14_InStrain/05_Filtered_Sites")
+cmh_list <- list.files(pattern=(paste0("_Env",EnvA,"xEnv",EnvB,"_Filter_snps")))
+snp_count <- as.numeric(gsub(".*snps|\\.csv","",cmh_list))
+
+cmh_list2 <- cmh_list[snp_count>=SNP_filter]
+
+top_species <- gsub("_Env.*","",cmh_list2)
 
 
 
