@@ -1,5 +1,0 @@
-
-
-conda activate eggnog
-
-download_eggnog_data.py -y -f --data_dir .
