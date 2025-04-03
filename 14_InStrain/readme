@@ -2,3 +2,5 @@
 purpose: call SNPs
 tool: InStrain (doi.org/10.1038/s41587-020-00797-0)
 parameters: default
+
+see: https://instrain.readthedocs.io/en/latest/
