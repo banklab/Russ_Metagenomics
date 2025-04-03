@@ -7,7 +7,7 @@ first.minor.function <- function(df){
 }
 
 
-gene.function <- function(one.gene, N.scale){
+gene.function <- function(one.gene){
   
   sites.in.gene <- diversity_sub[diversity_sub$Scaffold==as.numeric(one.gene["Scaffold"]) & diversity_sub$POS>=as.numeric(one.gene["Start"]) & diversity_sub$POS<=as.numeric(one.gene["End"]),]
   
@@ -15,11 +15,6 @@ gene.function <- function(one.gene, N.scale){
   
   Size <- as.numeric(one.gene["Size"])
   
-  ## proxy for species abundance, not the gene abundance
-  N.proxy <- abund_sub[abund_sub$Sample==SAMPLE,"Percent"] * N.scale
-  # N.proxy <- abund_sub[abund_sub$Sample==SAMPLE,"abundance"]
-  
-  # if(N.proxy<1){stop("N.proxy less than 1")}
   
   output <- data.frame(array(NA, dim = c(1,14), dimnames = list(c(),c("bin","Gene","Type","Size","S","prop.S","gene.pi","poly.pi","gene.H","major.mean","minor.mean","Scaffold","Start","End"))))
   
