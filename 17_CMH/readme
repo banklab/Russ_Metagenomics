@@ -7,7 +7,7 @@ Add the fixed base calls back into the callset for the individual population cal
 
 02_Filter_Sites
 
-Go through all sites and keep only those sites that pass thresholds (DP, var freq) in BOTH environments
+Go through all sites and keep only those sites that pass thresholds (DP, var freq) in BOTH environments (CMH test needs non na in both environments)
 
 3_CMH
 
