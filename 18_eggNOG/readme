@@ -1,4 +1,4 @@
 
-purpose:
-tool: eggNOG (doi/10.1093/molbev/msab293)
+purpose: infer gene functions based on closest known ortholog function
+tool: eggNOG (doi.org/10.1093/molbev/msab293)
 parameters:
