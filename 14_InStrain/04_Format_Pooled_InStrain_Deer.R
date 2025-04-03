@@ -1,4 +1,6 @@
 
+## format pooled snp outputs, same as previous
+
 
 library(data.table)
 
