@@ -9,11 +9,10 @@ SNP_filter <- 20e3
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/05_Filtered_Sites")
-snp_files <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_Filter_snps"))
+snp_files <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_Filter_snps")) ## all species
 snp_count <- as.numeric(gsub(".*snps|\\.csv.*","",snp_files))
-snp_files2 <- snp_files[snp_count>=SNP_filter]
+snp_files2 <- snp_files[snp_count>=SNP_filter] ## just top species
 
-snp_files2 <- snp_files2[1]
 
 for(i in 1:length(snp_files2)){
   
