@@ -27,7 +27,7 @@ for(i in 1:70){
   df1$Env <- as.numeric(gsub(".*_","",samp))
   df1$Sample <- samp
   
-  df1$Percent <- (df1$Abundance/sum(df1$Abundance))*100
+  df1$Percent <- (df1$Abundance/sum(df1$Abundance))*100 ## covert species abundances into relative abundances for a given sample
   
   if(i==1){full1 <- df1} else { full1<- rbind(full1,df1) }
 }
