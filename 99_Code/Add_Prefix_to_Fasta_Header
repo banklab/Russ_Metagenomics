@@ -1,9 +1,0 @@
-
-for f in *fa
-do
-sed -i "s/^>/>${f%.*}_/" "$f"
-done
-
-
-## adds filename (minus extension) to fasta header
-## 3,500 deer fasta takes ~7-8 min

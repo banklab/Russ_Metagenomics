@@ -1,9 +1,0 @@
-
-for i in *gz
-do
-file2=$(echo $i | perl -pe 's/fa.gz/fa/')
-gunzip -cd $i > $file2
-done
-
-
-## 3,500 deer fasta takes ~3 min
