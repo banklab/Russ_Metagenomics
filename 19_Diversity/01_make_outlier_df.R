@@ -4,17 +4,18 @@ library(data.table)
 EnvA <- 8
 EnvB <- 10
 
-SNP_filter <- 20e3
+SNP_filter <- 20e3 ## filter species by the number of CMH tests, ie, not technically snps
+##  number of CMH tests= number of sites with non-na snps in both environments and at least 2 replicates
 
 
-q_threshold <- 1e-4 ## top 1e-4 snps
-q_min_thresh <- 0.05 ## if top snps are less than this == no outliers
+q_threshold <- 1e-4 ## top 1e-4 snps ## I used the top 1e-4 snps as a further outlier threshold beyond qvalue<=0.05
+q_min_thresh <- 0.05 ## qvalue threshold
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/06_CMH")
-cmh_files <- list.files(pattern="CMH.csv")
+cmh_files <- list.files(pattern="CMH.csv") ## cmh results from all species
 snp_count <- as.numeric(gsub(".*snps|_CMH.*","",cmh_files))
-cmh_files2 <- cmh_files[snp_count>=SNP_filter]
+cmh_files2 <- cmh_files[snp_count>=SNP_filter] ## subset to species with at least this many "snps" (CMH tests)
 
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/18_eggNOG")
@@ -45,23 +46,22 @@ for(s in 1:length(cmh_files2)){
   
   cmh_data2$bin <- SPECIES1
   
-  snp_count <- sum(!is.na(cmh_data2$pvalue))
+  snp_count <- sum(!is.na(cmh_data2$pvalue)) ## total non na CMH tests
   
-  cmh_data2$logp <- log10(cmh_data2$pvalue)
+  cmh_data2$logp <- log10(cmh_data2$pvalue) ## convert pvalues to log10 space
   
   p_thresh <- quantile(cmh_data2$pvalue, q_threshold)
   
-  cmh_data2$OUTLIER <- cmh_data2$pvalue <= p_thresh
+  cmh_data2$OUTLIER <- cmh_data2$pvalue <= p_thresh ## outliers before FDR correction
   
-  cmh_data2$qvalue <- p.adjust(cmh_data2$pvalue, method = "BH")
+  cmh_data2$qvalue <- p.adjust(cmh_data2$pvalue, method = "BH") ## perform FDR correction here
   
-  ## Method 1
-  ## take top 0.01% SNPs based on FDR, ie, no dbinom
+  
   m1_thresh <- quantile(cmh_data2$qvalue, q_threshold)
   
-  if(m1_thresh>q_min_thresh){m1_thresh<-q_min_thresh}
+  if(m1_thresh>q_min_thresh){m1_thresh<-q_min_thresh} 
   
-  cmh_data2$M1_OUTLIER <- cmh_data2$qvalue <= m1_thresh
+  cmh_data2$M1_OUTLIER <- cmh_data2$qvalue <= m1_thresh ## outliers after FDR
   
   if(sum(cmh_data2$M1_OUTLIER)<1){message("no outs\n");next}
   
@@ -87,7 +87,7 @@ for(s in 1:length(cmh_files2)){
     
     type1 <- gsub(".*_type_","",gene_list[i])
     
-    
+    ## get cmh snps within a given gene/intergenic window
     gene_df <- cmh_data2[!is.na(cmh_data2$POS) & cmh_data2$Scaffold==scaff & cmh_data2$POS >=start1 & cmh_data2$POS < end1,]
     
     
@@ -152,12 +152,12 @@ for(s in 1:length(cmh_files2)){
     for(g in 1:dim(gene_outs)[1]){
       
       outlier_gene <- gene_outs[g,]
-      
+      ## cmh snps in gene/window
       cmh_in_outlier_gene <- cmh_data2[cmh_data2$Scaffold==outlier_gene$scaffold & cmh_data2$POS >= outlier_gene$start & cmh_data2$POS <  outlier_gene$end,]
       
       if(dim(cmh_in_outlier_gene)[1] != outlier_gene$num.snps){message("ERROR");break}
       
-      function_here <- eggy_sub[eggy_sub$query_name==outlier_gene$query,]
+      function_here <- eggy_sub[eggy_sub$query_name==outlier_gene$query,] ## get function of the outlier
       
       
       if(outlier_gene$type=="Gene"){
