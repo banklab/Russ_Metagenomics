@@ -1,7 +1,7 @@
 
 library(data.table)
 
-pi_w.function <- function(one.site){
+pi_w.function <- function(one.site){ ## calculate pi per locus
   
   alleles <- as.numeric(one.site[c("A","C","G","T")])
   
@@ -9,7 +9,7 @@ pi_w.function <- function(one.site){
   minor.llele <- sort(alleles, decreasing = T)[2]
   
   ## multiallelic check
-  if(sum(alleles>0)<=2){
+  if(sum(alleles>0)<=2){ ## pi for biallelic loci
     
     allele.pop.size <- sum(as.numeric(major.llele),as.numeric(minor.llele))
     
@@ -64,7 +64,7 @@ pi_w.function <- function(one.site){
   
 }
 
-hetero.function2 <- function(one.site){
+hetero.function2 <- function(one.site){ ## heterozygosity per locus
   
   alleles <- as.numeric(one.site[c("A","C","G","T")])
   
@@ -164,8 +164,8 @@ for(i in 1:length(snp_file_list)){
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"pi.var"] <- var(pi_no_zero)
     
     
-    Ns <- sum(single_pop_df$mutation_type=="N")
-    Ss <- sum(single_pop_df$mutation_type=="S")
+    Ns <- sum(single_pop_df$mutation_type=="N") ## count nonsynonymous mutations (but these are with respect to my own assemblies not reference)
+    Ss <- sum(single_pop_df$mutation_type=="S") ## count synonymous (as above)
     
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"dN"] <- Ns
     diversity_df[diversity_df$bin==species_list[j] & diversity_df$Deer==DEER & diversity_df$Env==ENV,"dS"] <- Ss
