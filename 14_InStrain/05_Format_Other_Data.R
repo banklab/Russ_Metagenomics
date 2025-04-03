@@ -1,4 +1,7 @@
 
+## format genome data, scaffold data, gene data, mapping data
+
+
 library(data.table)
 
 setwd("/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/14_InStrain/01_One_Population")
