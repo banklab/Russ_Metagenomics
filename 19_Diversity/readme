@@ -5,4 +5,4 @@
 
 03_FST_DXY - calculate fst/dxy per locus for all pairwise population contrasts
 
-04_Top_Species - 
+04_Top_Species - collect diversity metrics for just the top species
