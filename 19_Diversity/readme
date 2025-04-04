@@ -1,8 +1,8 @@
 
-01_make_outlier_df
+01_make_outlier_df - make dataframes of the outlier genes/snps from all species
 
-02_Diversity
+02_Diversity - calculate pi and associated metrics by site and by sample
 
-03_FST_DXY
+03_FST_DXY - calculate fst/dxy per locus for all pairwise population contrasts
 
-04_Top_Species
+04_Top_Species - 
