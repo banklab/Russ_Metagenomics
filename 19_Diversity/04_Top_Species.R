@@ -21,6 +21,8 @@ setwd("/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics
 
 div_list <- list.files(pattern="Diversity_by_site.csv")
 
+div_list <- c(div_list[grepl(paste0("_",EnvA,"_"),div_list)],div_list[grepl(paste0("_",EnvB,"_"),div_list)])
+
 counter<-0
 
 for(i in 1:length(div_list)){
@@ -38,5 +40,5 @@ div_file2$Sample <- gsub("_Diversity.*","",div_list[i])
   if(counter==1){ div_full <- div_file2 } else { div_full <- rbind(div_full,div_file2) }
 }
 
-write.csv(div_full, "", row.names=F)
+write.csv(div_full, "Top_Species_Diversity_by_Site.csv", row.names=F)
 
