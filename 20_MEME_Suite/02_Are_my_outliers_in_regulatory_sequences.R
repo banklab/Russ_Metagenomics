@@ -1,7 +1,7 @@
 
 setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity")
-outlier_df <- read.csv("outlier_df_v2.csv", header=T, stringsAsFactors = F)
-outlier_snps <- read.csv("outlier_SNPS_v2.csv", header=T, stringsAsFactors = F)
+outlier_df <- read.csv("outlier_df.csv", header=T, stringsAsFactors = F)
+outlier_snps <- read.csv("outlier_SNPS.csv", header=T, stringsAsFactors = F)
 
 intergenic_snps <- outlier_snps[grepl("int",outlier_snps$annotate),]
 
