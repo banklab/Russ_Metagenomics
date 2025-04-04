@@ -1,5 +1,4 @@
 
-
 purpose: find motifs in de novo assembly that match known regulatory motifs
 tool: FIMO (doi.org/10.1093/bioinformatics/btr064)
 parameters: default
