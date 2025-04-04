@@ -95,4 +95,5 @@ unique_motifs <- unique(results[!is.na(results$motif2) & results$database=="coll
 
 setwd("/rs_scratch/users/rj23k073/04_DEER/20_Meme/01_Outliers")
 write.table(unique_motifs, "motifs.txt", row.names = F, col.names = F, quote = F)
+write.csv(results, "", row.names=F)
 
