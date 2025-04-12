@@ -81,7 +81,7 @@ for(i in 1:length(cmh_list2)){
   sites_table <- table(sites_df$Sp.ID)
   
   ## each site in at least 2 deer
-  cmh_input <- sites_df[sites_df$Sp.ID %in% names(sites_table[sites_table>2]),]
+  cmh_input <- sites_df[sites_df$Sp.ID %in% names(sites_table[sites_table>=2]),]
   
   sites <- unique(cmh_input$Sp.ID)
   
