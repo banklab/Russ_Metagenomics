@@ -129,11 +129,11 @@ snps.function <- function(one.site){
 
 
     if(site.table[site.table$Original==FALSE,"ref_base"] != "N"){
-    
       site.table[site.table$Original==FALSE,"ref_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"ref_base"]] / site.table[site.table$Original==FALSE,"DP"]
+     }
       site.table[site.table$Original==FALSE,"con_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"con_base"]] / site.table[site.table$Original==FALSE,"DP"]
       site.table[site.table$Original==FALSE,"var_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"var_base"]] / site.table[site.table$Original==FALSE,"DP"]
-      }
+      
         
     }
   
