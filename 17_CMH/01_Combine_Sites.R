@@ -126,11 +126,15 @@ snps.function <- function(one.site){
     site.table[site.table$Original==FALSE,c("A","C","G","T")][site.table[site.table$Original==FALSE,c("A","C","G","T")]==max(site.table[site.table$Original==FALSE,c("A","C","G","T")])] <- new.max.allele.count
     ## set negative allele count to zero
     site.table[site.table$Original==FALSE,c("A","C","G","T")][site.table[site.table$Original==FALSE,c("A","C","G","T")]<0]<-0
+
+
+    if(site.table[site.table$Original==FALSE,"ref_base"] != "N"){
     
-    site.table[site.table$Original==FALSE,"ref_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"ref_base"]] / site.table[site.table$Original==FALSE,"DP"]
-    site.table[site.table$Original==FALSE,"con_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"con_base"]] / site.table[site.table$Original==FALSE,"DP"]
-    site.table[site.table$Original==FALSE,"var_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"var_base"]] / site.table[site.table$Original==FALSE,"DP"]
-    
+      site.table[site.table$Original==FALSE,"ref_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"ref_base"]] / site.table[site.table$Original==FALSE,"DP"]
+      site.table[site.table$Original==FALSE,"con_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"con_base"]] / site.table[site.table$Original==FALSE,"DP"]
+      site.table[site.table$Original==FALSE,"var_freq"] <- site.table[site.table$Original==FALSE,site.table[site.table$Original==FALSE,"var_base"]] / site.table[site.table$Original==FALSE,"DP"]
+      }
+        
     }
   
   for(i in 1:3){
