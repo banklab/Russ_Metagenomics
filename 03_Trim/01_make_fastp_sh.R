@@ -30,7 +30,7 @@ for(i in 1:length(Read_list)){ ## loop over each sample, make an sh script to tr
   
   
   write ("#!/bin/bash", sh_name)
-  write ("#SBATCH --mem=8000M", sh_name, append = TRUE) ## adjust MEM, time, cpus etc
+  write ("#SBATCH --mem=4000M", sh_name, append = TRUE) ## adjust MEM, time, cpus etc
   write ("#SBATCH --nodes=1", sh_name, append = TRUE)
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
   write ("#SBATCH --cpus-per-task=1", sh_name, append = TRUE)
