@@ -1,6 +1,6 @@
 
 ## choose input & output directories
-INDIR="/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/raw/merged"
+INDIR="/storage/scratch/users/rj23k073/01_RAS/01_RAW"
 OUTDIR="/storage/scratch/users/rj23k073/01_RAS/03_Trim"
 
 
