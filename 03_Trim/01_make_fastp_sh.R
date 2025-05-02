@@ -1,7 +1,7 @@
 
 ## choose input & output directories
 INDIR="/storage/scratch/users/rj23k073/01_RAS/01_RAW"
-OUTDIR="/storage/scratch/users/rj23k073/01_RAS/03A_Trim"
+OUTDIR="/storage/scratch/users/rj23k073/01_RAS/03_Trim"
 
 
 setwd(INDIR)
