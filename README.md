@@ -11,8 +11,7 @@ DOI
 
 Workflow to assemble metagenomes and detect candidate for genetic local adaptation from short-read metagenomic data.
 
-03_Trim: trim and process reads
-
+03_Trim: trim and process reads \n
 04_FastUniq: deduplicate reads
 06_Assembly: individual assemblies
 07_BAM: align reads to assemblies
