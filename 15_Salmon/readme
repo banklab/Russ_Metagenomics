@@ -3,4 +3,12 @@ purpose: estimate species abundances
 tool Salmon (10.1038/nmeth.4197)
 parameters: metagenomic mode (--meta)
 
-01_Index_Reference:
+01_Index_Reference
+
+Index the assembled reference genome
+
+02_Make_Salmon_SH
+
+Estimate the abundances of each genome in each sample with Salmon
+
+
