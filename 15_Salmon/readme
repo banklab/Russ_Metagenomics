@@ -9,12 +9,12 @@ Index the assembled reference genome
 
 02_Make_Salmon_SH
 
-Estimate the abundances of each genome in each sample with Salmon
+
 
 03_summarize_salmon_files
 
-Process Salmon output to use in R
+
 
 04_split_salmon_out_into_bins
 
-Estimates 
+
