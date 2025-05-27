@@ -11,4 +11,6 @@ Index the assembled reference genome
 
 Estimate the abundances of each genome in each sample with Salmon
 
+03_summarize_salmon_files
 
+Process Salmon output to use in R
