@@ -10,7 +10,7 @@ DOI
 
 ## PAPER TITLE
 
-Workflow to assemble metagenomes and detect candidate loci for genetic local adaptation from short-read metagenomic data.
+Workflow to assemble metagenomes from short-read metagenomic data and to detect candidate loci for genetic local adaptation.
 
 03_Trim: trim and process reads
 
