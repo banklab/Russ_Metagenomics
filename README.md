@@ -4,7 +4,6 @@ Author Contact Information
 
 russell.jasper@unibe.ch
 
-rjjasper@ucalgary.ca
 
 
 DOI
