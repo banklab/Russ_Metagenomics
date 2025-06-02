@@ -11,7 +11,7 @@ for(i in 1:length(checkm_dirs)){
   
   checkm_files <- list.files(pattern="_checkm2$")
   
-  if(length(checkm_files)!=70){message("ERROR");break}
+  if(length(checkm_files)!=70){message("ERROR");break} ## number of samples
   
   for(j in 1:length(checkm_files)){
   
