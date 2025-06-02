@@ -11,8 +11,8 @@ for(i in 1:length(checkm_dirs)){
   
   checkm_files <- list.files(pattern="_checkm2$")
   
-  if(length(checkm_files)!=70){message("ERROR");break} ## number of samples
-  
+ if(length(checkm_files)!=70){stop("number samples error")} ## number of samples
+   
   for(j in 1:length(checkm_files)){
   
     setwd(paste0("/storage/scratch/users/rj23k073/04_DEER/09_CheckM/",checkm_dirs[i],"/",checkm_files[j]))
