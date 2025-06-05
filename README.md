@@ -9,7 +9,7 @@ https://banklab.github.io/
 
 DOI
 
-## PAPER TITLE
+## Pervasive Intraspecific Genetic Local Adaptation Within the Natural Gut Microbiome 
 
 Workflow to assemble metagenomes from short-read metagenomic data and to detect candidate loci for genetic local adaptation.
 
