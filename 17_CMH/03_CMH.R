@@ -88,7 +88,7 @@ for(i in 1:length(cmh_list2)){
   
   cat("input sites:",length(sites),"\n")
   
-  Sys.time() ## 4.4k sites / min
+  Sys.time() 
   cmh_list <- lapply(sites, FUN=cmh.function)
   Sys.time()
   
