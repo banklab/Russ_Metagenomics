@@ -3,7 +3,7 @@
 library(data.table)
 
 
-setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/16_Taxonomy")
+setwd("")
 DF <- data.frame(fread("gtdbtk.bac120.summary.tsv", header=T, stringsAsFactors = F, sep="\t"))
 DF2 <- data.frame(fread("gtdbtk.ar53.summary.tsv", header=T, stringsAsFactors = F, sep="\t"))
 
