@@ -1,7 +1,7 @@
 
 library(data.table)
 
-setwd("/Users/russjasper/Dropbox/My Mac (Russs-MacBook-Air.local)/Desktop/BERN/RESULTS2/DEER/15_Salmon")
+setwd("")
 
 dat <- fread("bin_abundance_table.tab", header=T, stringsAsFactors=F)
 
