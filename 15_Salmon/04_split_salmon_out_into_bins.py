@@ -44,7 +44,7 @@ for salmon_file in os.listdir(sys.argv[1]):
 
 
 		length = contig_lengths[line.split("\t")[0]]
-		weight = length/1000
+		weight = int(length/1000)
 
 		for i in range(weight):
 			bin_abundances[bin]["cov_list"].append(abun)
