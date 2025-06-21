@@ -4,7 +4,7 @@
 
 01_Bins = input bins
 02_Stats = stats from input bins
-3_Temp_Winner = temporarily winning bins during comparisons
+03_Temp_Winner = temporarily winning bins during comparisons
 04_Top_Bins = best bins from all comparisons
 05_FINAL_BINS = best bins + dereplicated
 
