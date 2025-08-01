@@ -9,7 +9,7 @@ colnames(dat) <- gsub(" |deer_","",colnames(dat))
 
 dat2 <- data.frame(dat)
 
-dat2$bin <- gsub("_deer","",dat2$Genomicbins)
+dat2$bin <- gsub("_deer","",dat2$Genomic.bins)
 
 
 
