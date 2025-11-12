@@ -1,0 +1,35 @@
+
+#!/bin/bash
+#SBATCH --mem=1000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=48:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+
+module load SAMtools/1.13-GCC-10.3.0
+
+for f in *.bam; do
+   
+    sample=$(basename "$f" .bam)
+    bam_file="$f"
+    fastq_file="${sample}.fastq"
+
+  
+    bam_count=$(samtools view -c "$bam_file")
+
+    
+    fastq_count=$(expr $(wc -l < "$fastq_file") / 4)
+
+   
+    if [[ "$bam_count" -eq "$fastq_count" ]]; then
+        status="OK"
+    else
+        status="MISMATCH"
+    fi
+
+    echo "$sample: $bam_count $fastq_count $status"
+
+done
