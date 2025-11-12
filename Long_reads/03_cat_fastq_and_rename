@@ -1,0 +1,36 @@
+#!/bin/bash
+#SBATCH --mem=1000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=4:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+
+
+while IFS=, read -r sample barcode; do
+
+    # Skip header
+    [[ $sample == "BioSample" ]] && continue
+
+    
+    short_barcode=${barcode%%--*}  
+
+    
+    files_to_merge=$(ls *${short_barcode}.fastq 2>/dev/null)
+
+    # make sure files exist
+    if [[ -z "$files_to_merge" ]]; then
+        echo "No FASTQs found for barcode $short_barcode"
+        continue
+    fi
+
+    # rename to previous deer sample names
+    # cat multiple different runs into the same fastq file
+    merged_file="${sample}.fastq"
+    cat $files_to_merge > "$merged_file"
+
+    echo "Merged $files_to_merge → $merged_file"
+
+done < barcode_sample_mapping.csv
