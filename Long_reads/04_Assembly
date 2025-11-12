@@ -1,4 +1,11 @@
 
-module load hifiasm/0.16.1-GCCcore-10.3.0
+# Install hifiasm-meta (g++ and zlib required)
+git clone https://github.com/xfengnefx/hifiasm-meta.git
+cd hifiasm-meta && make
+
+https://github.com/lh3/hifiasm-meta/blob/meta/README.md
+
+
+
 
 
