@@ -1,0 +1,12 @@
+
+## convert BAM format long reads to FASTQ
+
+
+for f in *.bam; do
+    
+    sample=$(basename "$f" .bam)
+    
+    samtools fastq "$f" > "${sample}.fastq"
+    
+    echo "Converted $f to ${sample}.fastq"
+done
