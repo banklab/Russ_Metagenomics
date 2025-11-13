@@ -25,7 +25,7 @@ for(i in 1:length(sample_list)){
   
   sh_name <- paste0(samp2,"_assembly.sh")
 
-  code_block <- paste0("hifiasm-meta/hifiasm_meta -o ",samp2,".asm -t 4 /storage/scratch/users/rj23k073/04_Deer/02_Merged/",samp2,".fastq)
+  code_block <- paste0("hifiasm-meta/hifiasm_meta -o ",samp2,".asm -t 4 /storage/scratch/users/rj23k073/04_Deer/02_Merged/",samp2,".fastq")
 
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=160000M", sh_name, append = TRUE)
