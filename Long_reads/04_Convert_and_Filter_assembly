@@ -12,6 +12,9 @@ for gfa in *.asm.p_ctg.gfa; do
 done
 
 
+
+# nevermind all contigs long enough
+
 #conda deactivate
 #conda activate seqkit
 
