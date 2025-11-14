@@ -1,1 +1,25 @@
 
+Read_list <- gsub("\\.asm.*","",list.files(pattern = "asm.p_ctg.filtered.fa"))
+
+for(i in 1:length(Read_list)){ 
+  
+  reads1 <- Read_list[i]
+  
+  sh_name <- paste0("Index_",reads1,".sh")
+
+  code_block <- paste0("bowtie2-build ",reads1,".asm.p_ctg.filtered.fa ",reads1,".asm.p_ctg.filtered")
+  
+  
+  write ("#!/bin/bash", sh_name)
+  write ("#SBATCH --mem=20000M", sh_name, append = TRUE)
+  write ("#SBATCH --nodes=1", sh_name, append = TRUE)
+  write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
+  write ("#SBATCH --cpus-per-task=1", sh_name, append = TRUE)
+  write ("#SBATCH --time=01:00:00", sh_name, append = TRUE)
+  write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
+  write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
+  write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
+  write ("module load Bowtie2/2.4.4-GCC-10.3.0", sh_name, append = TRUE)
+  write (code_block, sh_name, append = TRUE)
+  
+}
