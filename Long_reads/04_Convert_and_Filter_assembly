@@ -1,0 +1,27 @@
+
+conda activate gfa_env
+
+for gfa in *.asm.p_ctg.gfa; do
+    
+    base=${gfa%.gfa}
+    
+    out="${base}.fa"
+
+    echo "Converting $gfa -- $out"
+    gfatools gfa2fa "$gfa" > "$out"
+done
+
+
+conda deactivate
+conda activate seqkit
+
+for asm in *.asm.p_ctg.fa; do
+    
+    base=${asm%.fa}
+    
+    out="${base}.filtered.fa"
+
+    echo "Converting $asm -- $out"
+   seqkit seq -m 1500 --remove-gaps "$asm" -o "$out"
+    
+done
