@@ -21,7 +21,7 @@ for(i in 1:length(Read_list)){
   sh_name <- paste0(reads1,"_bowtie2.sh")
 
   ## align reads against assemblies
-  code_block <- paste0("bowtie2 -p 8 -x ",ASM_DIR,"/",reads1,".asm.p_ctg.filtered -1 ",READ_DIR,"/",choose_deer,"_R1.pooled.fastq.gz -2 ",READ_DIR,"/",choose_deer,"_R2.pooled.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
+  code_block <- paste0("bowtie2 -p 20 -x ",ASM_DIR,"/",reads1,".asm.p_ctg.filtered -1 ",READ_DIR,"/",choose_deer,"_R1.pooled.fastq.gz -2 ",READ_DIR,"/",choose_deer,"_R2.pooled.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
 
   ## convert sam to bam
   code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,".bam")
@@ -34,8 +34,8 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mem=8000M", sh_name, append = TRUE)
   write ("#SBATCH --nodes=1", sh_name, append = TRUE)
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
-  write ("#SBATCH --cpus-per-task=8", sh_name, append = TRUE)
-  write ("#SBATCH --time=24:00:00", sh_name, append = TRUE)
+  write ("#SBATCH --cpus-per-task=20", sh_name, append = TRUE)
+  write ("#SBATCH --time=12:00:00", sh_name, append = TRUE)
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
