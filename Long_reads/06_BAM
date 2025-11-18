@@ -1,0 +1,45 @@
+#!/bin/bash
+#SBATCH --mem=16000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=24:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+module load Bowtie2/2.4.4-GCC-10.3.0
+module load SAMtools/1.13-GCC-10.3.0
+
+READS_DIR=/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/04_FastUniq
+
+BAM_DIR=/storage/scratch/users/rj23k073/04_Deer/05_individual_BAM
+
+
+## choose assembly
+PACBIO=2_1
+
+## this chooses the deer, loop over all envs for this deer and map each seperetly to the pacbio assembly
+DEER=${PACBIO%%_*}
+
+
+
+## loop over env
+for i in $(seq 1 10)
+do
+
+  R1="$READS_DIR"/"$DEER"_"$i".R1.dedup.fastq.gz
+  R2="$READS_DIR"/"$DEER"_"$i".R2.dedup.fastq.gz
+
+  out="$BAM_DIR"/"$DEER"_"$i".sorted.bam
+
+  echo "Mapping $R1, $R2 -> $out"
+
+  bowtie2 \
+    -x "$PACBIO".asm.p_ctg.filtered \
+    -1 "$R1" \
+    -2 "$R2" \
+    -p 4 \
+  | samtools sort -@4 -o "$out"
+
+  samtools index "$out"
+done
