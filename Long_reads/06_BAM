@@ -31,7 +31,7 @@ do
   R1="$READS_DIR"/"$DEER"_"$i".R1.dedup.fastq.gz
   R2="$READS_DIR"/"$DEER"_"$i".R2.dedup.fastq.gz
 
-  out="$BAM_DIR"/"$DEER"_"$i".sorted.bam
+  out="$BAM_DIR"/"$PACBIO"_env"$i".sorted.bam ## name = pacbio assembly, then the env of the short reads
 
   echo "Mapping $R1, $R2 -> $out"
 
