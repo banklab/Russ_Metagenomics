@@ -13,10 +13,24 @@ conda activate metabat2
 
 ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
 
+for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
+do
+    ASM1=$(basename "$i") 
+    ASM=${ASM1%.asm.p_ctg.filtered.fa} 
+    
+    echo "Input Assembly: $ASM"
 
 
 
-metabat2 -i $ASM_DIR/2_1.asm.p_ctg.filtered.fa \
-         -a 2_1_depth.txt \
-         -o bins/2_1_bin \
+metabat2 -i $i \
+         -a "$ASM"_depth.txt \
+         -o bins/"$ASM"_bin \
          -t 8
+
+echo -e "Done\n"
+
+done
+
+
+
+
