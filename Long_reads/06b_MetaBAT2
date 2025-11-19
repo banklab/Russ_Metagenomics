@@ -1,0 +1,22 @@
+conda activate metabat2
+
+#!/bin/bash
+#SBATCH --mem=40000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --time=6:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+
+
+ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
+
+
+
+
+metabat2 -i $ASM_DIR/2_1.asm.p_ctg.filtered.fa \
+         -a 2_1_depth.txt \
+         -o bins/2_1_bin \
+         -t 8
