@@ -1,3 +1,14 @@
+conda activate metabat2
+
+#!/bin/bash
+#SBATCH --mem=64000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=6:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
 
 ASM=2_1
 
