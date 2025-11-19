@@ -4,7 +4,7 @@ conda activate metabat2
 #SBATCH --mem=40000M
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=4
 #SBATCH --time=6:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
@@ -20,14 +20,12 @@ do
     
     echo "Input Assembly: $ASM"
 
-
-
-metabat2 -i $i \
+    metabat2 -i $i \
          -a "$ASM"_depth.txt \
          -o bins/"$ASM"_bin \
-         -t 8
+         -t 4
 
-echo -e "Done\n"
+    echo -e "Done\n"
 
 done
 
