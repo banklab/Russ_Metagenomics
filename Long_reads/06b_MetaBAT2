@@ -22,7 +22,7 @@ do
 
     metabat2 -i $i \
          -a "$ASM"_depth.txt \
-         -o bins/"$ASM"_bin \
+         -o bins/PC_"$ASM"_bin \
          -t 4
 
     echo -e "Done\n"
