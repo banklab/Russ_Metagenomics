@@ -1,0 +1,7 @@
+
+ASM=2_1
+
+BAM_DIR=/storage/scratch/users/rj23k073/04_Deer/05_individual_BAM
+
+jgi_summarize_bam_contig_depths --outputDepth "$ASM"_depth.txt \
+    $BAM_DIR/${ASM}_*.sorted.bam
