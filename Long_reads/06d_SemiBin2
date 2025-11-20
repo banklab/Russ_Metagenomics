@@ -19,7 +19,7 @@ do
     ASM1=$(basename "$i") 
     ASM=${ASM1%.asm.p_ctg.filtered.fa} 
 
-    SemiBin2 generate_sequence_features_single -i $i -b "$BAM_DIR"/"$ASM" -o ",out_dir," -t 1
+    SemiBin2 generate_sequence_features_single -i $i -b $BAM_DIR/${ASM}_*.sorted.bam -o ",out_dir," -t 1
 
     echo "Input Assembly: $ASM"
     echo -e "Done\n"
