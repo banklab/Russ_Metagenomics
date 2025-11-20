@@ -1,0 +1,5 @@
+
+maxbin2 -contig /path/to/assemblies/${ASM}.asm.p_ctg.filtered.fa \
+        -abund ${ASM}_depth.txt \
+        -out maxbin/${ASM}_bin \
+        -thread 8
