@@ -1,0 +1,22 @@
+
+ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
+BAM_DIR=/storage/scratch/users/rj23k073/04_Deer/05_individual_BAM
+
+
+for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
+do
+    ASM1=$(basename "$i") 
+    ASM=${ASM1%.asm.p_ctg.filtered.fa} 
+    
+    echo "Input Assembly: $ASM"
+    #echo "Input BAMs:"
+    #for f in $BAM_DIR/${ASM}_*.sorted.bam; do
+    #    echo "  $(basename "$f")"
+    #done
+
+jgi_summarize_bam_contig_depths --outputDepth "$ASM"_depth.txt \
+    $BAM_DIR/${ASM}_*.sorted.bam
+
+ echo -e "Done\n"
+
+done
