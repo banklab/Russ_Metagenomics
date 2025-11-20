@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --time=01:40:00
+#SBATCH --time=24:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
@@ -19,9 +19,11 @@ do
     ASM1=$(basename "$i") 
     ASM=${ASM1%.asm.p_ctg.filtered.fa} 
 
-    SemiBin2 generate_sequence_features_single -i $i -b $BAM_DIR/${ASM}_*.sorted.bam -o ",out_dir," -t 1
-
     echo "Input Assembly: $ASM"
+
+    SemiBin2 generate_sequence_features_single -i $i -b $BAM_DIR/${ASM}_*.sorted.bam -o out/"$ASM" -t 1
+
+   
     echo -e "Done\n"
 
 done
