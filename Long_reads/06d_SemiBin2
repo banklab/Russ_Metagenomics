@@ -1,3 +1,5 @@
+conda activate semibin
+
 #!/bin/bash
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:rtx3090:1
