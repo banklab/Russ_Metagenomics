@@ -1,3 +1,14 @@
+#!/bin/bash
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:rtx3090:1
+#SBATCH --mem=50000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=01:40:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
 
 ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
 BAM_DIR=/storage/scratch/users/rj23k073/04_Deer/05_individual_BAM
@@ -7,16 +18,10 @@ for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
 do
     ASM1=$(basename "$i") 
     ASM=${ASM1%.asm.p_ctg.filtered.fa} 
-    
+
+    SemiBin2 generate_sequence_features_single -i $i -b "$BAM_DIR"/"$ASM" -o ",out_dir," -t 1
+
     echo "Input Assembly: $ASM"
-    #echo "Input BAMs:"
-    #for f in $BAM_DIR/${ASM}_*.sorted.bam; do
-    #    echo "  $(basename "$f")"
-    #done
-
-jgi_summarize_bam_contig_depths --outputDepth "$ASM"_depth.txt \
-    $BAM_DIR/${ASM}_*.sorted.bam
-
- echo -e "Done\n"
+    echo -e "Done\n"
 
 done
