@@ -1,0 +1,29 @@
+conda activate semibin
+
+#!/bin/bash
+#SBATCH --mem=50000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=24:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+
+ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
+BAM_DIR=/storage/scratch/users/rj23k073/04_Deer/05_individual_BAM
+
+
+for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
+do
+    ASM1=$(basename "$i") 
+    ASM=${ASM1%.asm.p_ctg.filtered.fa} 
+
+    echo "Input Assembly: $ASM"
+
+    SemiBin2 generate_sequence_features_single -i $i -b $BAM_DIR/${ASM}_*.sorted.bam -o out/"$ASM" -t 1
+
+   
+    echo -e "Done\n"
+
+done
