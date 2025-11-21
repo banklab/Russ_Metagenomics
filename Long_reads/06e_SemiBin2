@@ -23,7 +23,7 @@ do
 
     echo "Input Assembly: $ASM"
 
-    SemiBin2 train_self --data out/"$ASM"/data.csv --data-split out/"$ASM"/data_split.csv -o out/"$ASM" -t 1 --epochs 20
+    SemiBin2 train_self --data out/"$ASM"/data.csv --data-split out/"$ASM"/data_split.csv -o out/"$ASM" -t 1 --epochs 15 --engine gpu
 
    
     echo -e "Done\n"
