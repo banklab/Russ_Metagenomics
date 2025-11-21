@@ -4,7 +4,7 @@ conda activate semibin
 #SBATCH --mem=50000M
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=16
 #SBATCH --time=24:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
@@ -21,8 +21,9 @@ do
 
     echo "Input Assembly: $ASM"
 
-    SemiBin2 train_self --data out/"$ASM"/data.csv --data-split out/"$ASM"/data_split.csv -o out/"$ASM" -t 1 --epochs 15 --engine gpu
+    SemiBin2 train_self --data out/"$ASM"/data.csv --data-split out/"$ASM"/data_split.csv -o out/"$ASM" -t 16 --epochs 20 --engine cpu
 
+    SemiBin2 bin -i $i --data out/"$ASM"/data.csv --model out/"$ASM"/model.pt -o out/"$ASM" -t 16 --compression none
    
     echo -e "Done\n"
 
