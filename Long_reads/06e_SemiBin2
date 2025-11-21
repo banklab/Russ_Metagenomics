@@ -23,7 +23,7 @@ do
 
     echo "Input Assembly: $ASM"
 
-    SemiBin2 generate_sequence_features_single -i $i -b $BAM_DIR/${ASM}_*.sorted.bam -o out/"$ASM" -t 1
+    SemiBin2 train_self --data out/"$ASM"/data.csv --data-split out/"$ASM"/data_split.csv -o out/"$ASM" -t 1 --epochs 20
 
    
     echo -e "Done\n"
