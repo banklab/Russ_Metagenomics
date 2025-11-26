@@ -4,7 +4,7 @@ conda activate human
 
 INDIR=/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/04_FastUniq
 
-DATABASES=/storage/scratch/users/rj23k073/human
+DATABASES=/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/programs/HUMAnN
 
 SAMPLE=1_1
 
