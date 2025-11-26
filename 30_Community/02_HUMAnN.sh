@@ -12,6 +12,8 @@ SAMPLE=1_1
 seqtk mergepe $INDIR/${SAMPLE}.R1.dedup.fastq.gz $INDIR/${SAMPLE}.R2.dedup.fastq.gz | gzip > "$SAMPLE".interleaved.fastq.gz
 
 
+mkdir -p out/"$SAMPLE"
+
 ## human on interleaved reads
 humann --input "$SAMPLE".interleaved.fastq.gz \
       --output out/"$SAMPLE" \
