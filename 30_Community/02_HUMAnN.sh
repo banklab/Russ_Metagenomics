@@ -19,4 +19,7 @@ humann --input "$SAMPLE".interleaved.fastq.gz \
       --output out/"$SAMPLE" \
       --threads 16 \
       --nucleotide-database "$DATABASES"/chocophlan \
-      --protein-database "$DATABASES"/uniref
+      --protein-database "$DATABASES"/uniref \
+        --bypass-prescreen \
+        --bypass-nucleotide-search \
+        --resume
