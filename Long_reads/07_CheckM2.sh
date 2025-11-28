@@ -1,3 +1,5 @@
+activate conda checkm2_env
+
 #!/bin/bash
 #SBATCH --mem=100000M
 #SBATCH --nodes=1
