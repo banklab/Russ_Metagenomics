@@ -21,5 +21,4 @@ humann --input "$SAMPLE".interleaved.fastq.gz \
       --nucleotide-database "$DATABASES"/chocophlan \
       --protein-database "$DATABASES"/uniref \
         --bypass-prescreen \
-        --bypass-nucleotide-search \
-        --resume
+        --bypass-nucleotide-search
