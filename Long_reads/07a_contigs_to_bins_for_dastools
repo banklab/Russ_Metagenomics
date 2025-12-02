@@ -10,10 +10,10 @@ SAMPLE=$(basename "$asm" .asm.p_ctg.gfa)
 echo $SAMPLE
 
 ## make the input file dastools wants
-./Fasta_to_Contig2Bin.sh -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/01_MetaBAT2/bins/PC_"$SAMPLE"_bin*fa -e fa > /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MetaBAT2.tsv
+./Fasta_to_Contig2Bin.sh -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/01_MetaBAT2/bins/"$SAMPLE" -e fa > /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MetaBAT2.tsv
 
-./Fasta_to_Contig2Bin.sh -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/02_MaxBin2/bins/PC_"$SAMPLE"_bin*fasta -e fasta > /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MaxBin2.tsv
+./Fasta_to_Contig2Bin.sh -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/02_MaxBin2/bins/"$SAMPLE" -e fasta > /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MaxBin2.tsv
 
-./Fasta_to_Contig2Bin.sh -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/03_SemiBin2/bins/"$SAMPLE"_SemiBin_*fa -e fa > /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_SemiBin2.tsv
+./Fasta_to_Contig2Bin.sh -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/03_SemiBin2/bins/"$SAMPLE" -e fa > /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_SemiBin2.tsv
 
 done
