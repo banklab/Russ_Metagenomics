@@ -11,10 +11,13 @@ activate conda checkm2_env
 #SBATCH --output=slurm-%x.%j.out
 
 for i in *_DASTool_bins
+do
+ SAMPLE=$(basename $i _DASTool_bins)
 
+ echo $SAMPLE
 
-
-checkm2 predict --input /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/$i \
- --output_directory /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_CheckM2 \
--x fa \
--t 30
+ checkm2 predict --input /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/$i \
+  --output_directory /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_CheckM2/"$SAMPLE" \
+ -x fa \
+ -t 30
+done
