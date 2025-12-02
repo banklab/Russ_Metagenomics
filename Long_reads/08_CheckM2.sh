@@ -1,4 +1,4 @@
-conda activate checkm2_env
+conda activate checkm2
 
 #!/bin/bash
 #SBATCH --mem=80000M
