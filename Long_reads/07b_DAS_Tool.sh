@@ -2,7 +2,7 @@
 #SBATCH --mem=20000M
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=8
 #SBATCH --time=6:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
@@ -20,5 +20,5 @@ DAS_Tool -c $asm \
          -o $SAMPLE \
          --search_engine diamond \
          --write_bins \
-         -t 4
+         -t 8
 done
