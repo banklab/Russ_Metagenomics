@@ -1,3 +1,5 @@
+conda activate das_tools
+
 #!/bin/bash
 #SBATCH --mem=20000M
 #SBATCH --nodes=1
