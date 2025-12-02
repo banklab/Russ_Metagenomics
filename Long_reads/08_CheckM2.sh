@@ -9,6 +9,7 @@ conda activate checkm2_env
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8
 
 for i in /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/*_DASTool_bins
 do
