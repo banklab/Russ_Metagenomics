@@ -9,7 +9,12 @@ activate conda checkm2_env
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
-checkm2 predict --input /storage/scratch/users/rj23k073/04_Deer/06_Binning/01_MetaBAT2/bins \
- --output_directory /storage/scratch/users/rj23k073/04_Deer/07_CheckM2/metabat \
+
+for i in *_DASTool_bins
+
+
+
+checkm2 predict --input /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/$i \
+ --output_directory /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_CheckM2 \
 -x fa \
 -t 30
