@@ -1,0 +1,29 @@
+
+
+library(data.table)
+
+deer <- c('2_1','2_10','2_2','2_3','2_4','2_5','2_8','2_9','4_1','4_10','4_2','4_3','4_4','4_5','4_6','4_8','4_9','6_1','6_10','6_2','6_3','6_4','6_5','6_6','6_8','6_9','7_5','7_6')
+
+for(i in 1:length(deer)){
+  
+  setwd(paste0("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_CheckM2/",deer[i]))
+  
+  checkm <- data.frame(fread("quality_report.tsv", header=T, stringsAsFactors = F))
+  
+  colnames(checkm)[1:3] <- c("genome","completeness","contamination")
+  
+  checkm$genome <- paste0(checkm$genome,".fa")
+  
+  checkm$SAMPLE <- deer[i]
+  
+  checkm$Deer <- as.numeric(gsub("_.*","",deer[i]))
+  checkm$Env <- as.numeric(gsub(".*_","",deer[i]))
+  
+  if(i==1){ full_check <- checkm } else { full_check <- rbind(full_check,checkm) }
+  
+}
+
+
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_CheckM2")
+write.csv(full_check, "genomeInformation.csv", row.names=F)
