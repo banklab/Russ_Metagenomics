@@ -1,0 +1,23 @@
+
+
+
+INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool
+OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_dRep/01_input_bins
+
+cd $INDIR
+
+
+for i in *_DASTool_bins
+ do
+ cd "$i"
+ 
+for f in *.fa; do
+
+    header_tag="${f%.fa}"
+
+    sed "s/^>.*/&_asm_${header_tag}/" "$f" > "$OUTDIR/$f"
+
+
+done
+cd $INDIR
+done
