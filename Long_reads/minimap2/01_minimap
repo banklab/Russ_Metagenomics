@@ -2,10 +2,16 @@
 conda activate minimap
 
 
-
 #!/bin/bash
-
-
+#SBATCH --mem=20000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --time=24:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8
 
 module load minimap2/2.20-GCCcore-10.3.0
 module load SAMtools/1.13-GCC-10.3.0
