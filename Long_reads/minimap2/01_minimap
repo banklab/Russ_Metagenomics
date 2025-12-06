@@ -1,19 +1,52 @@
-
 module load minimap2/2.20-GCCcore-10.3.0
 module load SAMtools/1.13-GCC-10.3.0
 
+conda activate minimap
 
-for ASM in *asm.p_ctg.fa
-do
-    BASE=$(basename "$ASM" .fa)
-    echo $BASE
 
-    minimap2 -t 16 -ax map-hifi "$ASM" hiFi_reads.fastq \
-      | samtools sort -@8 -o "${BASE}.bam"
-    samtools index "${BASE}.bam"
 
-    jgi_summarize_bam_contig_depths \
-      --outputDepth "${BASE}.depth.txt" \
-      "${BASE}.bam"
+#!/bin/bash
+
+
+ASM_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/03_assembly"
+READ_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/02_Merged"
+OUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/04_LR_MAP"
+
+# loop over all assemblies
+for ASM in ${ASM_DIR}/*.asm.p_ctg.filtered.fa; do
+    BASE=$(basename "$ASM" .asm.p_ctg.filtered.fa)
+    
+    # Deer ID
+    DEER=${BASE%%_*}
+    
+    echo "Processing assembly $ASM for deer $DEER"
+
+    # output directory for this deer
+    ASM_OUT="${OUT_DIR}/${BASE}"
+    mkdir -p "$ASM_OUT"
+
+    # get all LR samples for this deer
+    LR_READS=$(ls ${READ_DIR}/${DEER}_*.fastq 2>/dev/null)
+    
+    if [ -z "$LR_READS" ]; then
+        echo "No LR reads found for deer $DEER, ???"
+        continue
+    fi
+
+    # loop over all locations and map to deer
+    for LR in $LR_READS; do
+        SAMPLE=$(basename "$LR" .fastq)
+        BAM="$ASM_OUT/${SAMPLE}.bam"
+
+        echo "  Mapping $LR to $ASM -> $BAM"
+
+        minimap2 -t 16 -ax map-hifi "$ASM" "$LR" \
+            | samtools sort -@8 -o "$BAM"
+        samtools index "$BAM"
+    done
+
+    # make metabat depth matrix for binning after
+    echo "  Generating depth matrix for $ASM"
+    jgi_summarize_bam_contig_depths --outputDepth "$ASM_OUT/${BASE}.depth.txt" "$ASM_OUT"/*.bam
+
 done
-
