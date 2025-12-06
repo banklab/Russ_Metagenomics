@@ -11,5 +11,5 @@
 humann_databases --download chocophlan full /rs_scratch/users/rj23k073/04_Deer/human
 
 echo "done1"
-humann_databases --download uniref uniref90_diamond /rs_scratch/users/rj23k073/04_Deer/human
+humann_databases --download uniref uniref50_diamond /rs_scratch/users/rj23k073/04_Deer/human
 echo "done2"
