@@ -1,11 +1,14 @@
-module load minimap2/2.20-GCCcore-10.3.0
-module load SAMtools/1.13-GCC-10.3.0
 
 conda activate minimap
 
 
 
 #!/bin/bash
+
+
+
+module load minimap2/2.20-GCCcore-10.3.0
+module load SAMtools/1.13-GCC-10.3.0
 
 
 ASM_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/03_assembly"
