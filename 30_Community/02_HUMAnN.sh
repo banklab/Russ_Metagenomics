@@ -7,7 +7,7 @@ conda activate human
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=24
-#SBATCH --time=36:00:00
+#SBATCH --time=40:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
@@ -20,12 +20,14 @@ DATABASES=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/human
 SAMPLE=1_1
 
 ## interleave R1 & R2
+echo "making interleaved fastq"
 seqtk mergepe $INDIR/${SAMPLE}.R1.dedup.fastq.gz $INDIR/${SAMPLE}.R2.dedup.fastq.gz | gzip > "$SAMPLE".interleaved.fastq.gz
 
 
 mkdir -p out/"$SAMPLE"
 
 ## human on interleaved reads
+echo "starting human: $SAMPLE"
 humann --input "$SAMPLE".interleaved.fastq.gz \
       --output out/"$SAMPLE" \
       --threads 24 \
