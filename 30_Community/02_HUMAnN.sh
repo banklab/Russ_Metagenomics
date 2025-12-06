@@ -20,7 +20,7 @@ DATABASES=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/human
 SAMPLE=1_1
 
 ## interleave R1 & R2
-#seqtk mergepe $INDIR/${SAMPLE}.R1.dedup.fastq.gz $INDIR/${SAMPLE}.R2.dedup.fastq.gz | gzip > "$SAMPLE".interleaved.fastq.gz
+seqtk mergepe $INDIR/${SAMPLE}.R1.dedup.fastq.gz $INDIR/${SAMPLE}.R2.dedup.fastq.gz | gzip > "$SAMPLE".interleaved.fastq.gz
 
 
 mkdir -p out/"$SAMPLE"
