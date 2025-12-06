@@ -1,1 +1,19 @@
 
+module load minimap2/2.20-GCCcore-10.3.0
+module load SAMtools/1.13-GCC-10.3.0
+
+
+for ASM in *asm.p_ctg.fa
+do
+    BASE=$(basename "$ASM" .fa)
+    echo $BASE
+
+    minimap2 -t 16 -ax map-hifi "$ASM" hiFi_reads.fastq \
+      | samtools sort -@8 -o "${BASE}.bam"
+    samtools index "${BASE}.bam"
+
+    jgi_summarize_bam_contig_depths \
+      --outputDepth "${BASE}.depth.txt" \
+      "${BASE}.bam"
+done
+
