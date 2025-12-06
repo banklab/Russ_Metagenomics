@@ -22,10 +22,12 @@ READ_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/02_Merged
 OUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/04_LR_MAP"
 
 # choose assembly
-ASM=2_1
+#ASM=2_1
 
-BASE=$ASM
+for ASM in "${ASM_DIR}"/*.asm.p_ctg.filtered.fa; do
     
+BASE=$(basename "$ASM" .asm.p_ctg.filtered.fa)
+
 # Deer ID
 DEER=${BASE%%_*}
     
@@ -38,14 +40,11 @@ mkdir -p "$ASM_OUT"
 # get all LR samples for this deer
 LR_READS=(${READ_DIR}/${DEER}_*.fastq)
 
+    if [ ${#LR_READS[@]} -eq 0 ]; then
+        echo "No LR reads found for deer $DEER, skipping $BASE"
+        continue
+    fi
 
-if [ ${#LR_READS[@]} -eq 0 ]; then
-    echo "No LR reads found for deer $DEER ???, skip $ASM"
-    exit 1
-fi
-
-
-ASM_FILE="${ASM_DIR}/${ASM}.asm.p_ctg.filtered.fa"
 
 
 # loop over all locations and map to deer
@@ -55,7 +54,7 @@ for LR in "${LR_READS[@]}"; do
 
     echo "  Mapping $LR to $ASM -> $BAM"
 
-   minimap2 -t 16 -ax map-hifi "$ASM_FILE" "$LR" \
+   minimap2 -t 16 -ax map-hifi "$ASM" "$LR" \
         | samtools sort -@8 -o "$BAM"
     samtools index "$BAM"
 done
@@ -64,3 +63,4 @@ done
 echo "  Generating depth matrix for $ASM"
 jgi_summarize_bam_contig_depths --outputDepth "$ASM_OUT/${BASE}.depth.txt" "$ASM_OUT"/*.bam
 
+done
