@@ -3,7 +3,7 @@ conda activate minimap
 
 
 #!/bin/bash
-#SBATCH --mem=20000M
+#SBATCH --mem=128000M
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
