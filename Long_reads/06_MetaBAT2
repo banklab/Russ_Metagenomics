@@ -21,7 +21,7 @@ do
     echo "Input Assembly: $ASM"
 
     metabat2 -i $i \
-         -a "$ASM"_depth.txt \
+         -a "$ASM".depth.txt \
          -o bins/metabat_"$ASM"_bin \
          -t 4
 
