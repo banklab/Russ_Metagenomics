@@ -13,6 +13,8 @@ conda activate maxbin2
 ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
 MetaBAT_DIR=/storage/scratch/users/rj23k073/04_Deer/06_Binning/01_MetaBAT2
 
+mkdir -p bins
+
 for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
 do
     ASM1=$(basename "$i") 
