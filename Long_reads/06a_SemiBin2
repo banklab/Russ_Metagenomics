@@ -9,6 +9,7 @@ conda activate semibin
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8
 
 ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/03_assembly
 BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/04_LR_MAP
