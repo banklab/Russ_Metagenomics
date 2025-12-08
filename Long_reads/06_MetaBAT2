@@ -1,4 +1,5 @@
 conda activate metabat2
+cd /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/01_MetaBAT2
 
 #!/bin/bash
 #SBATCH --mem=40000M
