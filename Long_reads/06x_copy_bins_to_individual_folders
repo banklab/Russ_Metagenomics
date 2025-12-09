@@ -33,5 +33,5 @@ do
 ## sample ID
 SAMPLE=$(basename "$asm" .asm.p_ctg.gfa)
  mkdir -p $SAMPLE
-cp semibin_"$SAMPLE"_bin_*fa $SAMPLE
+cp semibin_"$SAMPLE"_bin*fa $SAMPLE
 done
