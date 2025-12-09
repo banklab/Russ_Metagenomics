@@ -1,24 +1,15 @@
 conda activate checkm2
 
 #!/bin/bash
-#SBATCH --mem=80000M
+#SBATCH --mem=100000M
+#SBATCH --time=48:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --time=36:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
 #SBATCH --partition=pibu_el8
+checkm2 predict --input 01_input_bins --output_directory 02_CheckM2 -x fa -t 16
 
-for i in /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/*_DASTool_bins
-do
- SAMPLE=$(basename $i _DASTool_bins)
 
- echo $SAMPLE
-
- checkm2 predict --input $i \
-  --output_directory /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_CheckM2/"$SAMPLE" \
- -x fa \
- -t 16
-done
