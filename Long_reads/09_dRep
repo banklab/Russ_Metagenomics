@@ -15,4 +15,4 @@ dRep dereplicate 03_drep_bins \
 --gen_warnings -ms 10000 -pa 0.8 -sa 0.95 -nc 0.30 \
 --genomeInfo genomeInformation.csv \
 -p 24 \
--comW 1 -conW 5 -N50W 6 -sizeW 0.5 ## default complete/contam, add heavy N50 weight, and minor genome size weight
+-comW 1 -conW 5 -N50W 6 -sizeW 0.5 ## add heavy N50 weight, and minor genome size weight (default complete/contam)
