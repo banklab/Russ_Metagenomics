@@ -2,7 +2,7 @@
 
 
 INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool
-OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep/01_input_bins
+OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep/97_long_read_bins
 
 cd $INDIR
 
