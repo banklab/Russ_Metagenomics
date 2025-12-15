@@ -7,6 +7,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
+#SBATCH --partition=pibu_el8 
+
 module load prodigal/2.6.3-GCCcore-10.3.0
 
 INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep/05_drep_LR_bins_and_SR_bins/dereplicated_genomes
