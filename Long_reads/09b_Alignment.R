@@ -31,7 +31,7 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --nodes=1", sh_name, append = TRUE)
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
   write ("#SBATCH --cpus-per-task=8", sh_name, append = TRUE)
-  write ("#SBATCH --time=12:00:00", sh_name, append = TRUE)
+  write ("#SBATCH --time=3:00:00", sh_name, append = TRUE)
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
