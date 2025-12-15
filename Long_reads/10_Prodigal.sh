@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --mem=1000M
+#SBATCH --mem=4000M
 #SBATCH --time=6:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=END,FAIL
