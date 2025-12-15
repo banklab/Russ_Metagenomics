@@ -16,6 +16,7 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
+  write ("#SBATCH --partition=pibu_el8", sh_name, append = TRUE)
   write ("module load SAMtools/1.13-GCC-10.3.0", sh_name, append = TRUE)
   write (paste0("i=",reads1), sh_name, append = TRUE)
   write ("file2=$(echo $i | perl -pe 's/bam/sorted.bam/')", sh_name, append = TRUE)
