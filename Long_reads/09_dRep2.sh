@@ -1,3 +1,9 @@
+# extra weight table like this for example, no quote, no col/row names, tab separated
+metabat_2_3_bin.266.fa  100
+metabat_2_4_bin.360.fa  100
+metabat_4_10_bin.92.fa  100
+
+
 #!/bin/bash
 #SBATCH --mem=120000M
 #SBATCH --time=5:00:00
