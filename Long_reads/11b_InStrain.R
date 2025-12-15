@@ -1,16 +1,18 @@
 
-BAM_DIR="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/12_Alignment"
+BAM_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment"
 OUTPUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/14_InStrain"
 
-Reference="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCES/RAS.fa"
-Scaffold_to_Bin="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCES/RAS.stb"
-Prodigal="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCES/RAS.genes.fna"
+Reference="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCE/DEER_v2.fa"
+Scaffold_to_Bin="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCE/DEER_v2.stb"
+Prodigal="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCE/DEER_v2.genes.fna"
 
 
 
 setwd(BAM_DIR)
 
-Read_list <- list.files(pattern="dedup.sorted.bam$")
+Read_list <- list.files(pattern="_LR.sorted.bam$")
+
+Read_list <- Read_list[!grepl("deer",Read_list)]
 
 
 setwd(OUTPUT_DIR)
@@ -20,7 +22,7 @@ for(i in 1:length(Read_list)){
   
   reads1 <- Read_list[i]
   
-  sub_reads <- gsub("\\.dedup.*","",reads1)
+  sub_reads <- gsub("_LR.sorted.bam","",reads1)
   
   sh_name <- paste0(sub_reads,"_InStrain.sh")
   
