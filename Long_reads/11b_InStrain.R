@@ -1,6 +1,6 @@
 
 BAM_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment"
-OUTPUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/14_InStrain"
+OUTPUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain"
 
 Reference="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCE/DEER_v2.fa"
 Scaffold_to_Bin="/data/projects/p898_Deer_RAS_metagenomics/01_RAS/REFERENCE/DEER_v2.stb"
