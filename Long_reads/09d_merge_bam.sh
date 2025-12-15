@@ -7,6 +7,7 @@
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8
 module load SAMtools/1.13-GCC-10.3.0
 envA=8
 envB=10
