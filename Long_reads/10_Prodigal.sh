@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --mem=1000M
-#SBATCH --time=3:00:00
+#SBATCH --time=6:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=slurm-%x.%j.out
