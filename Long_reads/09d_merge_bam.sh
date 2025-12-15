@@ -14,7 +14,7 @@ envB=10
 for i in {1..7}
 do
 echo $i
-samtools merge deer"$i"_env"$envA"_env"$envB".bam "$i"_"$envA"_LR.sorted.bam "$i"_"$envB"_LR.sorted.bam
-samtools sort deer"$i"_env"$envA"_env"$envB".bam > deer"$i"_env"$envA"_env"$envB".sorted.bam
-samtools index deer"$i"_env"$envA"_env"$envB".sorted.bam
+samtools merge deer"$i"_env"$envA"_env"$envB"_LR.bam "$i"_"$envA"_LR.sorted.bam "$i"_"$envB"_LR.sorted.bam
+samtools sort deer"$i"_env"$envA"_env"$envB"_LR.bam > deer"$i"_env"$envA"_env"$envB"_LR.sorted.bam
+samtools index deer"$i"_env"$envA"_env"$envB"_LR.sorted.bam
 done
