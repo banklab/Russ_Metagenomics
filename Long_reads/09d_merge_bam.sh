@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --mem=1000M
+#SBATCH --time=12:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+module load SAMtools/1.13-GCC-10.3.0
+envA=8
+envB=10
+for i in {1..7}
+do
+echo $i
+samtools merge deer"$i"_env"$envA"_env"$envB".bam "$i"_"$envA".sorted.bam "$i"_"$envB".sorted.bam
+samtools sort deer"$i"_env"$envA"_env"$envB".bam > deer"$i"_env"$envA"_env"$envB".sorted.bam
+samtools index deer"$i"_env"$envA"_env"$envB".sorted.bam
+done
