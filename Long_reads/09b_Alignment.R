@@ -20,7 +20,7 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(reads1,"_bowtie_version2.sh")
   
-  code_block <- paste0("bowtie2 -p 20 -x ",REF," -1 ",READ_DIR,"/",reads1,".R1.dedup.fastq.gz -2 ",READ_DIR,"/",reads1,".R2.dedup.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
+  code_block <- paste0("bowtie2 -p 8 -x ",REF," -1 ",READ_DIR,"/",reads1,".R1.dedup.fastq.gz -2 ",READ_DIR,"/",reads1,".R2.dedup.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
   
   code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,"_LR.bam")
   
@@ -30,8 +30,8 @@ for(i in 1:length(Read_list)){
   write ("#SBATCH --mem=40000M", sh_name, append = TRUE)
   write ("#SBATCH --nodes=1", sh_name, append = TRUE)
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
-  write ("#SBATCH --cpus-per-task=20", sh_name, append = TRUE)
-  write ("#SBATCH --time=03:40:00", sh_name, append = TRUE)
+  write ("#SBATCH --cpus-per-task=8", sh_name, append = TRUE)
+  write ("#SBATCH --time=12:00:00", sh_name, append = TRUE)
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
