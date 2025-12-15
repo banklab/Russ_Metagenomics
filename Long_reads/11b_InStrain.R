@@ -26,7 +26,7 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(sub_reads,"_InStrain.sh")
   
-  code_block <- paste0("inStrain profile ",BAM_DIR,"/",reads1," ",Reference," -o ",sub_reads,"_InStrain -s ",Scaffold_to_Bin," -g ",Prodigal," -p 4 --database_mode")
+  code_block <- paste0("inStrain profile ",BAM_DIR,"/",reads1," ",Reference," -o ",sub_reads,"_LR_InStrain -s ",Scaffold_to_Bin," -g ",Prodigal," -p 4 --database_mode")
   
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=160000M", sh_name, append = TRUE)
