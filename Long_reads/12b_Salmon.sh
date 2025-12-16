@@ -29,7 +29,7 @@ for(i in 1:length(Read_list)){
   code_block <- paste0("salmon quant -i ",REF_DIR," --libType IU -1 ",INDIR,"/",reads1," -2 ",INDIR,"/",reads2," -o ",OUTDIR,"/",DATASET,"_",sub_reads,".quant --meta -p 1")
   
   write ("#!/bin/bash", sh_name)
-  write ("#SBATCH --mem=80000M", sh_name, append = TRUE)
+  write ("#SBATCH --mem=60000M", sh_name, append = TRUE)
   write ("#SBATCH --nodes=1", sh_name, append = TRUE)
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
   write ("#SBATCH --cpus-per-task=1", sh_name, append = TRUE)
