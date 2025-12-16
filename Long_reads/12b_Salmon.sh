@@ -1,14 +1,14 @@
 
-INDIR="/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/04_FastUniq"
+INDIR="/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/03_FastUniq"
 OUTDIR="/storage/scratch/users/rj23k073/04_Deer/IBU/salmon"
-REF_DIR="/storage/scratch/users/rj23k073/04_Deer/IBU/salmon"
+REF_DIR="/storage/scratch/users/rj23k073/04_Deer/IBU/salmon/DEER_v2_salmon_index"
 
-DATASET="deer"
+DATASET="LR"
 
 
 setwd(INDIR)
 
-Read_list <- list.files(pattern="R1.trim.fastq$")
+Read_list <- list.files(pattern="R1.dedup.fastq.gz$")
 
 
 setwd(OUTDIR)
@@ -17,11 +17,11 @@ setwd(OUTDIR)
 for(i in 1:length(Read_list)){
   
   reads1 <- Read_list[i]
-  reads2 <- gsub("_R1","_R2",reads1)
+  reads2 <- gsub(".R1",".R2",reads1)
   
-  sub_reads <- gsub("_R1.*","",reads1)
+  sub_reads <- gsub("\\.R1.*","",reads1)
   
-  sh_name <- paste0(sub_reads,"_Salmon.sh")
+  sh_name <- paste0(sub_reads,"_LR_Salmon.sh")
   
   code_block <- paste0("salmon quant -i ",REF_DIR," --libType IU -1 ",INDIR,"/",reads1," -2 ",INDIR,"/",reads2," -o ",OUTDIR,"/",DATASET,"_",sub_reads,".quant --meta -p 1")
   
