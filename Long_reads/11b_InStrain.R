@@ -13,6 +13,7 @@ setwd(BAM_DIR)
 Read_list <- list.files(pattern="_LR.sorted.bam$")
 
 Read_list <- Read_list[!grepl("deer",Read_list)]
+Read_list <- Read_list[grepl("deer",Read_list)]
 
 
 setwd(OUTPUT_DIR)
