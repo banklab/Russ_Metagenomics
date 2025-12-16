@@ -1,3 +1,6 @@
+## actually run on ubelix
+
+
 
 INDIR="/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/03_Trim"
 OUTDIR="/storage/scratch/users/rj23k073/04_Deer/IBU/salmon"
