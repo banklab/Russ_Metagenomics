@@ -27,7 +27,7 @@ for(DEER in 1:7){
   
   snv_file$Deer <- DEER ## record deer ## change as study system requires
   
-  snv_file$Env <- paste0()
+  snv_file$Env <- paste0("Env",EnvA,"_Env",EnvB)
   
   snv_file$Scaffold <- gsub(".*NODE_|_length_.*","",snv_file$scaffold) ## record scaffold
   
