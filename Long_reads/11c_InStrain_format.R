@@ -35,7 +35,7 @@ for(DEER in 1:7){
 
   colnames(snv_file)[1] <- "scaffold2"
   
-  snv_file2 <- snv_file[,c(20:25,4:19,26,1)]
+  snv_file2 <- snv_file[,c(20,22:26,4:19,1,21)]
 
   snv_file2$ID <- paste0(snv_file2$Scaffold,"_",snv_file2$POS) ## make snp ID with scaffold and position
 
@@ -49,7 +49,6 @@ for(DEER in 1:7){
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
   write.csv(snv_file2, paste0(DEER,"_",ENV,"_LR_InStrain_SNVs_format.csv"), row.names = F)
-
   
 }}
 
