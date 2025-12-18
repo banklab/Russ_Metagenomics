@@ -55,16 +55,17 @@ for(DEER in 1:7){
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
-for(ENV in 1:10){
+for(ENV in c(8,10)){
 for(DEER in 1:7){
 
-  snv_file3 <- data.frame(fread(paste0(DEER,"_",ENV,"_InStrain_SNVs_format.csv"), header=T, stringsAsFactors = F))
+  snv_file3 <- data.frame(fread(paste0(DEER,"_",ENV,"_LR_InStrain_SNVs_format.csv"), header=T, stringsAsFactors = F))
 
   if(DEER==1){full_df <- snv_file3} else {full_df <- rbind(full_df, snv_file3)}
 
-  write.csv(full_df, paste0("ENV",ENV,"_SNPS.csv"), row.names = F)
-
   if(length(unique(full_df$ENV))>1){stop("ERROR")}
   
-}}
+  }
+  write.csv(full_df, paste0("ENV",ENV,"_SNPS.csv"), row.names = F)
+
+}
   
