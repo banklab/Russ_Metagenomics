@@ -64,7 +64,7 @@ for(DEER in 1:7){
   if(length(unique(full_df$ENV))>1){stop("ERROR")}
   
   }
-  write.csv(full_df, paste0("ENV",ENV,"_SNPS.csv"), row.names = F)
+  write.csv(full_df, paste0("ENV",ENV,"_LR_SNPS.csv"), row.names = F)
 
 }
   
