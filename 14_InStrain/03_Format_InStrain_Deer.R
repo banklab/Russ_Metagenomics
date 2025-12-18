@@ -10,7 +10,7 @@ for(DEER in 1:7){
   
   snv_file$bin <- gsub(".*asm_","",snv_file$scaffold) ## make variable for species (bin)
   
-  if(sum(grep("scaffold",snv_file$bin))>0){message("ERROR");break}
+  if(sum(grep("scaffold",snv_file$bin))>0){stop("ERROR")}
   
   snv_file$Deer <- DEER ## record deer ## change as study system requires
   
