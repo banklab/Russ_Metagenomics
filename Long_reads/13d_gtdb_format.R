@@ -32,8 +32,6 @@ DF$Species <- gsub(".*s__","",DF$classification)
 
 DF2$bin <- gsub("_deer","",DF2$user_genome) ## extract taxonomy information for Archaea
 
-DF2$bin <- gsub("_deer","",DF2$user_genome) ## extract taxonomy information for Bacteria
-
 DF2$Method <- "SR"
 
 DF2[grepl("metabat|maxbin|semibin",DF2$bin),"Method"] <- "LR"
@@ -58,4 +56,4 @@ DF2$Species <- gsub(".*s__","",DF2$classification)
 
 full_tax <- rbind(DF,DF2)
 
-write.csv(full_tax, "DEER_Taxonomy.csv", row.names = F)
+write.csv(full_tax, "DEER_v2_Taxonomy.csv", row.names = F)
