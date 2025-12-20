@@ -9,6 +9,18 @@ DF2 <- data.frame(fread("gtdbtk.ar53.summary.tsv", header=T, stringsAsFactors = 
 
 DF$bin <- gsub("_deer","",DF$user_genome) ## extract taxonomy information for Bacteria
 
+DF$Method <- "SR"
+
+DF[grepl("metabat|maxbin|semibin",DF$bin),"Method"] <- "LR"
+DF[grepl("hybrid",DF$bin),"Method"] <- "Hy"
+
+DF$bin <- gsub(".*metabat","Me",DF$bin)
+DF$bin <- gsub(".*maxbin","Ma",DF$bin)
+DF$bin <- gsub(".*semibin","Se",DF$bin)
+
+DF$bin <- paste0(DF$Method,"_",DF$bin)
+  
+
 DF$Domain <- gsub("d__|;p__.*","",DF$classification)
 DF$Phylum <- gsub(".*p__|;c__.*","",DF$classification)
 DF$Class <- gsub(".*c__|;o__.*","",DF$classification)
@@ -19,6 +31,21 @@ DF$Species <- gsub(".*s__","",DF$classification)
 
 
 DF2$bin <- gsub("_deer","",DF2$user_genome) ## extract taxonomy information for Archaea
+
+DF$bin <- gsub("_deer","",DF$user_genome) ## extract taxonomy information for Bacteria
+
+DF$Method <- "SR"
+
+DF[grepl("metabat|maxbin|semibin",DF$bin),"Method"] <- "LR"
+DF[grepl("hybrid",DF$bin),"Method"] <- "Hy"
+
+DF$bin <- gsub(".*metabat","Me",DF$bin)
+DF$bin <- gsub(".*maxbin","Ma",DF$bin)
+DF$bin <- gsub(".*semibin","Se",DF$bin)
+
+DF$bin <- paste0(DF$Method,"_",DF$bin)
+  
+
 
 DF2$Domain <- gsub("d__|;p__.*","",DF2$classification)
 DF2$Phylum <- gsub(".*p__|;c__.*","",DF2$classification)
