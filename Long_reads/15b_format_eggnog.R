@@ -1,49 +1,53 @@
-library(readr)
-
-## read eggNOG output into R
-read_eggnog <- function (file){
-  col_names <- c("query_name", "seed_eggNOG_ortholog", "seed_ortholog_evalue", 
-                 "seed_ortholog_score", "predicted_gene_name", "GO_terms", "KEGG_KOs", 
-                 "BiGG_reactions", "Annotation_tax_scope", "OGs", "bestOG_evalue_score", 
-                 "COG_cat", "eggNOG_annot")
-  
-  read_tsv(file, col_names=col_names, comment="#")
-}
-
+library(data.table)
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG")
 
-eggs <- list.files(pattern="annotations")
+egg_files <- list.files(pattern = "annotations", full.names = TRUE)
 
-for(i in 1:length(eggs)){
-  
-  res <- read_eggnog(eggs[i])
-  
-  if(i==1){total_egg <- res} else {total_egg <- rbind(total_egg, res)}
-  
-}
+total_egg <- rbindlist(
+  lapply(egg_files, function(f) {
+    dt <- fread(f, sep = "\t", header = TRUE, skip = "#query", fill = TRUE, quote = "")
+    dt[, source_file := basename(f)]
+    dt}), use.names = TRUE, fill = TRUE)
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG")
-## general formatting etc
-colnames(total_egg) <- c('query_name','seed_eggNOG_ortholog','seed_ortholog_evalue','seed_ortholog_score','best_tax_level','Preferred_name','GOs','EC','KEGG_ko','KEGG_Pathway','KEGG_Module','KEGG_Reaction','KEGG_rclass','BRITE','KEGG_TC','CAZy','BiGG_Reaction','taxonomic_scope','eggNOG_OGs','best_eggNOG_OG','COG_Functional_cat.','eggNOG_free_text_desc.')
+colnames(total_egg)[1] <- "query"
 
-total_egg$Gene <- gsub(".*asm_","",total_egg$query_name)
+total_egg$Gene <- gsub(".*asm_","",total_egg$query)
 
 
-total_egg$bin <- sub("_(?!.*_).*", "", gsub(".*asm_","",total_egg$query_name), perl=T)
+total_egg$bin <- sub("_(?!.*_).*", "", gsub(".*asm_","",total_egg$query), perl=T)
 
 total_egg$Method <- "SR"
 
-  total_egg[grepl("metabat|maxbin|semibin",total_egg$bin),"Method"] <- "LR"
-  total_egg[grepl("hybrid",total_egg$bin),"Method"] <- "Hy"
+total_egg[grepl("metabat|maxbin|semibin",total_egg$bin),"Method"] <- "LR"
+total_egg[grepl("hybrid",total_egg$bin),"Method"] <- "Hy"
 
-  total_egg$bin <- gsub(".*metabat","Me",total_egg$bin)
-  total_egg$bin <- gsub(".*maxbin","Ma",total_egg$bin)
-  total_egg$bin <- gsub(".*semibin","Se",total_egg$bin)
+total_egg$bin <- gsub(".*metabat","Me",total_egg$bin)
+total_egg$bin <- gsub(".*maxbin","Ma",total_egg$bin)
+total_egg$bin <- gsub(".*semibin","Se",total_egg$bin)
 
-  total_egg$bin <- paste0(total_egg$Method,"_",total_egg$bin)
+total_egg$bin <- paste0(total_egg$Method,"_",total_egg$bin)
 
-total_egg$Scaffold <- gsub(".*NODE_|_length.*|_asm.*","",total_egg$query_name)
+total_egg$Scaffold <- gsub(".*NODE_|_length.*|_asm.*","",total_egg$query)
 
 
-write.csv(total_egg, "Eggnog_temp.csv", row.names = F)
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE")
+genes <- fread("Gene_names.txt", header=F)
+
+genes$query <- gsub(">| #.*","",genes$V1)
+
+genes$XX <- sub(" # ","placeholderX",genes$V1)
+genes$YY <- sub(" # ","placeholderY",genes$XX)
+
+genes$start <- as.numeric(gsub(".*placeholderX|placeholderY.*","",genes$YY))
+genes$end <- as.numeric(gsub(".*placeholderY| #.*","",genes$YY))
+
+genes$GC <- as.numeric(gsub("gc_cont=","",genes$V6))
+
+genes$Prodigal <- genes$V1
+
+genes1 <- genes[,c("query","start","end","GC","Prodigal")]
+
+total_egg2 <- merge(total_egg, genes1, by="query")
+
+write.csv(total_egg2, "Eggnog_temp.csv", row.names = F)
