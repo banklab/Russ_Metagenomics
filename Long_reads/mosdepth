@@ -1,6 +1,6 @@
 conda activate mosdepth
 
-ALIGN_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment"
+ALIGN_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment/"
 
 
 
