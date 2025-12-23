@@ -27,11 +27,13 @@ for(i in 1:length(cov_files)){
 
 cov_df <- fread(cov_files[i],stringsAsFactors=F)
 
+colnames(cov_df) <- c("Scaffold","start","end","coverage")
+
 cov_df$Sample <- gsub("_LR.*","",cov_files[i])
 cov_df$Deer <- as.numeric(gsub("_.*","",cov_files[i]))
 cov_df$Env <- as.numeric(gsub(".*_","",cov_df$Sample[1]))
 
-cov_df$bin <- gsub(".*asm_","",cov_df$scaffold) ## make variable for species (bin)
+cov_df$bin <- gsub(".*asm_","",cov_df$Scaffold)
 
 cov_df$Method <- "SR"
 
@@ -44,10 +46,8 @@ cov_df$bin <- gsub(".*semibin","Se",cov_df$bin)
 
 cov_df$bin <- paste0(cov_df$Method,"_",cov_df$bin)
   
- 
-
-
-
-
+ if(i==1){ cov_df2 <- cov_df } else { cov_df2 <- rbind(cov_df2,cov_df) }
 
 }
+
+write.csv(cov_df2, "DEER_v2_Coverage.csv", row.names=F)
