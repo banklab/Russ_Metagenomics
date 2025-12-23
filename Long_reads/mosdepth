@@ -31,7 +31,20 @@ cov_df$Sample <- gsub("_LR.*","",cov_files[i])
 cov_df$Deer <- as.numeric(gsub("_.*","",cov_files[i]))
 cov_df$Env <- as.numeric(gsub(".*_","",cov_df$Sample[1]))
 
+cov_df$bin <- gsub(".*asm_","",cov_df$scaffold) ## make variable for species (bin)
 
+cov_df$Method <- "SR"
+
+cov_df[grepl("metabat|maxbin|semibin",cov_df$bin),"Method"] <- "LR"
+cov_df[grepl("hybrid",cov_df$bin),"Method"] <- "Hy"
+
+cov_df$bin <- gsub(".*metabat","Me",cov_df$bin)
+cov_df$bin <- gsub(".*maxbin","Ma",cov_df$bin)
+cov_df$bin <- gsub(".*semibin","Se",cov_df$bin)
+
+cov_df$bin <- paste0(cov_df$Method,"_",cov_df$bin)
+  
+ 
 
 
 
