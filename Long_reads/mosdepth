@@ -21,6 +21,8 @@ done
 
 # FORMAT
 
+library(data.table)
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/mosdepth/BED")
 cov_files <- list.files(pattern="_LR.per-base.bed")
 
 for(i in 1:length(cov_files)){
@@ -50,4 +52,10 @@ cov_df$bin <- paste0(cov_df$Method,"_",cov_df$bin)
 
 }
 
-write.csv(cov_df2, "DEER_v2_Coverage.csv", row.names=F)
+sp_list <- unique(cov_df2$bin)
+
+for(ii in 1:length(sp_list)){
+sp_cov <- cov_df2[cov_df2$bin==sp_list[ii],]
+write.csv(sp_cov, paste0(sp_list[ii],"_cover.csv"), row.names=F)
+}
+
