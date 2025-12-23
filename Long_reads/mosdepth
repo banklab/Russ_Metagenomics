@@ -14,3 +14,27 @@ echo $file2
 mosdepth $file2 $bam
 
 done
+
+
+
+####
+
+# FORMAT
+
+cov_files <- list.files(pattern="_LR.per-base.bed")
+
+for(i in 1:length(cov_files)){
+
+cov_df <- fread(cov_files[i],stringsAsFactors=F)
+
+cov_df$Sample <- gsub("_LR.*","",cov_files[i])
+cov_df$Deer <- as.numeric(gsub("_.*","",cov_files[i]))
+cov_df$Env <- as.numeric(gsub(".*_","",cov_df$Sample[1]))
+
+
+
+
+
+
+
+}
