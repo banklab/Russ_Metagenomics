@@ -34,6 +34,8 @@ for(i in 1:length(snp_list2)){
   
   cov_df2 <- cov_df[cov_df$coverage>0,]
 
+  counter <- 1
+  
   for(j in 1:length(unique_sample_scaffolds)){
 
     cov_df3 <- cov_df2[cov_df2$Sample.Scaffold==unique_sample_scaffolds[j],]
@@ -58,8 +60,8 @@ for(i in 1:length(snp_list2)){
     snps_filtered <- snp_df_sub[!filter_out, on = .(Scaffold, POS >= start1, POS <= end)]
 
 
-    if(j==1){ snps_filtered2 <- snps_filtered } else { snps_filtered2 <- rbind(snps_filtered2,snps_filtered) }
-    
+    if(counter==1){ snps_filtered2 <- snps_filtered } else { snps_filtered2 <- rbind(snps_filtered2,snps_filtered) }
+    counter<-2
     }
 
   filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered2$Sp.ID.deer)),".csv")
