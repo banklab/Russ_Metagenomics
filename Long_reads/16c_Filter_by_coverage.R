@@ -62,10 +62,16 @@ for(i in 1:length(snp_list2)){
     
     }
 
+  filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered2$Sp.ID.deer)),".csv")
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_2")
-  write.csv(paste0(species2,"_Env",EnvA,"xEnv",EnvB_Coverage_Filter_snps34546.csv")
+  write.csv(snps_filtered2, filename, row.names=F)
 
+  cat(species2,"\n")
+  cat("IN:",length(unique(snp_df$Sp.ID.deer)),"\n")
+  cat("OUT:",length(unique(snps_filtered2$Sp.ID.deer)),"\n")
+  cat("%:",round(length(unique(snps_filtered2$Sp.ID.deer))/length(unique(snp_df$Sp.ID.deer)),2),"\n")
+  cat("\n")
   
   }
 
