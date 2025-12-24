@@ -6,8 +6,14 @@ cmh.function <- function(one.site){
   
   site.df <- cmh_input[cmh_input$Sp.ID==one.site,]
   
-  if(dim(site.df)[1]<4){return(NULL)}
-  if(length(unique(site.df$Env))<2){stop("not enough dims on input 2")}
+   if(length(unique(site.df$Env))<2){return(NULL)}
+
+  number.deer <- table(site.df$Deer)
+  
+  site.df <- site.df[site.df$Deer %in% names(number.deer[number.deer>1]),]
+
+   if(dim(site.df)[1]<4){return(NULL)}
+
   
   usable.deer <- unique(site.df$Deer) ## need at least 2 deer (replicates) to perform a test
   
