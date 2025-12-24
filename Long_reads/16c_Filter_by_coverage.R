@@ -64,6 +64,9 @@ for(i in 1:length(snp_list2)){
     counter<-2
     }
 
+  if(counter==1){ snps_filtered2 <- snp_df } ## none of the scaffolds filtered
+
+  
   filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered2$Sp.ID.deer)),".csv")
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_2")
