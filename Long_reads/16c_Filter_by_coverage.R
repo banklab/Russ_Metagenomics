@@ -33,8 +33,6 @@ for(i in 1:length(snp_list2)){
   cov_df$Sample.Scaffold <- paste0(cov_df$Sample,"_",cov_df$Scaffold)
   
   cov_df2 <- cov_df[cov_df$coverage>0,]
-
-  counter <- 1
   
   for(j in 1:length(unique_sample_scaffolds)){
 
