@@ -49,7 +49,7 @@ for(i in 1:length(snp_list2)){
         times = cov_df3$size
       )
     
-    thresold <- quantile(c_vec, 0.999)
+    thresold <- quantile(c_vec, 0.99)
 
     filter_out <- cov_df3[cov_df3$coverage >= thresold,]
 
