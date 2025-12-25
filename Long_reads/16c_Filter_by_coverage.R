@@ -82,8 +82,7 @@ for(i in 1:length(snp_list2)){
 
     ## snp_df[keep_idx==FALSE, ] ## these are the filtered snps  
     
-  } else { snps_filtered <- snp_df } ## nothing to filter
-  
+  } else { snps_filtered <- snp_df } ## nothing to filter  
   
   filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered$Sp.ID.deer)),".csv")
   
@@ -93,8 +92,8 @@ for(i in 1:length(snp_list2)){
   cat(species2,"\n")
   cat("IN:",length(unique(snp_df$Sp.ID.deer)),"\n")
   cat("OUT:",length(unique(snps_filtered$Sp.ID.deer)),"\n")
-  cat("%:",round(length(unique(snps_filtered$Sp.ID.deer))/length(unique(snp_df$Sp.ID.deer)),4),"\n")
+  cat("%:",round(dim(snps_filtered)[1]/dim(snp_df)[1],4),"\n")
   cat("\n")
-  
+
   }
 
