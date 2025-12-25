@@ -33,47 +33,67 @@ for(i in 1:length(snp_list2)){
   cov_df$Sample.Scaffold <- paste0(cov_df$Sample,"_",cov_df$Scaffold)
   
   cov_df2 <- cov_df[cov_df$coverage>0,]
+
+  counter <- 1
   
   for(j in 1:length(unique_sample_scaffolds)){
 
     cov_df3 <- cov_df2[cov_df2$Sample.Scaffold==unique_sample_scaffolds[j],]
 
-    coverage_difference <- max(cov_df3$coverage) - min(cov_df3$coverage)
+    if(dim(cov_df3)[1]<1){next}
 
-    if(coverage_difference<25){next}
+    if(max(cov_df3$coverage)<50){next}
     
       c_vec <- rep.int(
         cov_df3$coverage,
         times = cov_df3$size
       )
     
-    thresold <- quantile(c_vec, 0.95)
+    thresold <- quantile(c_vec, 0.999)
 
-    filter_out <- cov_df3[cov_df3$coverage > thresold,]
+    filter_out <- cov_df3[cov_df3$coverage >= thresold,]
 
-    snp_df_sub <- snp_df[snp_df$Sample.Scaffold == unique_sample_scaffolds[j],]
+   # snp_df_sub <- snp_df[snp_df$Sample.Scaffold == unique_sample_scaffolds[j],]
 
     filter_out$start1 <- filter_out$start + 1  ## add 1 for difference between mosdepth and snps indices
 
-    snps_filtered <- snp_df_sub[!filter_out, on = .(Scaffold, POS >= start1, POS <= end)]
+   # snps_filtered <- snp_df_sub[!filter_out, on = .(Scaffold, POS >= start1, POS <= end)]
 
 
-    if(counter==1){ snps_filtered2 <- snps_filtered } else { snps_filtered2 <- rbind(snps_filtered2,snps_filtered) }
+    if(counter==1){ filter_out2 <- filter_out } else { filter_out2 <- rbind(filter_out2,filter_out) }
     counter<-2
     }
 
-  if(counter==1){ snps_filtered2 <- snp_df } ## none of the scaffolds filtered
-
   
-  filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered2$Sp.ID.deer)),".csv")
+  if(counter==2){ ## yes filter out
+    
+    keep_idx <- rep(TRUE, nrow(snp_df))
+
+    for(k in seq_len(nrow(filter_out))) {
+      
+      same_sample_scaffold <- snp_df$Sample == filter_out$Sample[k] & snp_df$Scaffold == filter_out$Scaffold[k]
+      
+      in_interval <- snp_df$POS >= filter_out$start[k] & snp_df$POS <= filter_out$end[k]
+      
+      keep_idx[same_sample_scaffold & in_interval] <- FALSE
+    }
+    
+    snps_filtered <- snp_df[keep_idx, ]  
+
+    ## snp_df[keep_idx==FALSE, ] ## these are the filtered snps  
+    
+  } else { snps_filtered <- snp_df } ## nothing to filter
+  
+  
+  filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered$Sp.ID.deer)),".csv")
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_2")
-  write.csv(snps_filtered2, filename, row.names=F)
+  write.csv(snps_filtered, filename, row.names=F)
 
   cat(species2,"\n")
   cat("IN:",length(unique(snp_df$Sp.ID.deer)),"\n")
-  cat("OUT:",length(unique(snps_filtered2$Sp.ID.deer)),"\n")
-  cat("%:",round(length(unique(snps_filtered2$Sp.ID.deer))/length(unique(snp_df$Sp.ID.deer)),2),"\n")
+  cat("OUT:",length(unique(snps_filtered$Sp.ID.deer)),"\n")
+  cat("%:",round(length(unique(snps_filtered$Sp.ID.deer))/length(unique(snp_df$Sp.ID.deer)),4),"\n")
   cat("\n")
   
   }
