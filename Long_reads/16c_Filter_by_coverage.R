@@ -49,7 +49,7 @@ for(i in 1:length(snp_list2)){
         times = cov_df3$size
       )
     
-    thresold <- quantile(c_vec, 0.99)
+    thresold <- quantile(c_vec, 0.95)
 
     filter_out <- cov_df3[cov_df3$coverage >= thresold,]
 
@@ -86,7 +86,7 @@ for(i in 1:length(snp_list2)){
   
   filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered$Sp.ID.deer)),".csv")
   
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_3")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
   write.csv(snps_filtered, filename, row.names=F)
 
   cat(species2,"\n")
