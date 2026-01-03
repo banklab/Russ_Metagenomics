@@ -50,4 +50,4 @@ genes1 <- genes[,c("query","start","end","GC","Prodigal")]
 
 total_egg2 <- merge(total_egg, genes1, by="query")
 
-write.csv(total_egg2, "Eggnog_temp.csv", row.names = F)
+write.csv(total_egg2, "Eggnog_DEER_v2.csv", row.names = F)
