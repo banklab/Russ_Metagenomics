@@ -50,7 +50,7 @@ for(i in 1:length(Read_list)){
 
 ## sort and index
 for f in *_crypto.bam; do
-    sample=${f%_crypto.bam}
+    sample=${f%.bam}
     samtools sort "$f" -o "${sample}.sorted.bam"
     samtools index "${sample}.sorted.bam"
 done
