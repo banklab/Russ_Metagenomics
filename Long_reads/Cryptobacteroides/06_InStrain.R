@@ -27,14 +27,14 @@ for(i in 1:length(Read_list)){
   
   sh_name <- paste0(sub_reads,"_InStrain_transposase.sh")
   
-  code_block <- paste0("inStrain profile ",BAM_DIR,"/",reads1," ",Reference," -o ",sub_reads,"_transposase_InStrain -s ",Scaffold_to_Bin," -g ",Prodigal," -p 4 --database_mode")
+  code_block <- paste0("inStrain profile ",BAM_DIR,"/",reads1," ",Reference," -o ",sub_reads,"_transposase_InStrain -s ",Scaffold_to_Bin," -g ",Prodigal," -p 1 --database_mode")
   
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=60000M", sh_name, append = TRUE)
   write ("#SBATCH --nodes=1", sh_name, append = TRUE)
   write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
-  write ("#SBATCH --cpus-per-task=4", sh_name, append = TRUE)
-  write ("#SBATCH --time=12:00:00", sh_name, append = TRUE)
+  write ("#SBATCH --cpus-per-task=1", sh_name, append = TRUE)
+  write ("#SBATCH --time=3:00:00", sh_name, append = TRUE)
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
