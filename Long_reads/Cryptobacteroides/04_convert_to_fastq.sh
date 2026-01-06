@@ -6,8 +6,8 @@ for f in *transposase.sorted.bam; do
     sample=$(basename "$f" _transposase.sorted.bam)
 
 samtools fastq \
-  -1 "$f"_transposase_R1.fq \
-  -2 "$f"_transposase_R2.fq \
+  -1 "$sample"_transposase_R1.fq \
+  -2 "$sample"_transposase_R2.fq \
   -0 /dev/null \
   -s /dev/null \
   -n \
