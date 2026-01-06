@@ -46,3 +46,18 @@ for(i in 1:length(Read_list)){
   write (code_block, sh_name, append = TRUE)
   write (code_block2, sh_name, append = TRUE)
 }
+
+
+## sort and index
+for f in *_crypto.bam; do
+    sample=${f%_crypto.bam}
+    samtools sort "$f" -o "${sample}.sorted.bam"
+    samtools index "${sample}.sorted.bam"
+done
+
+
+
+
+
+
+
