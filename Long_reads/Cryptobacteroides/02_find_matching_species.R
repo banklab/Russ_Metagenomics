@@ -18,3 +18,7 @@ unique(bb$V2)
  [8] "s36.ctg000037c_asm_metabat_2_10_bin.260"        
  [9] "s19.ctg000020c_asm_maxbin_2_8_bin.002"          
 [10] "s2.ctg000003c_asm_metabat_2_9_bin.149"     
+
+
+
+write.table(unique(bb$V2), "species_scaffolds_with_transposase.txt", quote=F, row.names=F, col.names=F)
