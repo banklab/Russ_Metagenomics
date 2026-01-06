@@ -57,7 +57,16 @@ done
 
 
 
-
+## MERGE bams
+envA=8
+envB=10
+for i in {1..7}
+do
+echo $i
+samtools merge deer"$i"_env"$envA"_env"$envB"_crypto.bam "$i"_"$envA"_crypto.sorted.bam "$i"_"$envB"_crypto.sorted.bam
+samtools sort deer"$i"_env"$envA"_env"$envB"_crypto.bam > deer"$i"_env"$envA"_env"$envB"_crypto.sorted.bam
+samtools index deer"$i"_env"$envA"_env"$envB"_crypto.sorted.bam
+done
 
 
 
