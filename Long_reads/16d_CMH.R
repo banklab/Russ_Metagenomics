@@ -68,7 +68,7 @@ SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps 
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites")
-cmh_list <- list.files(pattern=(paste0("_Env",EnvA,"xEnv",EnvB,"_Filter_snps")))
+cmh_list <- list.files(pattern=(paste0("_Env",EnvA,"xEnv",EnvB,"_Coverage")))
 snp_count <- as.numeric(gsub(".*snps|\\.csv","",cmh_list))
 
 cmh_list2 <- cmh_list[snp_count>=SNP_filter]
