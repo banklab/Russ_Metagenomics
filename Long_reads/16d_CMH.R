@@ -67,7 +67,7 @@ EnvB <- 10
 SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
 cmh_list <- list.files(pattern=(paste0("_Env",EnvA,"xEnv",EnvB,"_Coverage")))
 snp_count <- as.numeric(gsub(".*snps|\\.csv","",cmh_list))
 
