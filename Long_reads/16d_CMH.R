@@ -103,6 +103,6 @@ for(i in 1:length(cmh_list2)){
   num_tests <- sum(!is.na(cmh_results$pvalue))
   
  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/CMH_4")
- write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_snps",num_tests,"_CMH_LR.csv"), row.names = F)
+ write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_snps",num_tests,"_CMH4_LR.csv"), row.names = F)
   
 }
