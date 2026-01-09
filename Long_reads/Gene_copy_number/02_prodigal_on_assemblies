@@ -17,7 +17,8 @@ OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/03b_Prodigal_on_assembl
 
 cd $INDIR
 
-for i in *fa
+for i in *filtered.contigs.fasta
 do
+ sample=
  prodigal -i $i -o "$OUTDIR"/Genes/"$i".genes -a "$OUTDIR"/FAA/"$i".genes.faa -d "$OUTDIR"/FNA/"$i".genes.fna -m -p single
 done
