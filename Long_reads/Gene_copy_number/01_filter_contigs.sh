@@ -7,3 +7,4 @@ seqkit seq -m 1000 $i > "$sample".filtered.contigs.fasta
 #echo "$sample".filtered.contigs.fasta
 done
 
+## filter contigs by at least 1000 nt, otherwise prodigal will predict junk etc
