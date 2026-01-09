@@ -11,7 +11,7 @@
 
 module load prodigal/2.6.3-GCCcore-10.3.0
 
-INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/03_assembly/contigs
+INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/03_assembly
 OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/03b_Prodigal_on_assemblies
 
 
