@@ -1,7 +1,7 @@
+
 ## cat all prodigal genes together
 
-
-
+conda activate mmseqs2
 
 #!/bin/bash
 #SBATCH --mem=200000M
