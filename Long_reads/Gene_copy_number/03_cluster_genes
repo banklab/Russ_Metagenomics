@@ -4,7 +4,7 @@
 conda activate mmseqs2
 
 #!/bin/bash
-#SBATCH --mem=200000M
+#SBATCH --mem=80000M
 #SBATCH --time=12:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=END,FAIL
