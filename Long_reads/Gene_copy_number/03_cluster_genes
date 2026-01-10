@@ -1,0 +1,10 @@
+## cat all prodigal genes together
+
+
+
+
+
+mmseqs easy-cluster proteins_from_contigs.faa clusters tmp \
+  --min-seq-id 0.9 \
+  -c 0.8 \
+  --cov-mode 1
