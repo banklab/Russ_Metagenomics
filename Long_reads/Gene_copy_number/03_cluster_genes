@@ -3,8 +3,19 @@
 
 
 
+#!/bin/bash
+#SBATCH --mem=200000M
+#SBATCH --time=72:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=END,FAIL
+#SBATCH --output=slurm-%x.%j.out
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=32
+#SBATCH --partition=pibu_el8 
 
 mmseqs easy-cluster proteins_from_contigs.faa clusters tmp \
   --min-seq-id 0.9 \
   -c 0.8 \
-  --cov-mode 1
+  --cov-mode 1 \
+ --threads 32
