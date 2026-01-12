@@ -4,8 +4,8 @@
 conda activate mmseqs2
 
 #!/bin/bash
-#SBATCH --mem=80000M
-#SBATCH --time=3:00:00
+#SBATCH --mem=124000M
+#SBATCH --time=24:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=END,FAIL
 #SBATCH --output=slurm-%x.%j.out
@@ -15,7 +15,7 @@ conda activate mmseqs2
 #SBATCH --partition=pibu_el8 
 
 mmseqs easy-linclust proteins_from_contigs.faa clusters tmp \
-  --min-seq-id 0.9 \
+  --min-seq-id 0.50 \
   -c 0.8 \
   --cov-mode 1 \
  --threads 32
