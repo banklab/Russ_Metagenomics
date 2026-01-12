@@ -5,10 +5,10 @@ library(Biostrings)
 ## fasta clustered at 50% identity (amino acids)
 aa_rep <- "genes50_rep_seq.fasta"
 ## prodigal output (nucleotide)
-nt_all <- "genes_nt.fna"
+nt_all <- "nucl_from_contigs.fna"
 
 ## output file - a fasta clustered at 50% identity, but it's the dna now instead of amino acids
-out_fasta <- "genes50_rep_seq_nt.fna"
+out_fasta <- "genes50_rep_seq_DNA.fna"
 
 aa_seqs <- readAAStringSet(aa_rep)
 
