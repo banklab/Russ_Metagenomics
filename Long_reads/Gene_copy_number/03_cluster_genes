@@ -14,7 +14,7 @@ conda activate mmseqs2
 #SBATCH --cpus-per-task=32
 #SBATCH --partition=pibu_el8 
 
-mmseqs easy-linclust proteins_from_contigs.faa clusters tmp \
+mmseqs easy-linclust proteins_from_contigs.faa genes50 tmp \
   --min-seq-id 0.50 \
   -c 0.8 \
   --cov-mode 1 \
