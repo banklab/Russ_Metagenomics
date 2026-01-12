@@ -15,10 +15,12 @@ aa_seqs <- readAAStringSet(aa_rep)
 # prodigal id's
 rep_ids <- sub(" .*", "", names(aa_seqs))
 
+nt_ids <- sub(" .*", "", names(nt_seqs))
+
 # all nucleotide seqs
 nt_seqs <- readDNAStringSet(nt_all)
 
-keep <- names(nt_seqs) %in% rep_ids
+keep <- nt_ids %in% rep_ids
 nt_rep <- nt_seqs[keep]
 
 # now nucleotides at 50% clustering
