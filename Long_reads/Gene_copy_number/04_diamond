@@ -7,7 +7,7 @@ diamond makedb \
 
 
 #!/bin/bash
-#SBATCH --mem=32000M
+#SBATCH --mem=36000M
 #SBATCH --time=12:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=END,FAIL
@@ -17,12 +17,18 @@ diamond makedb \
 #SBATCH --cpus-per-task=24
 #SBATCH --partition=pibu_el8 
 module load DIAMOND/2.1.8-GCC-10.3.0
+
 INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq
 
-diamond blastx -d genes50_rep_seq -q $INDIR/1_10.R1.dedup.fastq.gz -p 24 -o 1_10.R1.tsv
+for i in /data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq/1_*dedup.fastq.gz
+do
+echo $i
+
+done
+diamond blastx -d genes50_rep_seq -q $i -p 24 -o 1_10.R1.tsv
+
+done
 
 
 
-diamond blastx -d genes50_rep_seq -q sample_R2.fastq.gz -p 32 -o R2.tsv
 
-cat R1.tsv R2.tsv > sample_vs_clusters.tsv
