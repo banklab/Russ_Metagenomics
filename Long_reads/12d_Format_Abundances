@@ -20,9 +20,21 @@ write.csv(genome_sizes, "genome_sizes.csv", row.names=F)
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/12_Salmon")
-abund <- data.frame(fread("bin_abundance_table_DEER_v2.tab", header=F, stringsAsFactors=F))
+abund <- data.frame(fread("bin_abundance_table_DEER_v2.tab", header=T, stringsAsFactors=F))
 
-abund
+abund$bin <- gsub("_deer", "",abund$Genomic.bins)
+
+abund$Method <- "SR"
+
+abund[grepl("metabat|maxbin|semibin",abund$bin),"Method"] <- "LR"
+abund[grepl("hybrid",abund$bin),"Method"] <- "Hy"
+
+abund$bin <- gsub(".*metabat","Me",abund$bin)
+abund$bin <- gsub(".*maxbin","Ma",abund$bin)
+abund$bin <- gsub(".*semibin","Se",abund$bin)
+
+abund$bin <- paste0(abund$Method,"_",abund$bin)
+
 
 
 
