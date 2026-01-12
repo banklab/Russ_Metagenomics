@@ -1,6 +1,8 @@
 
 module load DIAMOND/2.1.8-GCC-10.3.0
 
+
+## make database
 diamond makedb \
   --in genes50_rep_seq.fasta \
   -d genes50_rep_seq
