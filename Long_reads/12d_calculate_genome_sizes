@@ -5,6 +5,7 @@ seqtk seq -l0 DEER_v2.fa | awk '/^>/{if(s) print h"\t"length(s); h=$0; s=""; nex
 
 library(data.table)
 
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE")
 deer <- data.frame(fread("DEER_v2_scaffold_lengths.txt", header=F, stringsAsFactors=F))
 
 deer$bin <- gsub(".*asm_","",deer$V1)
@@ -16,3 +17,11 @@ colnames(genome_sizes) <- "size"
 genome_sizes$bin <- row.names(genome_sizes)
 
 write.csv(genome_sizes, "genome_sizes.csv", row.names=F)
+
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/12_Salmon")
+abund <- data.frame(fread("bin_abundance_table_DEER_v2.tab", header=F, stringsAsFactors=F))
+
+
+
+
