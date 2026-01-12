@@ -12,9 +12,21 @@ deer$bin <- gsub(".*asm_","",deer$V1)
 
 genome_sizes <- data.frame(tapply(deer$V2, deer$bin, sum))
 
-colnames(genome_sizes) <- "size"
+colnames(genome_sizes) <- "genome.size"
 
 genome_sizes$bin <- row.names(genome_sizes)
+genome_sizes$bin2 <- row.names(genome_sizes)
+
+genome_sizes$Method <- "SR"
+
+genome_sizes[grepl("metabat|maxbin|semibin",genome_sizes$bin),"Method"] <- "LR"
+genome_sizes[grepl("hybrid",genome_sizes$bin),"Method"] <- "Hy"
+
+genome_sizes$bin <- gsub(".*metabat","Me",genome_sizes$bin)
+genome_sizes$bin <- gsub(".*maxbin","Ma",genome_sizes$bin)
+genome_sizes$bin <- gsub(".*semibin","Se",genome_sizes$bin)
+
+genome_sizes$bin <- paste0(genome_sizes$Method,"_",genome_sizes$bin)
 
 write.csv(genome_sizes, "genome_sizes.csv", row.names=F)
 
@@ -35,12 +47,31 @@ abund$bin <- gsub(".*semibin","Se",abund$bin)
 
 abund$bin <- paste0(abund$Method,"_",abund$bin)
 
+samples <- colnames(abund)[grepl("LR_",colnames(abund))]
 
+for(i in 1:70){
+  
+  samp <- samples[i]
+  
+  df1 <- abund[,c("bin",samp,"Method")]
+  
+  colnames(df1)[2] <- "Abundance.base.pairs"
+  
+  df1$Deer <- as.numeric(gsub("LR_|_.*","",samp))
+  df1$Env <- as.numeric(gsub(".*_","",samp))
+  df1$Sample <- gsub("LR_","",samp)
 
+  df1 <- merge(df1, genome_sizes[,c("bin","genome.size")], by="bin")
 
+  df1$Abundance.by.genomes <- df1$Abundance.base.pairs / df1$genome.size
 
+  df1$Percent.Abundance.base.pairs <- df1$Abundance.base.pairs / sum(df1$Abundance.base.pairs) *100
+  df1$Percent.Abundance.genomes <- df1$Abundance.by.genomes / sum(df1$Abundance.by.genomes) *100
 
+  if(i==1){full1 <- df1} else { full1<- rbind(full1,df1) }
+}
 
+write.csv(full1, "DEER_v2_Abundance.csv", row.names=F)
 
 
 
