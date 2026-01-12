@@ -1,0 +1,18 @@
+
+conda activate seqtk
+
+seqtk seq -l0 DEER_v2.fa | awk '/^>/{if(s) print h"\t"length(s); h=$0; s=""; next} {s=$0} END{print h"\t"length(s)}' > DEER_v2_scaffold_lengths.txt
+
+library(data.table)
+
+deer <- data.frame(fread("DEER_v2_scaffold_lengths.txt", header=F, stringsAsFactors=F))
+
+deer$bin <- gsub(".*asm_","",deer$V1)
+
+genome_sizes <- data.frame(tapply(deer$V2, deer$bin, sum))
+
+colnames(genome_sizes) <- "size"
+
+genome_sizes$bin <- row.names(genome_sizes)
+
+write.csv(genome_sizes, "genome_sizes.csv", row.names=F)
