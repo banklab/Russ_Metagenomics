@@ -20,7 +20,7 @@ diamond makedb \
 #SBATCH --partition=pibu_el8 
 module load DIAMOND/2.1.8-GCC-10.3.0
 
-for i in /data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq/1_*dedup.fastq.gz
+for i in /data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq/1_*dedup.fastq.gz ## subset by deer for parallel
 do
 base=$(basename "$i" .dedup.fastq.gz)
 diamond blastx -d genes50_rep_seq -q $i -p 16 -o "$base".tsv
