@@ -10,11 +10,12 @@ env10 <- fread("ENV10_LR_SNPS.csv", header=T, stringsAsFactors=F)
 inter8 <- env8[env8$mutation_type=="I",]
 inter10 <- env10[env10$mutation_type=="I",]
 
-inter <- rbind(inter8,inter10)
+inter <- merge(inter8,inter10, by="Sp.ID.deer")
+dim(inter)
+sum(duplicated(c(inter8$Sp.ID.deer,inter10$Sp.ID.deer)))
 
 
-
-calc.freq.function <- function(df, allele_cols = c("A", "C", "T", "G")) {
+calc.freq.function <- function(df, A = c("A.x", "A.y"), C = c("C.x", "C.y"), G = c("G.x", "G.y"), T = c("T.x", "T.y")) {
 
   counts <- as.matrix(df[, ..allele_cols])
   total  <- rowSums(counts)
