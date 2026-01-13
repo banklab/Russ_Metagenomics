@@ -1,0 +1,6 @@
+
+## UBELIX
+
+module load Python/3.10.4-GCCcore-11.3.0
+
+conda activate metaquast
