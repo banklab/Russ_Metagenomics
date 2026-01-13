@@ -10,34 +10,50 @@ env10 <- fread("ENV10_LR_SNPS.csv", header=T, stringsAsFactors=F)
 inter8 <- env8[env8$mutation_type=="I",]
 inter10 <- env10[env10$mutation_type=="I",]
 
-inter <- merge(inter8,inter10, by="Sp.ID.deer")
+inter <- data.frame(merge(inter8,inter10, by="Sp.ID.deer"))
 dim(inter)
 sum(duplicated(c(inter8$Sp.ID.deer,inter10$Sp.ID.deer)))
 
+inter$total.A <- rowSums(inter[,c("A.x","A.y")])
+inter$total.C <- rowSums(inter[,c("C.x","C.y")])
+inter$total.G <- rowSums(inter[,c("G.x","G.y")])
+inter$total.T <- rowSums(inter[,c("T.x","T.y")])
 
-calc.freq.function <- function(df, A = c("A.x", "A.y"), C = c("C.x", "C.y"), G = c("G.x", "G.y"), T = c("T.x", "T.y")) {
 
-  counts <- as.matrix(df[, ..allele_cols])
-  total  <- rowSums(counts)
+calc.freq.function <- function(one.site) {
 
-  ord <- t(apply(counts, 1, order, decreasing = TRUE))
+  alleles <- sort(unlist(one.site[c("total.A","total.C","total.G","total.T")]), decreasing=T)
 
-  major_idx <- ord[, 1]
-  minor_idx <- ord[, 2]
+  major.allele <- sub("total.","",names(alleles[1]))
+  minor.allele <- sub("total.","",names(alleles[2]))
 
-  data.table::data.table(
-    major_allele = allele_cols[major_idx],
-    major_freq   = counts[cbind(seq_len(nrow(counts)), major_idx)] / total,
-    minor_allele = allele_cols[minor_idx],
-    minor_freq   = counts[cbind(seq_len(nrow(counts)), minor_idx)] / total
-  )
+  env8.major <- as.numeric(one.site[paste0(major.allele,".x")]) / as.numeric(one.site["DP.x"])
+  env10.major <- as.numeric(one.site[paste0(major.allele,".y")]) / as.numeric(one.site["DP.y"])
+  env8.minor <- as.numeric(one.site[paste0(minor.allele,".x")]) / as.numeric(one.site["DP.x"])
+  env10.minor <- as.numeric(one.site[paste0(minor.allele,".y")]) / as.numeric(one.site["DP.y"])
+
+  res <- data.frame(
+    major.allele=major.allele,
+    env8.major.freq=env8.major,
+    env10.major.freq=env10.major,
+    minor.allele=minor.allele,
+    env8.minor.freq=env8.minor,
+    env10.minor.freq=env10.minor,
+    bin=one.site["bin.x"],
+    Deer=one.site["Deer.x"],
+    Scaffold=one.site["Scaffold.x"],
+    POS=one.site["POS.x"]
+    )
+
+    return(res)
 }
 
 Sys.time()
-inter2 <- cbind(inter, calc.freq.function(inter))
+inter_list <- apply(inter, MARGIN=1, FUN=calc.freq.function)
 Sys.time()
+inter_df <- as.data.frame(do.call(rbind, inter_list))
 
-write.csv(inter2, "Intergenic_snps.csv", row.names=F)
+write.csv(inter_df, "Intergenic_snps.csv", row.names=F)
 
 
 
