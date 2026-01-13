@@ -4,3 +4,15 @@
 module load Python/3.10.4-GCCcore-11.3.0
 
 conda activate metaquast
+
+#!/bin/bash
+#SBATCH --mem=20000M
+#SBATCH --time=2:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+
+metaquast.py *fa -o quast -t 4
