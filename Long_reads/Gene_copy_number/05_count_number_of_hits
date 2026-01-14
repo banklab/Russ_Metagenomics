@@ -21,3 +21,11 @@ for(i in 1:length(file_list)){
   write.csv(out, gsub("R1.tsv","hits.csv",file_list[i]), row.names=F)
 
 }
+
+
+df1<-list.files(pattern="hits.csv")
+for(i in 1:70){
+  df2<- fread(df1[i],header=T, stringsAsFactors=F)
+  if(i==1){dd<-df2}else{dd<- rbind(dd,df2)}
+}
+write.csv(dd, "DEER_all_hits.csv", row.names=F)
