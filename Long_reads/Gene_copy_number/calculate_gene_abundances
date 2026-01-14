@@ -1,0 +1,49 @@
+
+## DEER_all_hits.csv
+## Gene_Information.csv
+
+library(data.table)
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/35_Clusters_Abundance")
+
+hits <- fread("DEER_all_hits.csv", header=T, stringsAsFactors=F)
+
+genes <- fread("Gene_Information.csv", header=T, stringsAsFactors=F)
+
+genes2 <- genes[genes$Gene %in% unique(hits$Gene),]
+
+genes2_unique <- genes2[!duplicated(Gene)]
+
+hits2 <- merge(hits, genes2_unique, by="Gene")
+
+## scale the number of hits by the gene size
+hits2$Hits.scaled.by.gene.size <- hits2$Hits / hits2$size
+
+hits2$Sample <- paste0(hits2$Deer,"_",hits2$Env)
+
+sample_list <- unique(hits2$Sample)
+
+for(i in 1:length(sample_list)){
+
+  hits_by_sample <- hits2[hits2$Sample==sample_list[i],]
+
+  total_abundance <- sum(hits_by_sample$Hits.scaled.by.gene.size)
+
+  hits_by_sample$relative.abundance <- hits_by_sample$Hits.scaled.by.gene.size / total_abundance
+
+  if(round(sum(hits_by_sample$relative.abundance),8) != 1){stop("error")}
+
+  hits_by_sample$Prodigal <- NULL
+
+  hits_by_sample2 <- hits_by_sample[,c(1:2,10,3:9,11)]
+
+  if(i==1){ hits_all <- hits_by_sample2 } else { hits_all<- rbind(hits_all,hits_by_sample2) }
+  
+}
+
+
+
+
+
+
+
