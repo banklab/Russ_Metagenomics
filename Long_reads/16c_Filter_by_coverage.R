@@ -49,7 +49,7 @@ for(i in 1:length(snp_list2)){
         times = cov_df3$size
       )
     
-    thresold <- quantile(c_vec, 0.95)
+    thresold <- quantile(c_vec, 0.99)
 
     filter_out <- cov_df3[cov_df3$coverage >= thresold,]
 
@@ -69,11 +69,11 @@ for(i in 1:length(snp_list2)){
     
     keep_idx <- rep(TRUE, nrow(snp_df))
 
-    for(k in seq_len(nrow(filter_out))) {
+    for(k in seq_len(nrow(filter_out2))) {
       
-      same_sample_scaffold <- snp_df$Sample == filter_out$Sample[k] & snp_df$Scaffold == filter_out$Scaffold[k]
+      same_sample_scaffold <- snp_df$Sample == filter_out2$Sample[k] & snp_df$Scaffold == filter_out2$Scaffold[k]
       
-      in_interval <- snp_df$POS >= filter_out$start[k] & snp_df$POS <= filter_out$end[k]
+      in_interval <- snp_df$POS >= filter_out2$start[k] & snp_df$POS <= filter_out2$end[k]
       
       keep_idx[same_sample_scaffold & in_interval] <- FALSE
     }
