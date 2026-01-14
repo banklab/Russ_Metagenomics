@@ -1,0 +1,23 @@
+
+library(data.table)
+
+file_list <- list.files(pattern="R1.tsv")
+
+for(i in 1:length(file_list)){
+
+  aa <- fread(file_list[i], sep="\t")
+
+  bb <- fread(gsub("R1.tsv","R2.tsv",file_list[i]), sep="\t")
+
+  cc <- rbind(aa,bb)
+
+  out <- data.frame(table(cc$V2))
+
+  colnames(out) <- c("Gene","Hits")
+
+  out$Deer <- as.numeric(gsub("_.*","",file_list[i]))
+  out$Env <- as.numeric(gsub(".*_|\\.R1.*","",file_list[i]))
+
+  write.csv(out, gsub("R1.tsv","hits.csv",file_list[i]), row.names=F)
+
+}
