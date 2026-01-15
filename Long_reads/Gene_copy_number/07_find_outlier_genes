@@ -1,0 +1,10 @@
+
+library(data.table)
+
+dat <- fread("DEER_Gene_abundances.csv", header=T, stringsAsFactors=F)
+
+gene1 <- aggregate(dat$relative.abundance, list(dat$Gene, dat$Env), mean)
+
+
+gene1 <- aggregate(dat$relative.abundance, list(dat$Gene, dat$Env, ), mean)
+
