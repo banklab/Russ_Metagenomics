@@ -41,6 +41,7 @@ for(i in 1:length(sample_list)){
   
 }
 
+write.csv(hits_all, "DEER_Gene_abundances.csv", row.names=F)
 
 
 
