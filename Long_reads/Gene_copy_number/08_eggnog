@@ -18,3 +18,28 @@ seqkit split -p 100 -O /data/projects/p898_Deer_RAS_metagenomics/04_Deer/36_Clus
 DATA_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/DATA"
 
 emapper.py -i genes50_rep_seq.part_001.fasta -o 001 -m diamond --data_dir $DATA_DIR --cpu 12 --override
+
+
+file_list <- list.files(pattern="genes50_rep_seq.part_")
+
+for(i in 1:length(file_list)){
+  
+  reads1 <- file_list[i]
+  
+  sh_name <- paste0("eggnog",as.numeric(gsub(".*part_|\\.fasta","",reads1)),".sh")
+  
+  code_block <- paste0("emapper.py -i ",reads1," -o ",gsub(".*part_|\\.fasta","",reads1)," -m diamond --data_dir $DATA_DIR --cpu 12 --override")
+
+  write ("#!/bin/bash", sh_name)
+  write ("#SBATCH --mem=60000M", sh_name, append = TRUE)
+  write ("#SBATCH --nodes=1", sh_name, append = TRUE)
+  write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
+  write ("#SBATCH --cpus-per-task=12", sh_name, append = TRUE)
+  write ("#SBATCH --time=72:00:00", sh_name, append = TRUE)
+  write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
+  write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
+  write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
+ write ("#SBATCH --partition=pibu_el8", sh_name, append = TRUE)
+  write (code_block, sh_name, append = TRUE)
+
+}
