@@ -4,22 +4,6 @@ module load SeqKit/2.6.1
 seqkit split -p 100 -O /data/projects/p898_Deer_RAS_metagenomics/04_Deer/36_Clusters_Eggnog/ genes50_rep_seq.fasta
 
 
-#!/bin/bash
-#SBATCH --mem=60000M
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=12
-#SBATCH --time=72:00:00
-#SBATCH --mail-user=<russell.jasper@unibe.ch>
-#SBATCH --mail-type=FAIL,END
-#SBATCH --output=slurm-%x.%j.out
-#SBATCH --partition=pibu_el8
-
-DATA_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/DATA"
-
-emapper.py -i genes50_rep_seq.part_001.fasta -o 001 -m diamond --data_dir $DATA_DIR --cpu 12 --override
-
-
 file_list <- list.files(pattern="genes50_rep_seq.part_")
 
 for(i in 1:length(file_list)){
