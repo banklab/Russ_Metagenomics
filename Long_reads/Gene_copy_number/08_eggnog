@@ -12,7 +12,7 @@ for(i in 1:length(file_list)){
   
   sh_name <- paste0("eggnog",as.numeric(gsub(".*part_|\\.fasta","",reads1)),".sh")
   
-  code_block <- paste0("emapper.py -i ",reads1," -o ",gsub(".*part_|\\.fasta","",reads1)," -m diamond --data_dir $DATA_DIR --cpu 12 --override")
+  code_block <- paste0("emapper.py -i ",reads1," -o ",gsub(".*part_|\\.fasta","",reads1)," -m diamond --data_dir /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/DATA --cpu 12 --override")
 
   write ("#!/bin/bash", sh_name)
   write ("#SBATCH --mem=60000M", sh_name, append = TRUE)
