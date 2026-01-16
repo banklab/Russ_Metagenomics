@@ -3,8 +3,70 @@ library(data.table)
 
 dat <- fread("DEER_Gene_abundances.csv", header=T, stringsAsFactors=F)
 
-gene1 <- aggregate(dat$relative.abundance, list(dat$Gene, dat$Env), mean)
+dat$Sample <- paste0(dat$Deer,"_",dat$Env)
 
 
-gene1 <- aggregate(dat$relative.abundance, list(dat$Gene, dat$Env, ), mean)
+mat <- dcast(
+  dat,
+  Sample ~ Gene,
+  value.var = "relative.abundance",
+  fill = 0
+)
+
+rownames(mat) <- mat$Sample
+mat[, Sample := NULL]
+
+library(vegan)
+
+dist_bc <- vegdist(mat, method = "bray")
+pcoa <- cmdscale(dist_bc, k = 2, eig = TRUE)
+
+pcoa_df <- data.frame(
+  Sample = rownames(mat),
+  PC1 = pcoa$points[,1],
+  PC2 = pcoa$points[,2]
+)
+
+pcoa_df$Deer <- as.numeric(gsub("_.*","",pcoa_df$Sample))
+
+pcoa_df$Env <- as.numeric(gsub(".*_","",pcoa_df$Sample))
+
+write.csv(pcoa_df, "PCoA.csv", row.names=F)
+write.csv(pcoa$eig, "eigs.csv", row.names=F)
+
+
+## filter rare genes
+keep_cols <- names(mat)[colSums(mat) > 1e-5]
+mat_filt <- mat[, ..keep_cols]
+
+rownames(mat_filt) <- rownames(mat)
+
+dist_bc2 <- vegdist(mat_filt, method = "bray")
+pcoa2 <- cmdscale(dist_bc2, k = 2, eig = TRUE)
+
+pcoa_df2 <- data.frame(
+  Sample = rownames(mat_filt),
+  PC1 = pcoa2$points[,1],
+  PC2 = pcoa2$points[,2]
+)
+
+pcoa_df2$Deer <- as.numeric(gsub("_.*","",pcoa_df2$Sample))
+
+pcoa_df2$Env <- as.numeric(gsub(".*_","",pcoa_df2$Sample))
+
+write.csv(pcoa_df2, "PCoA_filtered1e5.csv", row.names=F)
+write.csv(pcoa2$eig, "eigs_filtered1e5.csv", row.names=F)
+
+####
+
+# which genes contribute to PCoA axes
+pc_coords <- pcoa$points
+correlations1 <- apply(mat, 2, function(gene) cor(gene, pc_coords[,1]))
+top_genes1 <- head(sort(abs(correlations1), decreasing=TRUE), 100)  
+
+correlations2 <- apply(mat, 2, function(gene) cor(gene, pc_coords[,2]))
+top_genes2 <- head(sort(abs(correlations2), decreasing=TRUE), 100)  
+
+
+
 
