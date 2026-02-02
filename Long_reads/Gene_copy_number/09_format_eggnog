@@ -1,0 +1,16 @@
+
+library(data.table)
+
+
+egg_files <- list.files(pattern = "annotations", full.names = TRUE)
+
+total_egg <- rbindlist(
+  lapply(egg_files, function(f) {
+    dt <- fread(f, sep = "\t", header = TRUE, skip = "#query", fill = TRUE, quote = "")
+    dt[, source_file := basename(f)]
+    dt}), use.names = TRUE, fill = TRUE)
+
+colnames(total_egg)[1] <- "query"
+
+write.csv(total_egg, "DEER_gene_annotations_NO_SPECIES.csv", row.names = F)
+
