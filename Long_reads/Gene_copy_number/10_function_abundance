@@ -1,0 +1,22 @@
+library(data.table)
+
+setwd()
+egg <- fread("DEER_gene_annotations_NO_SPECIES.csv", header=T, stringsAsFactors=F)
+egg$Gene <- egg$query
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/35_Clusters_Abundance")
+abund <- fread("DEER_Gene_abundances_REDUX.csv", header=T, stringsAsFactors=F)
+
+
+abund2 <- merge(abund, egg[,c("COG_category","Gene")], by="Gene")
+
+abund2_sub <- abund2[abund2$COG_category != "-",]
+
+
+agg <- aggregate(abund2_sub$relative.abundance, list(abund2_sub$COG_category, abund2_sub$Deer, abund2_sub$Env), sum)
+
+colnames(agg) <- c("COG","Deer","Env","relative.abundance")
+
+ write.csv(agg, "Gene_Abundance_by_COG.csv", row.names=F)
+
+ 
