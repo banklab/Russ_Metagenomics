@@ -35,10 +35,11 @@ write.table(choose_seq2, "Representative_Transposases.txt", row.names=F, quote=F
 library(seqinr)
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep/05_drep_LR_bins_and_SR_bins/dereplicated_genomes")
 
-for(i in 1:length(unique(blast2$bin))){
+for(i in 1:length(unique(choose_seq2$bin))){
 
-  sp <- unique(blast2$bin)[i]
+  sp <- unique(choose_seq2$bin)[i]
 
+  fasta_file <- readfasta
 
 }
 
