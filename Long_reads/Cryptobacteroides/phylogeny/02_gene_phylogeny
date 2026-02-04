@@ -1,0 +1,50 @@
+
+# blast output from finding the transposase gene
+blast_out <- read.table("transposase_vs_DEER_v2.out", stringsAsFactors=F)
+
+# at least 90% ANI and 95% cover
+blast_out[blast_out$V3 >= 90 & blast_out$V4 >=1095,]
+
+blast2 <- blast_out[blast_out$V3 >= 90 & blast_out$V4 >=1095,]
+
+blast2$bin <- gsub(".*asm_","",blast2$V2)
+
+## choose representative sequences from each species (only 1) based on ani and cover
+for(i in 1:length(unique(blast2$bin))){
+
+sp <- unique(blast2$bin)[i]
+
+blast_sp <- blast2[blast2$bin == sp,]
+
+if(dim(blast_sp)[1]==1){
+  best2 <- blast_sp
+  } else {
+  best <- blast_sp[blast_sp$V3==max(blast_sp$V3),]
+  best2 <- best[best$V4==max(best$V4),][1,]
+  }
+
+if(i==1){ choose_seq <- best2 } else { choose_seq <- rbind(choose_seq,best2) }
+
+}
+
+choose_seq2 <- choose_seq[,c("V2","V9","V10","bin")]
+colnames(choose_seq2) <- c("Scaffold","start","end","bin")
+
+write.table(choose_seq2, "Representative_Transposases.txt", row.names=F, quote=F) 
+
+library(seqinr)
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep/05_drep_LR_bins_and_SR_bins/dereplicated_genomes")
+
+for(i in 1:length(unique(blast2$bin))){
+
+  sp <- unique(blast2$bin)[i]
+
+
+}
+
+
+
+
+#module load SAMtools/1.13-GCC-10.3.0
+#samtools faidx MAG_01.fasta
+#samtools faidx MAG_01.fasta s60.ctg000061c_asm_hybrid_semibin_2_8_bin.23:1848426-1849577 > MAG_01_gene.fasta
