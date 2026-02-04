@@ -1,0 +1,52 @@
+
+## gtdb output from all genomes 1128
+## 8 species with cryptobacteroides transposase - at least 95% cover and 90% ani with blast
+ 
+ "metabat_6_8_bin.102"         "hybrid_semibin_2_9_bin.28"  
+"hybrid_semibin_2_8_bin.23"   "hybrid_semibin_2_8_bin.44"  
+"hybrid_semibin_4_10_bin.123" "metabat_2_10_bin.260"       
+"maxbin_2_8_bin.002"          "metabat_2_9_bin.149"   
+
+# outgroups (from gtdbtk.bac120.summary.tsv - closest_genome_reference)
+GB_GCA_017461605.1
+GB_GCA_017473615.1
+
+--> genome_ids_transposase.txt
+
+
+gtdbtk.bac120.msa.fasta (from gtdb output)
+
+# extract my genomes (transposase genomes and outgroups)
+module load SeqKit/2.6.1
+seqkit grep -f genome_ids_transposase.txt gtdbtk.bac120.msa.fasta > cryptobacteroides_10_msa.fasta
+
+# build tree
+iqtree -s cryptobacteroides_10_msa.fasta -m MFP -bb 1000 -alrt 1000 -nt AUTO
+
+# visualize on itol
+
+
+
+
+
+       user_genome
+                        <char>
+1:   hybrid_semibin_2_8_bin.23
+2:   hybrid_semibin_2_8_bin.44
+3:   hybrid_semibin_2_9_bin.28
+4: hybrid_semibin_4_10_bin.123
+5:          maxbin_2_8_bin.002
+6:        metabat_2_10_bin.260
+7:         metabat_2_9_bin.149
+8:         metabat_6_8_bin.102
+                                                                                                                  classification
+                                                                                                                          <char>
+1:                                d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__UBA932;g__Cryptobacteroides;s__
+2: d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Bacteroidaceae;g__Alloprevotella;s__Alloprevotella sp017461605
+3:                              d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Bacteroidaceae;g__Phocaeicola;s__
+4:                                 d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Muribaculaceae;g__RGIG4576;s__
+5:                                 d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Muribaculaceae;g__RGIG4576;s__
+6:                                 d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Muribaculaceae;g__RGIG4079;s__
+7:                                 d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Muribaculaceae;g__RGIG4079;s__
+8:             d__Bacteria;p__Bacteroidota;c__Bacteroidia;o__Bacteroidales;f__Muribaculaceae;g__RGIG4576;s__RGIG4576 sp017473615
+
