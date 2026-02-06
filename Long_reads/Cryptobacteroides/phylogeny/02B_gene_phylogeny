@@ -1,0 +1,11 @@
+
+## put all transposase sequences together
+cat *fa > all_transposase.fasta
+
+## multiple sequence alignment
+
+module load MAFFT
+mafft --auto all_transposase.fasta > all_transposase_aligned.fasta
+
+
+iqtree -s all_transposase_aligned.fasta -m MFP -bb 1000 -alrt 1000
