@@ -18,10 +18,10 @@ gtdbtk.bac120.msa.fasta (from gtdb output)
 
 # extract my genomes (transposase genomes and outgroups)
 module load SeqKit/2.6.1
-seqkit grep -f genome_ids_transposase.txt gtdbtk.bac120.msa.fasta > cryptobacteroides_10_msa.fasta
+seqkit grep -f genome_ids_transposase.txt gtdbtk.bac120.msa.fasta > cryptobacteroides_9_msa.fasta
 
 # build tree
-iqtree -s cryptobacteroides_10_msa.fasta -m MFP -bb 1000 -alrt 1000 -nt AUTO
+iqtree -s cryptobacteroides_9_msa.fasta -m MFP -bb 1000 -alrt 1000 -nt AUTO
 
 # visualize on itol
 
