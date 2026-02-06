@@ -7,5 +7,15 @@ cat *fa > all_transposase.fasta
 module load MAFFT
 mafft --auto all_transposase.fasta > all_transposase_aligned.fasta
 
-
 iqtree -s all_transposase_aligned.fasta -m MFP -bb 1000 -alrt 1000
+
+
+## try proteins
+
+seqkit translate -w 0 -f 1 all_transposase.fasta > all_transposase_protein.fasta
+
+mafft --auto all_transposase_protein.fasta > all_transposase_protein_aligned.fasta
+
+trimal -in all_transposase_protein_aligned.fasta -out all_transposase_protein_aligned_trimmed.fasta -automated1
+
+iqtree -s all_transposase_protein_aligned_trimmed.fasta -m TEST -bb 1000 -alrt 1000
