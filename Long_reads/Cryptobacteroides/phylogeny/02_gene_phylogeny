@@ -48,18 +48,22 @@ for(i in 1:length(unique(choose_seq2$bin))){
 
   scaff_seq <- fasta_file[[which(names(fasta_file)==scaff)]]
 
-  gene_seq <- scaff_seq[c(choose_seq2[choose_seq2$bin==sp,"start"]:choose_seq2[choose_seq2$bin==sp,"end"])]
 
-  gene_name <- paste0(sp,"_scaffold_",gsub("_asm.*","",scaff),"_pos",choose_seq2[choose_seq2$bin==sp,"start"],":",choose_seq2[choose_seq2$bin==sp,"end"])
+  start <- choose_seq2[choose_seq2$bin==sp,"start"]
+  end <- choose_seq2[choose_seq2$bin==sp,"end"]
+
+  if(start>end){ start <- choose_seq2[choose_seq2$bin==sp,"end"]
+    end <- choose_seq2[choose_seq2$bin==sp,"start"]
+    }
+
+
+  gene_seq <- scaff_seq[c(start:end)]
+
+  gene_name <- paste0(sp,"_scaffold_",gsub("_asm.*","",scaff),"_pos",start,":",end)
+
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Cryptobacteroides/Phylogeny/GENES")
   write.fasta(gene_seq, gene_name, paste0(sp,"_transposase.fa"), open = "w", nbchar = 60, as.string = FALSE)
 
 }
 
-
-
-
-#module load SAMtools/1.13-GCC-10.3.0
-#samtools faidx MAG_01.fasta
-#samtools faidx MAG_01.fasta s60.ctg000061c_asm_hybrid_semibin_2_8_bin.23:1848426-1849577 > MAG_01_gene.fasta
