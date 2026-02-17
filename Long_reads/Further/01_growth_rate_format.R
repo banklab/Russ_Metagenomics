@@ -19,6 +19,7 @@ for(i in 1:length(instrain_dirs)){
 
 }
 
+df2$bin <- df2$genome
 df2$Method <- "SR"
 
 df2[grepl("metabat|maxbin|semibin",df2$bin),"Method"] <- "LR"
@@ -28,11 +29,7 @@ df2$bin <- gsub(".*metabat","Me",df2$bin)
 df2$bin <- gsub(".*maxbin","Ma",df2$bin)
 df2$bin <- gsub(".*semibin","Se",df2$bin)
 
-df2$bin <- paste0(df2$Method,"_",df2$bin)
-
-
-
-
+df2$bin <- gsub("\\.fa","",paste0(df2$Method,"_",df2$bin))
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain")
