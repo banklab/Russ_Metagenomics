@@ -1,0 +1,60 @@
+
+
+Intergenic Outliers
+
+cmh_by_qval[cmh_by_qval$annotate=="Int" & cmh_by_qval$OUTLIER,]
+               Scaffold   POS       pvalue statistic num.alleles num.deer deer                bin     qvalue
+191945 s6381.ctg006388l 19562 9.234191e-06  19.66364           2        2   41 Hy_Se_6_10_bin.170 0.01207541
+425816 s6381.ctg006388l 12935 1.917462e-05  18.26957           2        2   14 Hy_Se_6_10_bin.170 0.01905650
+426616 s6381.ctg006388l 13477 2.300647e-05  17.92267           2        2   14 Hy_Se_6_10_bin.170 0.02117106
+426416 s6381.ctg006388l 13401 5.039932e-05  16.43303           2        2   14 Hy_Se_6_10_bin.170 0.03577776
+426516 s6381.ctg006388l 13402 5.039932e-05  16.43303           2        2   14 Hy_Se_6_10_bin.170 0.03577776
+425716 s6381.ctg006388l 12908 5.229087e-05  16.36319           2        2   14 Hy_Se_6_10_bin.170 0.03608941
+191655 s6381.ctg006388l 12678 5.863613e-05  16.14620           2        2   41 Hy_Se_6_10_bin.170 0.03833877
+425916 s6381.ctg006388l 12936 1.380491e-04  14.52858           2        2   14 Hy_Se_6_10_bin.170 0.07297805
+191675 s6381.ctg006388l 12688 1.542141e-04  14.32004           2        2   41 Hy_Se_6_10_bin.170 0.07819601
+
+
+## regulatory sequences on scaffold
+aa <- read.table("scaffold.txt")
+
+## at least 90% cover
+ cc <- aa[aa$V8>0.9,]
+
+pos <-c(19562,12935,13477,13401,13402,12908,12678,12936,12688)
+
+offset <- 50
+
+df <- data.frame(array(NA, dim=c(0,9), dimnames=list(c(),c(paste0("V",1:9)))))
+
+for(i in 1:length(pos)){
+
+  pos1 <- pos[i]
+
+  reg1 <- cc[cc$V3 > (pos1-offset) & cc$V4 < (pos1+offset),]
+
+  if(dim(reg1)[1]>0){ df <- rbind(df,reg1) }
+
+  }
+
+
+
+ df
+                 V1                                               V2    V3
+92  EXPREG_00000020 s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170 19592
+366 EXPREG_000005d0 s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170 19590
+453 EXPREG_00001790 s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170 19593
+321 EXPREG_00000b00 s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170 12863
+       V4 V5       V6       V7 V8                   V9
+92  19608  - 12.74730 1.68e-05  1    AGCGAACACAGTTTTGA
+366 19609  -  3.38202 7.32e-05  1 CAGCGAACACAGTTTTGACT
+453 19606  -  3.78899 9.64e-05  1       CGAACACAGTTTTG
+321 12879  + 10.33010 6.56e-05  1    AAAAGGTGTTGACATAG
+
+EXPREG_00000020 = LexA, DNA damage response or SOS response
+EXPREG_000005d0 = LexA, DNA damage response or SOS response
+EXPREG_00001790 = LexA, DNA damage response or SOS response
+EXPREG_00000b00 = (CsgD?), cellular homeostasis and chemical resistance
+
+
+
