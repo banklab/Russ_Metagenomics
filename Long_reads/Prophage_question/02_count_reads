@@ -1,8 +1,18 @@
 
 ## circularized reads
-samtools view -F 4 4_10_phage.bam "s6381_phage_doubled:29500-30600" | cut -f1 | sort | uniq > circular_reads.txt
+
+OUT_DIR=circular_reads
+
+for bam in *phage.bam
+do
+    base=$(basename "$bam" .bam)
+
+    samtools view -F 4 "$bam" "s6381_phage_doubled:29500-30600" | \
+        cut -f1 | sort | uniq > "$OUT_DIR/${base}_circular_reads.txt"
+done
 
 
+## Blast output
 ## attachment sites
 attR	s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170	100.000	13	0	0	1	13	2714	2726	209	25.1
 attR	s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170	100.000	13	0	0	1	13	29999	30011	209	25.1
@@ -13,19 +23,29 @@ attR	s493.ctg000495l_asm_hybrid_semibin_6_10_bin.170	100.000	12	0	0	2	13	89144	8
 
 ## get reads that span the bacterial attachement site & the 'phage' scaffold
 
-samtools view 4_10_MAG.bam | awk -v phage="s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170" \
+OUT_DIR=integrated_reads
+
+for bam in *MAG.bam
+do
+    base=$(basename "$bam" .bam)
+
+    samtools view "$bam" | awk -v phage="s6381.ctg006388l_asm_hybrid_semibin_6_10_bin.170" \
 -v host1="s194.ctg000196l_asm_hybrid_semibin_6_10_bin.170" -v h1_start=95598 -v h1_end=95610 \
 -v host2="s493.ctg000495l_asm_hybrid_semibin_6_10_bin.170" -v h2_start=89144 -v h2_end=89155 '
 {
     read_id=$1
-    ref=$3
-    pos=$4
-    cigar=$6
-    if (cigar ~ /S|H/) {
-        # part of read is soft/hard clipped → possible split
-        if (ref==phage) phage_flag=1
-        else if ((ref==host1 && pos>=h1_start && pos<=h1_end) || (ref==host2 && pos>=h2_start && pos<=h2_end)) host_flag=1
+    # track if read maps to phage or host near att site
+    if (!(read_id in phage_reads) && ref==$3 && $3==phage) phage_reads[read_id]=1
+    if (!(read_id in host_reads) && ref==$3 && (($3==host1 && $4>=h1_start && $4<=h1_end) || ($3==host2 && $4>=h2_start && $4<=h2_end))) host_reads[read_id]=1
+}
+END {
+    for (r in phage_reads) {
+        if (r in host_reads) print r
     }
-    if (phage_flag && host_flag) print read_id
-    phage_flag=0; host_flag=0
-}' | sort | uniq > host_phage_junction_reads.txt
+}' | sort | uniq > "$OUT_DIR/${base}_host_phage_integrated_reads.txt"
+
+
+done
+
+
+
