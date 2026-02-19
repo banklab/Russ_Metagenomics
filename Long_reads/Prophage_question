@@ -1,0 +1,51 @@
+## is the scaffold a prophage?
+# bin: hybrid_semibin_6_10_bin.170.fa
+# scaffold: s6381.ctg006388l
+
+## here I am mapping the LR against the 'phage' doubled (just cat'ed the phage scaffold double)
+## if the reads map over the doubled phage suggests circularization
+## then I map the LR against the MAG 
+## if the reads map over the 'phage' and the bacterial scaffolds suggests integration
+
+
+
+
+conda activate minimap
+
+
+#!/bin/bash
+#SBATCH --mem=64000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --time=6:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8
+
+module load minimap2/2.20-GCCcore-10.3.0
+module load SAMtools/1.13-GCC-10.3.0
+
+
+for LR in /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/02_Merged/*fastq
+do
+
+#LR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/02_Merged/2_10.fastq
+
+  SAMPLE=$(basename "$LR" .fastq)
+    BAM="${SAMPLE}_phage.bam"
+ BAM2="${SAMPLE}_MAG.bam"
+
+   minimap2 -t 8 -ax map-hifi double_phage.fa "$LR" \
+        | samtools sort -@8 -o "$BAM"
+    samtools index "$BAM"
+
+
+  minimap2 -t 8 -ax map-hifi hybrid_semibin_6_10_bin.170.fa "$LR" \
+        | samtools sort -@8 -o "$BAM2"
+    samtools index "$BAM2"
+
+done
+
+
