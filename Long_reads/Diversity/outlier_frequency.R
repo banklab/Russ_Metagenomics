@@ -98,7 +98,7 @@ for(s in 1:length(cmh_files2)){
         
     }
 
-    outlier_snps$Window <- i
+    outlier_snps2$Window <- i
     outlier_snps2$OUTLIER <- FALSE
     outlier_snps2[outlier_snps2$format_scaffold==outlier_site$Scaffold & outlier_snps2$POS==outlier_site$POS,"OUTLIER"] <- TRUE
 
