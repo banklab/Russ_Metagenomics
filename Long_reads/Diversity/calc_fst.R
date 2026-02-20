@@ -8,15 +8,17 @@ EnvB <- 10
 SNP_filter <- 28e3
 
 
-setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/05_Filtered_Sites")
-snp_files <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_Filter_snps")) ## all species
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
+snp_files <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps")) ## all species
 snp_count <- as.numeric(gsub(".*snps|\\.csv.*","",snp_files))
 snp_files2 <- snp_files[snp_count>=SNP_filter] ## just top species
+
+snp_files2 <- snp_files2[!grepl("SR_",snp_files2)]
 
 
 for(i in 1:length(snp_files2)){
   
-  setwd("/storage/scratch/users/rj23k073/04_DEER/14_InStrain/05_Filtered_Sites")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
   snp_df <- data.frame(fread(snp_files2[i], header=T, stringsAsFactors = F))
   
   snp_df$Sample <- paste0(snp_df$Deer,"_",snp_df$Env)
@@ -28,6 +30,8 @@ for(i in 1:length(snp_files2)){
     sites_df <- snp_df[snp_df$Sp.ID == unique_sites[j],]
     
     deer_comparisons <- choose( dim(sites_df)[1], 2 )
+
+    if(deer_comparisons==0){next}
     
     result <- data.frame(array(NA, dim = c(deer_comparisons,10), dimnames = list(c(),c("Scaffold","POS","DeerA","EnvA","DeerB","EnvB","Fst","Ht","Hs","Dxy"))))
     result[,"Scaffold"] <- unique(sites_df$Scaffold)
@@ -98,9 +102,9 @@ for(i in 1:length(snp_files2)){
     
   } ## sites
 
-  filename2 <- gsub("_Filter.*","_FST_DXY.csv",snp_files2[i])
+  filename2 <- gsub("_Filter.*","_FST_DXY_deer_v2.csv",snp_files2[i])
   
-  setwd("/storage/scratch/users/rj23k073/04_DEER/19_Diversity/01_FST")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
   write.csv(result2, filename2, row.names = F)
     
 } ## species
