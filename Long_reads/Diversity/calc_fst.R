@@ -8,18 +8,20 @@ EnvB <- 10
 SNP_filter <- 28e3
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
-snp_files <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps")) ## all species
-snp_count <- as.numeric(gsub(".*snps|\\.csv.*","",snp_files))
-snp_files2 <- snp_files[snp_count>=SNP_filter] ## just top species
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/CMH_4")
+snp_files <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_snps")) ## all species
+snp_count <- as.numeric(gsub(".*snps|_CMH.*|_LR.*","",snp_files))
+snp_files2 <- snp_files[snp_count>=SNP_filter]
 
 snp_files2 <- snp_files2[!grepl("SR_",snp_files2)]
 
+species_here <- gsub("_Env.*","",snp_files2)
 
-for(i in 1:length(snp_files2)){
+
+for(i in 1:length(species_here)){
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
-  snp_df <- data.frame(fread(snp_files2[i], header=T, stringsAsFactors = F))
+  snp_df <- data.frame(fread(list.files(pattern=paste0(species_here[i],"_Env")), header=T, stringsAsFactors = F))
   
   snp_df$Sample <- paste0(snp_df$Deer,"_",snp_df$Env)
   
@@ -102,7 +104,7 @@ for(i in 1:length(snp_files2)){
     
   } ## sites
 
-  filename2 <- gsub("_Filter.*","_FST_DXY_deer_v2.csv",snp_files2[i])
+  filename2 <- paste0(species_here,"_FST_deer_v2.csv")
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
   write.csv(result2, filename2, row.names = F)
