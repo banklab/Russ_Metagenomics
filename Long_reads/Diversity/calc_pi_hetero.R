@@ -198,7 +198,5 @@ for(i in 1:length(Diversity_files)){
 
 }
 
-all_div2 <- merge(all_div, genome_size, by="bin")
-
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
-write.csv(all_div2, "DEER_diversity.csv", row.names=F)
+write.csv(all_div, "DEER_diversity.csv", row.names=F)
