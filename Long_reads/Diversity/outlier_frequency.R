@@ -56,9 +56,6 @@ for(s in 1:length(cmh_files2)){
  
   cmh_outs <- cmh_data2[cmh_data2$OUTLIER,]
 
-  outlier_snps <- NULL
-  outlier_snps2 <- NULL
-  outlier_full <- NULL
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
   snp_df <- data.frame(fread(list.files(pattern=paste0(SPECIES1,"_Env")), header=T, stringsAsFactors = F))
@@ -107,11 +104,12 @@ for(s in 1:length(cmh_files2)){
 
     outlier_snps2$logq <- NA
     outlier_snps2[outlier_snps2$format_scaffold==outlier_site$Scaffold & outlier_snps2$POS==outlier_site$POS,"logq"] <- outlier_site$logq
-      
-    }
 
     if(i==1){ outlier_full <- outlier_snps2 } else { outlier_full <- rbind(outlier_full,outlier_snps2) }
 
+    }
+
+  
     filename <- paste0(SPECIES1,"_outlier_frequencies_DEER_v2.csv")
     
     setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
