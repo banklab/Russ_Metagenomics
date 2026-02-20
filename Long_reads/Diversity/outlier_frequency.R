@@ -56,6 +56,9 @@ for(s in 1:length(cmh_files2)){
  
   cmh_outs <- cmh_data2[cmh_data2$OUTLIER,]
 
+  outlier_snps <- NULL
+  outlier_snps2 <- NULL
+  outlier_full <- NULL
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
   snp_df <- data.frame(fread(list.files(pattern=paste0(SPECIES1,"_Env")), header=T, stringsAsFactors = F))
