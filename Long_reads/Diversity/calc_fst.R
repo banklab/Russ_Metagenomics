@@ -22,6 +22,8 @@ for(i in 1:length(species_here)){
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
   snp_df <- data.frame(fread(list.files(pattern=paste0(species_here[i],"_Env")), header=T, stringsAsFactors = F))
+
+  species_lab <- unique(snp_df$bin)
   
   snp_df$Sample <- paste0(snp_df$Deer,"_",snp_df$Env)
   
@@ -104,7 +106,7 @@ for(i in 1:length(species_here)){
     
   } ## sites
 
-  filename2 <- paste0(species_here,"_FST_deer_v2.csv")
+  filename2 <- paste0(species_lab,"_FST_deer_v2.csv")
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
   write.csv(result2, filename2, row.names = F)
