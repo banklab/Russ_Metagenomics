@@ -107,6 +107,9 @@ for(i in 1:length(species_here)){
   } ## sites
 
   filename2 <- paste0(species_lab,"_FST_deer_v2.csv")
+
+
+  result2[!is.na(result2$Fst) & result2$Fst<0,"Fst"] <- 0
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
   write.csv(result2, filename2, row.names = F)
