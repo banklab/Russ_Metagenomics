@@ -42,7 +42,7 @@ calc.freq.function <- function(one.site) {
     bin=one.site["bin.x"],
     Deer=one.site["Deer.x"],
     Scaffold=one.site["Scaffold.x"],
-    POS=one.site["POS.x"]
+    POS=as.numeric(one.site["POS.x"])
     )
 
     return(res)
