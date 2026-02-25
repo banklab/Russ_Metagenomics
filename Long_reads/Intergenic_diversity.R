@@ -49,7 +49,8 @@ calc.freq.function <- function(one.site) {
 }
 
 Sys.time()
-inter_list <- apply(inter, MARGIN=1, FUN=calc.freq.function)
+#inter_list <- apply(inter, MARGIN=1, FUN=calc.freq.function)
+inter_list <- lapply(split(inter, seq_len(nrow(inter))), calc.freq.function)
 Sys.time()
 inter_df <- as.data.frame(do.call(rbind, inter_list))
 
