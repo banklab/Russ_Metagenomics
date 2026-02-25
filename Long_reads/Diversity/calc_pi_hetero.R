@@ -122,14 +122,18 @@ for(i in 1:length(snp_file_list)){
     
     single_pop_df$pi <- NA;single_pop_df$maj.freq <- NA;single_pop_df$min.freq <- NA
     
-    pi_and_freqs <- apply(single_pop_df, MARGIN=1, FUN=pi_w.function)
-    
+     pi_and_freqs <- lapply(seq_len(nrow(single_pop_df)), function(k) {
+      pi_w.function(single_pop_df[k, ])
+      }) 
     pi_and_freqs2 <- as.data.frame(do.call(rbind, pi_and_freqs))
     
     single_pop_df[,c("pi","maj.freq","min.freq")] <- pi_and_freqs2
     
-    single_pop_df$H <- apply(single_pop_df, MARGIN=1, FUN=hetero.function2)
     
+    single_pop_df$H <- sapply(
+    seq_len(nrow(single_pop_df)),
+    function(kk) hetero.function2(single_pop_df[kk, ])
+    )
     
     ## heterozygosity
     if(sum(is.na(single_pop_df$H))>0){message("NA hetero");break}
@@ -178,17 +182,17 @@ for(i in 1:length(snp_file_list)){
   Sys.time()
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
-  write.csv(div_by_site, paste0(DEER,"_",ENV, "_Diversity_by_site.csv"), row.names = F)
+  write.csv(div_by_site, paste0(DEER,"_",ENV, "_Diversity_by_site1.csv"), row.names = F)
   
   diversity_df_for_sample <- diversity_df[diversity_df$Deer==DEER & diversity_df$Env==ENV,]
   
  
-  write.csv(diversity_df_for_sample, paste0(DEER,"_",ENV, "_Diversity_by_sample.csv"), row.names = F)
+  write.csv(diversity_df_for_sample, paste0(DEER,"_",ENV, "_Diversity_by_sample1.csv"), row.names = F)
   
 }
 
 
-Diversity_files <- list.files(pattern="Diversity_by_sample.csv")
+Diversity_files <- list.files(pattern="Diversity_by_sample1.csv")
 
 for(i in 1:length(Diversity_files)){
 
@@ -199,4 +203,4 @@ for(i in 1:length(Diversity_files)){
 }
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity")
-write.csv(all_div, "DEER_v2_diversity.csv", row.names=F)
+write.csv(all_div, "DEER_v2_diversity1.csv", row.names=F)
