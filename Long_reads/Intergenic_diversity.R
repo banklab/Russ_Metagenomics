@@ -54,6 +54,8 @@ inter_list <- lapply(split(inter, seq_len(nrow(inter))), calc.freq.function)
 Sys.time()
 inter_df <- as.data.frame(do.call(rbind, inter_list))
 
+colnames(inter_df) <- gsub("\\.x","",colnames(inter_df))
+
 write.csv(inter_df, "Intergenic_snps.csv", row.names=F)
 
 
