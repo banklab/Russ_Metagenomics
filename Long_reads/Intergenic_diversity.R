@@ -56,6 +56,8 @@ inter_df <- as.data.frame(do.call(rbind, inter_list))
 
 colnames(inter_df) <- gsub("\\.x","",colnames(inter_df))
 
+inter_df$ID <- paste0(inter_df$Scaffold,"_",inter_df$POS)
+
 write.csv(inter_df, "Intergenic_snps.csv", row.names=F)
 
 
