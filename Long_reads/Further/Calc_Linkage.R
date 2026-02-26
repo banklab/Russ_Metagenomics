@@ -61,21 +61,39 @@ for(i in 1:length(unique(linkage_top_sp$bin))){
     
     ## here so it gets the right linkage df
     mean.linkage.function <- function(start, end, env){
-      sub <- scaffold_linkage[Env == env & position_A >= start & position_B < end]
-      if(nrow(sub) == 0) return(NULL)
-      data.table(
-        r2.mean = mean(sub$r2, na.rm=TRUE),
-        d_prime.mean = mean(sub$d_prime, na.rm=TRUE),
-        r2_normalized.mean = mean(sub$r2_normalized, na.rm=TRUE),
-        d_prime_normalized.mean = mean(sub$d_prime_normalized, na.rm=TRUE),
-        num.compare = nrow(sub),
-        distance.mean = mean(sub$distance, na.rm=TRUE),
-        Env = env,
-        Start = start,
-        End = end,
-        Window = windows[Start==start & End==end, Window]
-      )
-    }
+
+  sub <- scaffold_linkage[
+    Env == env & position_A >= start & position_B < end
+  ]
+
+  if(nrow(sub) == 0){ ## add empty dataframe if there are no comparisons at all on the scaffold
+    return(data.table(
+      r2.mean = NA_real_,
+      d_prime.mean = NA_real_,
+      r2_normalized.mean = NA_real_,
+      d_prime_normalized.mean = NA_real_,
+      num.compare = 0L,
+      distance.mean = NA_real_,
+      Env = env,
+      Start = start,
+      End = end,
+      Window = windows[Start==start & End==end, Window]
+    ))
+  }
+
+  data.table(
+    r2.mean = mean(sub$r2, na.rm=TRUE),
+    d_prime.mean = mean(sub$d_prime, na.rm=TRUE),
+    r2_normalized.mean = mean(sub$r2_normalized, na.rm=TRUE),
+    d_prime_normalized.mean = mean(sub$d_prime_normalized, na.rm=TRUE),
+    num.compare = nrow(sub),
+    distance.mean = mean(sub$distance, na.rm=TRUE),
+    Env = env,
+    Start = start,
+    End = end,
+    Window = windows[Start==start & End==end, Window]
+  )
+}
     
     ## calc stats
     linkage_results <- rbindlist(
