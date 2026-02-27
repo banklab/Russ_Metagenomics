@@ -113,6 +113,6 @@ for(i in 1:length(unique(linkage_top_sp$bin))){
   
   linkage_results2$bin <- unique(linkage_top_sp$bin)[i]
   
-  write.csv(linkage_results2, paste0(unique(linkage_top_sp$bin)[i],"_LINKAGE_window",linkage_window_size,".csv"))
+  write.csv(linkage_results2, paste0(unique(linkage_top_sp$bin)[i],"_LINKAGE_window",linkage_window_size,".csv"), row.names=F)
   
 }
