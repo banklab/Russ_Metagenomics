@@ -66,7 +66,7 @@ for(s in 1:length(cmh_species)){
   snp_df$format_scaffold <- gsub("_asm_.*","",snp_df$Scaffold)
 
 
-  delta_list <- lapply(unique(snp_df$ID)[1:1588], FUN=delta.function)
+  delta_list <- lapply(unique(snp_df$ID), FUN=delta.function)
   delta_results <- as.data.frame(do.call(rbind, delta_list))
   rownames(delta_results) <- NULL
 
@@ -74,7 +74,7 @@ for(s in 1:length(cmh_species)){
 
   filename2 <- paste0(SPECIES1,"_delta.csv")
 
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DiversityDELTA")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/Diversity/DELTA")
   write.csv(delta_results, filename2, row.names=F)
 
 }
