@@ -47,7 +47,7 @@ format.snps.function <- function(one.site){
 
   data.table(
     Sample = one.site["SAMPLE"],
-    POS = one.site["POS"],
+    POS = as.numeric(one.site["POS"]),
     base = major.base
   )
 }
@@ -58,5 +58,18 @@ major_base_data <- apply(order_data, MARGIN=1, FUN=format.snps.function)
 Sys.time()
 major_base_data2 <- as.data.frame(do.call(rbind, major_base_data))
 
+
+samples <- unique(major_base_data2$Sample)
+positions <- sort(unique(major_base_data2$POS))
+
+align_mat <- matrix("N", nrow = length(samples), ncol = length(min(major_base_data2$POS):max(major_base_data2$POS)), dimnames = list(samples, min(major_base_data2$POS):max(major_base_data2$POS)))
+
+for(i in min(major_base_data2$POS):max(major_base_data2$POS)) {
+  samp <- major_base_data2$Sample[i]
+  pos <- as.character(major_base_data2$POS[i])
+  base <- major_base_data2$base[i]
+  
+  align_mat[samp, pos] <- base
+}
 
 
