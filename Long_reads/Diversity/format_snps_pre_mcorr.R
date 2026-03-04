@@ -44,9 +44,19 @@ format.snps.function <- function(one.site){
     major.base <- major.base[sample(1:length(major.base), 1)]
   }
 
-  return(major.base)
+
+  data.table(
+    Sample = one.site["SAMPLE"],
+    POS = one.site["POS"],
+    base = major.base
+  )
 }
 
-major_base_data <- apply(order_data[1:100,], MARGIN=1, FUN=format.snps.function)
+
+Sys.time()
+major_base_data <- apply(order_data, MARGIN=1, FUN=format.snps.function)
+Sys.time()
+major_base_data2 <- as.data.frame(do.call(rbind, major_base_data))
+
 
 
