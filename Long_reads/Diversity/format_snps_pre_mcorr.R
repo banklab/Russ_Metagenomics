@@ -1,40 +1,52 @@
 
 library(data.table)
 
-snp_data <- fread("1_10_LR_InStrain_SNVs_format.csv", header=T, stringsAsFactors=F)
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
+file_list <- list.files(pattern="_LR_InStrain_SNVs_format.csv")
 
-sp_data <- snp_data[snp_data$bin=="Hy_Se_2_8_bin.23",]
+for(i in 1:length(file_list)){
 
-table(sp_data$Scaffold)
+  snp_data <- fread(file_list[i], header=T, stringsAsFactors=F)
 
-sp_data2 <- sp_data[sp_data$Scaffold=="s60.ctg000061c_asm_hybrid_semibin_2_8_bin.23",]
+  sp_data <- snp_data[snp_data$bin=="Hy_Se_2_8_bin.23",]
 
-max(table(sp_data2$ID))
+  sp_data2 <- sp_data[sp_data$Scaffold=="s60.ctg000061c_asm_hybrid_semibin_2_8_bin.23",]
 
-order_data <- sp_data2[order(sp_data2$POS, decreasing=F),]
+  if(i==1){ crypto <- sp_data2 } else { crypto <- rbind(crypto,sp_data2) }
+  
+  }
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/mcorr")
+write.csv(crypto, "crypto_snps.csv", row.names=F)
+
+library(data.table)
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/mcorr")
+crypto <- fread("crypto_snps.csv", header=T, stringsAsFactors=F)
+
+order_data <- crypto[order(crypto$POS, decreasing=F),]
 
 order_data <- order_data[order_data$DP>=5,]
 
-#lapply(order_data[1:2,], FUN=format.snps.function)
+order_data$SAMPLE <- paste0(order_data$Deer,"_",order_data$Env)
 
-res <- data.frame(array(NA, dim=c(1, nrow(order_data))))
 
-Sys.time()
-for(i in 1:dim(order_data)[1]){
+format.snps.function <- function(one.site){
 
-  one.site <- order_data[i,]
+  max.freq <- c("ref_freq","con_freq","var_freq")[which(one.site[c("ref_freq","con_freq","var_freq")] == max(one.site[c("ref_freq","con_freq","var_freq")]))]
+  max.base <- c("ref_base","con_base","var_base")[which(one.site[c("ref_freq","con_freq","var_freq")] == max(one.site[c("ref_freq","con_freq","var_freq")]))]
+
+  major.freq <- as.numeric(one.site[max.freq])
   
-  max.freq <- c("ref_freq","con_freq","var_freq")[which(one.site[,c("ref_freq","con_freq","var_freq")] == max(one.site[,c("ref_freq","con_freq","var_freq")]))]
-  max.base <- c("ref_base","con_base","var_base")[which(one.site[,c("ref_freq","con_freq","var_freq")] == max(one.site[,c("ref_freq","con_freq","var_freq")]))]
+  major.base <- as.character(one.site[max.base])
 
-  major.freq <- as.numeric(one.site[, ..max.freq])
-  major.base <- unname(one.site[, ..max.base])
-
-  res[1,i] <- major.base
-  
+  ## tie for major allele
+  if(length(major.base)>1){
+    major.base <- major.base[sample(1:length(major.base), 1)]
   }
-Sys.time()
 
+  return(major.base)
+}
 
+major_base_data <- apply(order_data[1:100,], MARGIN=1, FUN=format.snps.function)
 
 
