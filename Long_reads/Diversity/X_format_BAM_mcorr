@@ -1,0 +1,18 @@
+
+
+module load SAMtools/1.13-GCC-10.3.0
+
+
+## extract crypto sp. reads
+## s60.ctg000061c (main scaffold)
+samtools view -b 2_10_LR.sorted.bam s60.ctg000061c_asm_hybrid_semibin_2_8_bin.23 > 2_10_crypto_s60.ctg000061c.bam
+
+samtools index 2_10_crypto_s60.ctg000061c.bam 
+
+# GFF 
+
+##gff-version 3
+s60.ctg000061c_asm_hybrid_semibin_2_8_bin.23  .  gene  1       3106344  .  +  .  ID=gene1
+
+
+./mcorr-bam crypto_s60.ctg000061c.GFF 2_10_crypto_s60.ctg000061c.bam 2_10_crypto_s60.ctg000061c_output
