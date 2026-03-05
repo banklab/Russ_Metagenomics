@@ -62,14 +62,61 @@ major_base_data2 <- as.data.frame(do.call(rbind, major_base_data))
 samples <- unique(major_base_data2$Sample)
 positions <- sort(unique(major_base_data2$POS))
 
-align_mat <- matrix("N", nrow = length(samples), ncol = length(min(major_base_data2$POS):max(major_base_data2$POS)), dimnames = list(samples, min(major_base_data2$POS):max(major_base_data2$POS)))
+## add 1 for numeric index of array
+pos_range <- min(positions):max(positions) + 1
 
-for(i in min(major_base_data2$POS):max(major_base_data2$POS)) {
+align_mat <- matrix("N", nrow = length(samples), ncol = length(pos_range), dimnames = list(samples,pos_range))
+
+Sys.time()
+for(i in 1:dim(major_base_data2)[1]) {
   samp <- major_base_data2$Sample[i]
-  pos <- as.character(major_base_data2$POS[i])
+  pos <- major_base_data2$POS[i] + 1
   base <- major_base_data2$base[i]
   
   align_mat[samp, pos] <- base
 }
+Sys.time()
 
+## remove that 1 you added
+colnames(align_mat) <- 0:c(ncol(align_mat)-1)
+
+sum(rowSums(align_mat!="N"))
+dim(major_base_data2)[1]
+
+
+write.fasta.function <- function(mat, file) {
+  con <- file(file, "w")
+  
+  for(i in 1:nrow(mat)) {
+    cat(">", rownames(mat)[i], "\n", file = con, sep = "")
+    cat(paste(mat[i, ], collapse = ""), "\n", file = con)
+  }
+  
+  close(con)
+}
+
+write.fasta.function(align_mat, "mcorr_input.fasta")
+
+
+## CONVERT TO XMFA for mcorr
+awk '
+BEGIN{n=0}
+/^>/{
+  if(n>0) print "="
+  n++
+  gsub(">","")
+  print ">"n":"$0
+  next
+}
+{print}
+END{print "="}
+' mcorr_input.fasta > mcorr_input.xmfa
+
+
+## run pairwise snp correlations
+./mcorr-xmfa mcorr_input.xmfa mcorr_output
+
+
+##
+mcorr-fit mcorr_output.csv fit_results
 
