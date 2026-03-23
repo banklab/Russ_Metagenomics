@@ -68,7 +68,7 @@ for(s in 1:length(cmh_files2)){
 
     ## find flanking snps
     outlier_scaffold <- snp_df[snp_df$format_scaffold==outlier_site$Scaffold,]
-    positions <- unique(outlier_scaffold$POS)
+    positions <- sort(unique(outlier_scaffold$POS))
     outlier_index <- which(positions==outlier_site$POS)
 
     flanking_positions <-  positions[c(outlier_index-4):c(outlier_index+4)]
