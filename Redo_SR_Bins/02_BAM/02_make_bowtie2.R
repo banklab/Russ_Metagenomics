@@ -1,42 +1,61 @@
+#!/bin/bash
+#SBATCH --mem=24000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --time=24:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8
 
-READ_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq"
+module load Bowtie2/2.4.4-GCC-10.3.0
+module load SAMtools/1.13-GCC-10.3.0
+
 ASM_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/01_Assembly"
-OUTPUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BAM"
+READ_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq"
+OUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BAM"
 
-setwd(ASM_DIR)
+# choose assembly
+#ASM=2_1
 
-Read_list <- list.files(pattern="_deer.asm")
+for ASM in "${ASM_DIR}"/*.asm.p_ctg.filtered.fa; do
+    
+BASE=$(basename "$ASM" .asm.p_ctg.filtered.fa)
 
-setwd(OUTPUT_DIR)
+# Deer ID
+DEER=${BASE%%_*}
+    
+echo "Processing assembly $ASM for deer $DEER"
+
+# output directory for this deer
+ASM_OUT="${OUT_DIR}/${BASE}"
+mkdir -p "$ASM_OUT"
+
+# get all LR samples for this deer
+LR_READS=(${READ_DIR}/${DEER}_*.fastq)
+
+    if [ ${#LR_READS[@]} -eq 0 ]; then
+        echo "No LR reads found for deer $DEER, skipping $BASE"
+        continue
+    fi
 
 
-for(i in 1:length(Read_list)){
-  
-  reads1 <- gsub("_deer.asm","",Read_list[i])
-  
-  sh_name <- paste0(reads1,"_bowtie2.sh")
 
-  code_block <- paste0("bowtie2 -p 4 -x ",ASM_DIR,"/",Read_list[i],"/",reads1,"_scaffolds_filtered_NoNorm -1 ",READ_DIR,"/",reads1,".R1.dedup.fastq.gz -2 ",READ_DIR,"/",reads1,".R2.dedup.fastq.gz -S ",OUTPUT_DIR,"/",reads1,".sam")
+# loop over all locations and map to deer
+for LR in "${LR_READS[@]}"; do
+    SAMPLE=$(basename "$LR" .fastq)
+    BAM="$ASM_OUT/${SAMPLE}.bam"
 
-  code_block2 <- paste0("samtools view -Sb ",OUTPUT_DIR,"/",reads1,".sam > ",OUTPUT_DIR,"/",reads1,".bam")
+    echo "  Mapping $LR to $ASM -> $BAM"
 
-  code_block3 <- paste0("rm ",OUTPUT_DIR,"/",reads1,".sam")
+   minimap2 -t 16 -ax map-hifi "$ASM" "$LR" \
+        | samtools sort -@8 -o "$BAM"
+    samtools index "$BAM"
+done
 
-  
-  write ("#!/bin/bash", sh_name)
-  write ("#SBATCH --mem=4000M", sh_name, append = TRUE) ## adjust MEM, time, cpus etc
-  write ("#SBATCH --nodes=1", sh_name, append = TRUE)
-  write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
-  write ("#SBATCH --cpus-per-task=4", sh_name, append = TRUE)
-  write ("#SBATCH --time=12:00:00", sh_name, append = TRUE)
-  write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE) ## adjust email for job finish/fail etc
-  write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
-  write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write ("#SBATCH --partition=pibu_el8", sh_name, append = TRUE)
-  write ("module load SAMtools/1.13-GCC-10.3.0", sh_name, append = TRUE) ## load samtools/bowtie2 according to server specifications
-  write ("module load Bowtie2/2.4.4-GCC-10.3.0", sh_name, append = TRUE)
-  write (code_block, sh_name, append = TRUE)
-  write (code_block2, sh_name, append = TRUE)
-  write (code_block3, sh_name, append = TRUE)
+# make metabat depth matrix for binning after
+echo "  Generating depth matrix for $ASM"
+jgi_summarize_bam_contig_depths --outputDepth "$ASM_OUT/${BASE}.depth.txt" "$ASM_OUT"/*.bam
 
-}
+done
