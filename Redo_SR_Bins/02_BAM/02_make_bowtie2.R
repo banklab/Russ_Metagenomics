@@ -19,41 +19,45 @@ OUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BA
 # choose assembly
 #ASM=2_1
 
-for ASM in "${ASM_DIR}"/*.asm.p_ctg.filtered.fa; do
-    
-BASE=$(basename "$ASM" .asm.p_ctg.filtered.fa)
+cd $ASM_DIR
+
+for ASM in "${ASM_DIR}"/*_deer.asm; do
+
+BASE=$(basename "$ASM")
 
 # Deer ID
-DEER=${BASE%%_*}
+DEER="${BASE%%_*}"
     
-echo "Processing assembly $ASM for deer $DEER"
+echo "Processing assembly $BASE for deer $DEER"
 
 # output directory for this deer
 ASM_OUT="${OUT_DIR}/${BASE}"
 mkdir -p "$ASM_OUT"
 
-# get all LR samples for this deer
-LR_READS=(${READ_DIR}/${DEER}_*.fastq)
+# get all SR samples for this deer
+SR_READS=(${READ_DIR}/${DEER}_*.R1.dedup.fastq.gz)
 
-    if [ ${#LR_READS[@]} -eq 0 ]; then
-        echo "No LR reads found for deer $DEER, skipping $BASE"
+    if [ ${#SR_READS[@]} -eq 0 ]; then
+        echo "No SR reads found for deer $DEER, skipping $BASE"
         continue
     fi
 
 
 
 # loop over all locations and map to deer
-for LR in "${LR_READS[@]}"; do
-    SAMPLE=$(basename "$LR" .fastq)
+for SR in "${SR_READS[@]}"; do
+    SAMPLE=$(basename "$SR" .R1.dedup.fastq.gz)
     BAM="$ASM_OUT/${SAMPLE}.bam"
 
-    echo "  Mapping $LR to $ASM -> $BAM"
+    echo "  Mapping $SR to $ASM -> $BAM"
 
-   minimap2 -t 16 -ax map-hifi "$ASM" "$LR" \
+        
+bowtie2 -p 20 -x "$ASM"/"${BASE%_*}_scaffolds_filtered_NoNorm" -1 $SR -2 "${SR/.R1./.R2.}" \
         | samtools sort -@8 -o "$BAM"
     samtools index "$BAM"
 done
 
+    
 # make metabat depth matrix for binning after
 echo "  Generating depth matrix for $ASM"
 jgi_summarize_bam_contig_depths --outputDepth "$ASM_OUT/${BASE}.depth.txt" "$ASM_OUT"/*.bam
