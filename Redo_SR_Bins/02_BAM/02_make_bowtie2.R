@@ -23,17 +23,18 @@ OUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BA
 
 cd $ASM_DIR
 
-for ASM in "${ASM_DIR}"/*_deer.asm; do
+#for ASM in "${ASM_DIR}"/*_deer.asm; do
+for ASM in "${ASM_DIR}"/2_10_deer.asm; do
 
 BASE=$(basename "$ASM")
 
 # Deer ID
 DEER="${BASE%%_*}"
     
-echo "Processing assembly $BASE for deer $DEER"
+#echo "Processing assembly $BASE for deer $DEER"
 
 # output directory for this deer
-ASM_OUT="${OUT_DIR}/${BASE}"
+ASM_OUT="${OUT_DIR}/${BASE%.asm}"
 mkdir -p "$ASM_OUT"
 
 # get all SR samples for this deer
@@ -62,6 +63,6 @@ done
     
 # make metabat depth matrix for binning after
 echo "  Generating depth matrix for $ASM"
-jgi_summarize_bam_contig_depths --outputDepth "$ASM_OUT/${BASE}.depth.txt" "$ASM_OUT"/*.bam
+jgi_summarize_bam_contig_depths --outputDepth "$ASM_OUT/${BASE%_*}.depth.txt" "$ASM_OUT"/*.bam
 
 done
