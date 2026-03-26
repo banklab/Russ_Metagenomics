@@ -54,7 +54,7 @@ for SR in "${SR_READS[@]}"; do
     echo "  Mapping $SR to $ASM -> $BAM"
 
         
-bowtie2 -p 20 -x "$ASM"/"${BASE%_*}_scaffolds_filtered_NoNorm" -1 $SR -2 "${SR/.R1./.R2.}" \
+bowtie2 -p 16 -x "$ASM"/"${BASE%_*}_scaffolds_filtered_NoNorm" -1 $SR -2 "${SR/.R1./.R2.}" \
         | samtools sort -@8 -o "$BAM"
     samtools index "$BAM"
 done
