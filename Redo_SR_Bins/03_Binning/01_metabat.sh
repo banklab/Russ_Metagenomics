@@ -1,0 +1,30 @@
+conda activate metabat2
+
+#!/bin/bash
+#SBATCH --mem=20000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=4:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+
+
+ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
+
+for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
+do
+    ASM1=$(basename "$i") 
+    ASM=${ASM1%.asm.p_ctg.filtered.fa} 
+    
+    echo "Input Assembly: $ASM"
+
+    metabat2 -i $i \
+         -a "$ASM".depth.txt \
+         -o bins/metabat_"$ASM"_bin \
+         -t 4
+
+    echo -e "Done\n"
+
+done
