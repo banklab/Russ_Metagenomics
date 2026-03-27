@@ -22,7 +22,7 @@ do
     
     echo "Input Assembly: $ASM"
 
-    perl /storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/programs/Maxbin2/MaxBin-2.2.7/run_MaxBin.pl -contig $i \
+    /data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/03_Binning/02_MaxBin2/program/MaxBin-2.2.7/run_MaxBin.pl -contig $i \
         -abund "$MetaBAT_DIR"/"$ASM".depth.txt \
         -out bins/PC_"$ASM"_bin \
         -thread 4
