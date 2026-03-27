@@ -58,9 +58,5 @@ bowtie2 -p 16 -x "$ASM"/"${BASE%_*}_scaffolds_filtered_NoNorm" -1 $SR -2 "${SR/.
     samtools index "$BAM"
 done
 
-    
-# make metabat depth matrix for binning after
-echo "  Generating depth matrix for $ASM"
-jgi_summarize_bam_contig_depths --outputDepth "$ASM_OUT/${BASE%_*}.depth.txt" "$ASM_OUT"/*.bam
 
 done
