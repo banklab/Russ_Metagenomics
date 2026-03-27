@@ -11,14 +11,16 @@ conda activate semibin
 #SBATCH --output=slurm-%x.%j.out
 #SBATCH --partition=pibu_el8
 
-ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/03_assembly
-BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/04_LR_MAP
+ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/01_Assembly
+BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BAM
 
-
-for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
+## parallelize by deer here
+for i in "$ASM_DIR"/7*_deer.asm/*_scaffolds_filtered_NoNorm.fasta
 do
     ASM1=$(basename "$i") 
-    ASM=${ASM1%.asm.p_ctg.filtered.fa} 
+    ASM="${ASM1%%_scaffolds*}"  
+    
+    echo "Input Assembly: $ASM"
 
     echo "Input Assembly: $ASM"
 
