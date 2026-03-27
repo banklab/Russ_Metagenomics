@@ -11,7 +11,7 @@ conda activate maxbin2
 #SBATCH --output=slurm-%x.%j.out
 
 ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/01_Assembly
-MetaBAT_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/03_Binning/01_MetaBAT2
+BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BAM
 
 mkdir -p bins
 
