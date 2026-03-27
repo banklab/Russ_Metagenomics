@@ -15,10 +15,10 @@ ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/01_Ass
 BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BAM
 
 
-for i in "$ASM_DIR"/*_deer.asm
+for i in "$ASM_DIR"/*_deer.asm/*_scaffolds_filtered_NoNorm.fasta
 do
     ASM1=$(basename "$i") 
-    ASM=${ASM1%_deer.asm} 
+    ASM="${ASM1%%_scaffolds*}"  
     
     echo "Input Assembly: $ASM"
 
