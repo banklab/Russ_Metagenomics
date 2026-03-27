@@ -15,11 +15,11 @@ MetaBAT_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/03
 
 mkdir -p bins
 
-for i in "$ASM_DIR"/*_deer.asm
+for i in "$ASM_DIR"/*_deer.asm/*_scaffolds_filtered_NoNorm.fasta
 do
     ASM1=$(basename "$i") 
-    ASM=${ASM1%_deer.asm} 
-    
+    ASM="${ASM1%%_scaffolds*}"  
+        
     echo "Input Assembly: $ASM"
 
     /data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/03_Binning/02_MaxBin2/program/MaxBin-2.2.7/run_MaxBin.pl -contig $i \
