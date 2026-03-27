@@ -1,0 +1,32 @@
+conda activate maxbin2
+
+#!/bin/bash
+#SBATCH --mem=60000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=24:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+
+ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/01_Assembly
+MetaBAT_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/03_Binning/01_MetaBAT2
+
+mkdir -p bins
+
+for i in "$ASM_DIR"/*_deer.asm
+do
+    ASM1=$(basename "$i") 
+    ASM=${ASM1%_deer.asm} 
+    
+    echo "Input Assembly: $ASM"
+
+    perl /storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/programs/Maxbin2/MaxBin-2.2.7/run_MaxBin.pl -contig $i \
+        -abund "$MetaBAT_DIR"/"$ASM".depth.txt \
+        -out bins/PC_"$ASM"_bin \
+        -thread 4
+
+    echo -e "Done\n"
+
+done
