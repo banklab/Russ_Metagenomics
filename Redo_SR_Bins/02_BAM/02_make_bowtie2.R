@@ -1,5 +1,3 @@
-conda activate minimap
-
 #!/bin/bash
 #SBATCH --mem=24000M
 #SBATCH --nodes=1
