@@ -22,8 +22,6 @@ do
     
     echo "Input Assembly: $ASM"
 
-    echo "Input Assembly: $ASM"
-
     SemiBin2 train_self --data out/"$ASM"/data.csv --data-split out/"$ASM"/data_split.csv -o out/"$ASM" -t 8 --epochs 20 --engine cpu
 
     SemiBin2 bin -i $i --data out/"$ASM"/data.csv --model out/"$ASM"/model.pt -o out/"$ASM" -t 8 --compression none
