@@ -11,17 +11,19 @@ conda activate metabat2
 #SBATCH --output=slurm-%x.%j.out
 
 
-ASM_DIR=/storage/scratch/users/rj23k073/04_Deer/03_Assembly
+ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/01_Assembly
+BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/02_BAM
 
-for i in "$ASM_DIR"/*.asm.p_ctg.filtered.fa
+
+for i in "$ASM_DIR"/*_deer.asm
 do
     ASM1=$(basename "$i") 
-    ASM=${ASM1%.asm.p_ctg.filtered.fa} 
+    ASM=${ASM1%_deer.asm} 
     
     echo "Input Assembly: $ASM"
 
     metabat2 -i $i \
-         -a "$ASM".depth.txt \
+         -a "$BAM_DIR"/"$ASM"_deer/"$ASM".depth.txt \
          -o bins/metabat_"$ASM"_bin \
          -t 4
 
