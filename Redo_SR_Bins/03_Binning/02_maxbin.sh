@@ -23,8 +23,8 @@ do
     echo "Input Assembly: $ASM"
 
     /data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/03_Binning/02_MaxBin2/program/MaxBin-2.2.7/run_MaxBin.pl -contig $i \
-        -abund "$MetaBAT_DIR"/"$ASM".depth.txt \
-        -out bins/PC_"$ASM"_bin \
+        -abund "$BAM_DIR"/"$ASM"_deer/"$ASM".depth.txt \
+        -out bins/maxbin_"$ASM"_bin \
         -thread 4
 
     echo -e "Done\n"
