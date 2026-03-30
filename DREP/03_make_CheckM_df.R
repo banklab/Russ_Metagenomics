@@ -17,6 +17,8 @@ for(i in 1:length(drep_list)){
 
   setwd(paste0("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep/",drep_list[i]))
 
+  drep_rate <- gsub("04_|_input.*","",drep_list[i])
+
   genomes <- list.files(pattern="fa")
 
   checkm_subset <- checkm[checkm$genome %in% genomes,]
@@ -24,11 +26,11 @@ for(i in 1:length(drep_list)){
   if( dim(checkm_subset)[1] != length(genomes) ){stop("checkm has different number of genomes?")}
 
 
-  filename2 <- paste0("CheckM_step2_drep",drep_rate,".csv")
+  filename2 <- paste0("genomeInformation_Step2_drep",drep_rate,".csv")
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep")
 
-  write.csv(checkm_subset, filename2)
+  write.csv(checkm_subset, filename2, row.names=F)
 
   }
 
