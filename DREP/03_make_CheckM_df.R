@@ -23,7 +23,12 @@ for(i in 1:length(drep_list)){
 
   if( dim(checkm_subset)[1] != length(genomes) ){stop("checkm has different number of genomes?")}
 
-  write.csv()
+
+  filename2 <- paste0("CheckM_step2_drep",drep_rate,".csv")
+
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep")
+
+  write.csv(checkm_subset, filename2)
 
   }
 
