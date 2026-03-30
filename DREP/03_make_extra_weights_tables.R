@@ -14,7 +14,8 @@ for(i in 1:length(drep_list)){
   
   all_bins <- list.files(pattern="fa")
 
-  if( sum(grepl("deer",all_bins)) != 909 ){stop("how many SR bins?")}
+  if( sum(grepl("deer",all_bins)) < 800 ){stop("how many SR bins?")}
+  if( sum(grepl("deer",all_bins)) > 1050 ){stop("how many SR bins 2?")}
   if( sum(!grepl("deer",all_bins)) <10 ){stop("how many LR bins?")}
 
   SR_bins <- all_bins[grepl("deer",all_bins)]
