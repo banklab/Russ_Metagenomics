@@ -2,7 +2,7 @@
 #SBATCH --mem==40000M
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=12
+#SBATCH --cpus-per-task=16
 #SBATCH --time=120:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
@@ -32,7 +32,7 @@ BAM="$OUT_DIR/${ID}_${drep_val}.bam"
 echo "Mapping $ID to $REF"
 
 bowtie2 -p 12 -x "$REF_DIR"/"$REF" -1 "$read" -2 "${read/.R1./.R2.}" \
-        | samtools sort -@8 -o "$BAM"
+        | samtools sort -@4 -o "$BAM"
     samtools index "$BAM"
 
 done
