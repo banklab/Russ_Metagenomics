@@ -35,6 +35,6 @@ for(i in 1:length(drep_list)){
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep")
 
-  write.table(extra_weight_df, filename2, quote=F, col.names=F, row.names=F)
+  write.table(extra_weight_df, filename2, quote=F, col.names=F, row.names=F, sep="\t")
   
   }
