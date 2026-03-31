@@ -10,6 +10,8 @@
 #SBATCH --partition=pibu_el8 
 
 module load Bowtie2/2.4.4-GCC-10.3.0
+module load SAMtools/1.13-GCC-10.3.0
+
 
 REF=DEER_drep80
 
