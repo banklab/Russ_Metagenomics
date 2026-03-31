@@ -26,11 +26,11 @@ drep_val="${tmp%%_*}"
 
 echo "start drep $drep_val"
 
-cd "$INDIR"/"$drep"/dereplicated_genomes
-
 mkdir -p "$OUTDIR/Genes_drep$drep_val"
 mkdir -p "$OUTDIR/FAA_drep$drep_val"
 mkdir -p "$OUTDIR/FNA_drep$drep_val"
+
+cd "$INDIR"/"$drep"/dereplicated_genomes
 
 for i in *fa
 do
