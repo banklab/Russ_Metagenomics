@@ -16,6 +16,8 @@ OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/03_Prod
 
 cd $INDIR
 
+
+### to avoid rerunning 95%
 for drep in 05_8*_drep_LR_bins_and_SR_bins
 do
 
