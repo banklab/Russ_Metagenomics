@@ -14,7 +14,7 @@ INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/03_Prodi
 OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/05_EggNOG/ALL_drep
 DATA_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/DATA
 
-mkdir -p $OUTDIR
+#mkdir -p $OUTDIR
 
 cd $INDIR
 
