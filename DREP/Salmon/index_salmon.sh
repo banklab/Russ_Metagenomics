@@ -9,7 +9,7 @@ actually run on ubelix
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --partition=pibu_el8
+
 
 for i in DEER_drep*fa
 do
