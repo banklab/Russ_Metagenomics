@@ -9,14 +9,14 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=pibu_el8
 
-REF_DIR=/storage/scratch/users/rj23k073/04_Deer/DREP/salmon/DEER_drep80_salmon_index
+REF_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/06_Salmon/DEER_drep80_salmon_index
 
-OUTDIR=/storage/scratch/users/rj23k073/04_Deer/DREP/salmon/DEER_drep80_salmon_out
+OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/06_Salmon/DEER_drep80_salmon_out
 
 mkdir -p $OUTDIR
 
 
-INDIR=/storage/workspaces/vetsuisse_fiwi_mico4sys/fiwi_mico4sys001/metagenomics/processed/04_D/03_Trim
+INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/06_Salmon/03_Trim
 
 
 for Read1 in "$INDIR"/*_R1.trim.fastq.gz
