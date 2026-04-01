@@ -1,3 +1,13 @@
+#!/bin/bash
+#SBATCH --mem=80000M
+#SBATCH --time=96:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=END,FAIL
+#SBATCH --output=slurm-%x.%j.out
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+
 
 REF_DIR=/storage/scratch/users/rj23k073/04_Deer/DREP/salmon/DEER_drep80_salmon_index
 
