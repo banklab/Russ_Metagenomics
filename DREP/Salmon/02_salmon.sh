@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-
+#SBATCH --partition=pibu_el8
 
 REF_DIR=/storage/scratch/users/rj23k073/04_Deer/DREP/salmon/DEER_drep80_salmon_index
 
