@@ -18,6 +18,7 @@ mkdir -p $OUTDIR
 
 cd $INDIR
 
+## subset here
 for f in maxbin*.faa; do
     base=$(basename "$f" .fa.genes.faa)
     emapper.py -i "$f" -o $OUTDIR/$base -m diamond --data_dir $DATA_DIR --cpu 16 --override
