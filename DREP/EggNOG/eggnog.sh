@@ -3,7 +3,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --time=72:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
@@ -18,7 +18,7 @@ mkdir -p $OUTDIR
 
 cd $INDIR
 
-for f in *.faa; do
+for f in maxbin*.faa; do
     base=$(basename "$f" .fa.genes.faa)
     emapper.py -i "$f" -o $OUTDIR/$base -m diamond --data_dir $DATA_DIR --cpu 16 --override
 done
