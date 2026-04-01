@@ -10,11 +10,13 @@
 #SBATCH --partition=pibu_el8
 
 
+drep_val=80
 
+INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/03_Prodigal/FAA_drep"$drep_val"
+OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/05_EggNOG/DEER_drep"$drep_val"
+DATA_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/DATA
 
-INDIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/10_Prodigal/FAA"
-OUTDIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG"
-DATA_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/DATA"
+mkdir -p $OUTDIR
 
 cd $INDIR
 
