@@ -3,7 +3,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --time=12:00:00
+#SBATCH --time=3:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
@@ -18,8 +18,9 @@ DATA_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/
 
 cd $INDIR
 
-## subset here
-for f in maxbin*.faa; do
+#for f in $(cat missing_faa.table)
+for f in $(cat test.table)
+do
     base=$(basename "$f" .fa.genes.faa)
     emapper.py -i "$f" -o $OUTDIR/$base -m diamond --data_dir $DATA_DIR --cpu 16 --override
 done
