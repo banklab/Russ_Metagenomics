@@ -10,7 +10,7 @@
 #SBATCH --partition=pibu_el8
 
 
-drep_val=80
+drep_val=99
 
 INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/03_Prodigal/FAA_drep"$drep_val"
 OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/05_EggNOG/DEER_drep"$drep_val"
