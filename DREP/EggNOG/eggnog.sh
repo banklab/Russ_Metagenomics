@@ -18,8 +18,8 @@ DATA_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/15_EggNOG/
 
 cd $INDIR
 
-#for f in $(cat missing_faa.table)
-for f in $(cat test.table)
+for f in $(cat missing_faa.table)
+
 do
     base=$(basename "$f" .fa.genes.faa)
     emapper.py -i "$f" -o $OUTDIR/$base -m diamond --data_dir $DATA_DIR --cpu 16 --override
