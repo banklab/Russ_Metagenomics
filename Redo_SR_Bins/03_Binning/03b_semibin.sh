@@ -5,7 +5,7 @@ conda activate semibin
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --time=120:00:00
+#SBATCH --time=300:00:00
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
