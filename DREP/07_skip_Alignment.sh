@@ -15,14 +15,14 @@ module load Bowtie2/2.4.4-GCC-10.3.0
 module load SAMtools/1.13-GCC-10.3.0
 
 
-REF=DEER_drep80
+REF=DEER_v2.fa
 
-REF_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/01_References
+REF_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE
 READS_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq
-OUT_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/02_Alignment
+OUT_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment
 
 
-drep_val="${REF##*_}"  
+#drep_val="${REF##*_}"  
 
 
 for read in "$READS_DIR"/*R1.dedup.fastq.gz
@@ -31,7 +31,13 @@ do
 ID1=$(basename "$read")
 ID="${ID1%%.*}"
 
-BAM="$OUT_DIR/${ID}_${drep_val}.bam"
+## skip hindgut
+ if [[ "$ID" =~ _(8|9|10)$ ]]; then
+        continue
+ fi
+
+    
+BAM="$OUT_DIR/${ID}_LR.sorted.bam"
 
 echo "Mapping $ID to $REF"
 
