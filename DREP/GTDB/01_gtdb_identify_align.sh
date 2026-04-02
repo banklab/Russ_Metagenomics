@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --mem=32000M
-#SBATCH --time=24:00:00
+#SBATCH --time=3:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -14,11 +14,9 @@ module load HMMER/3.3.2-gompi-2021a
 export GTDBTK_DATA_PATH=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/07_GTDB/release220/
 
 
-drep_val=80
-
-INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/08_dRep/05_"$drep_val"_drep_LR_bins_and_SR_bins/dereplicated_genomes
-ID_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/07_GTDB/DEER_drep"$drep_val"/Identify
-Aln_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/07_GTDB/DEER_drep"$drep_val"/Align
+INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/07_GTDB/missing_genomes
+ID_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/07_GTDB/Identify
+Aln_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/07_GTDB/Align
 
 mkdir -p $ID_DIR
 mkdir -p $Aln_DIR
