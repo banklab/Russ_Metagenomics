@@ -15,7 +15,7 @@ module load Bowtie2/2.4.4-GCC-10.3.0
 module load SAMtools/1.13-GCC-10.3.0
 
 
-REF=DEER_v2.fa
+REF=DEER_v2
 
 REF_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE
 READS_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq
