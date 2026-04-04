@@ -1,51 +1,40 @@
-test
+#!/bin/bash
+#SBATCH --mem=100000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=72:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8 
+module load Python/3.9.5-GCCcore-10.3.0
+module load SAMtools
+
+drep=80
 
 
+BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/02_Alignment
+OUTPUT_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/04_InStrain/DEER_drep"$drep"
 
+mkdir -p $OUTPUT_DIR
 
-BAM_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment"
-OUTPUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain"
+REF_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/01_References
+REF=DEER_drep"$drep".fa
+STB=DEER_drep"$drep".stb  
+Prodigal=DEER_drep"$drep".genes.fna
 
-Reference="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE/DEER_v2.fa"
-Scaffold_to_Bin="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE/DEER_v2.stb"
-Prodigal="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE/DEER_v2.genes.fna"
+## SUBSET DEER ##
+for bam in "$BAM_DIR"/1_*drep"$drep".bam
+do
 
+ID1=$(basename "$bam")
+ID="${ID1%_*}"
 
+SNP_OUT="$OUTPUT_DIR"/"$ID"_drep"$drep"
 
-setwd(BAM_DIR)
+echo "Mapping $ID to $REF"
 
-Read_list <- list.files(pattern="_LR.sorted.bam$")
+inStrain profile $bam "$REF_DIR"/"$REF" -o $SNP_OUT -s "$REF_DIR"/"$STB" -g "$REF_DIR"/"$Prodigal" -p 4 --database_mode
 
-Read_list <- Read_list[!grepl("deer",Read_list)]
-Read_list <- Read_list[grepl("deer",Read_list)]
-
-
-setwd(OUTPUT_DIR)
-
-
-for(i in 1:length(Read_list)){
-  
-  reads1 <- Read_list[i]
-  
-  sub_reads <- gsub("_LR.sorted.bam","",reads1)
-  
-  sh_name <- paste0(sub_reads,"_InStrain.sh")
-  
-  code_block <- paste0("inStrain profile ",BAM_DIR,"/",reads1," ",Reference," -o ",sub_reads,"_LR_InStrain -s ",Scaffold_to_Bin," -g ",Prodigal," -p 4 --database_mode")
-  
-  write ("#!/bin/bash", sh_name)
-  write ("#SBATCH --mem=100000M", sh_name, append = TRUE)
-  write ("#SBATCH --nodes=1", sh_name, append = TRUE)
-  write ("#SBATCH --ntasks=1", sh_name, append = TRUE)
-  write ("#SBATCH --cpus-per-task=4", sh_name, append = TRUE)
-  write ("#SBATCH --time=12:00:00", sh_name, append = TRUE)
-  write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
-  write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
-  write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
-  write ("#SBATCH --partition=pibu_el8", sh_name, append = TRUE)
-  write ("module load Python/3.9.5-GCCcore-10.3.0", sh_name, append = TRUE)
-  write ("module load SAMtools", sh_name, append = TRUE)
-  write (code_block, sh_name, append = TRUE)
-  write ("echo 'Finished InStrain'", sh_name, append = TRUE)
-  
-}
+done
