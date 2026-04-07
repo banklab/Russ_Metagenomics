@@ -17,7 +17,7 @@ do
 SAMPLE=$(basename "$asm" .asm.p_ctg.filtered.fa)
 
 DAS_Tool -c $asm \
-        -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MetaBAT2.tsv,/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MaxBin2.tsv,/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/07_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_SemiBin2.tsv  \
+        -i /data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/04_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MetaBAT2.tsv,/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/04_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_MaxBin2.tsv,/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/04_DAS_Tool/Contigs_to_Bins/"$SAMPLE"_SemiBin2.tsv  \
         -l MetaBAT2,MaxBin2,SemiBin2 \
          -o $SAMPLE \
          --search_engine diamond \
