@@ -3,8 +3,9 @@ conda activate seqtk
 
 seqtk seq -l0 DEER_drep80.fa | awk '/^>/{if(s) print h"\t"length(s); h=$0; s=""; next} {s=$0} END{print h"\t"length(s)}' > DEER_drep80_scaffold_lengths.txt
 
-library(data.table)
 
+
+library(data.table)
 
 drep_levels <- c(80,90,98,99)
 
@@ -44,8 +45,22 @@ write.csv(genome_sizes, paste0("genome_sizes_drep",DREP,".csv"), row.names=F)
 }
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/12_Salmon")
-abund <- data.frame(fread("bin_abundance_table_DEER_v2.tab", header=T, stringsAsFactors=F))
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/06_Salmon")
+
+
+for(j in 1:length(drep_levels)){
+
+DREP <- drep_levels[j]
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/01_References")
+genome_sizes <- data.frame(fread(paste0("genome_sizes_drep",DREP,".csv"), header=T, stringsAsFactors=F))
+
+cat(paste0("bin_abundance_table_DEER_drep",DREP,".table"),"\n")
+cat(paste0("genome_sizes_drep",DREP,".csv"),"\n")
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/06_Salmon")
+abund <- data.frame(fread(paste0("bin_abundance_table_DEER_drep",DREP,".table"), header=T, stringsAsFactors=F))
 
 abund$bin <- gsub("_deer", "",abund$Genomic.bins)
 
@@ -60,7 +75,9 @@ abund$bin <- gsub(".*semibin","Se",abund$bin)
 
 abund$bin <- paste0(abund$Method,"_",abund$bin)
 
-samples <- colnames(abund)[grepl("LR_",colnames(abund))]
+samples <- colnames(abund)[grepl("X",colnames(abund))]
+
+if(length(samples) != 70){stop("asdjknsal")}
 
 for(i in 1:70){
   
@@ -70,9 +87,9 @@ for(i in 1:70){
   
   colnames(df1)[2] <- "Abundance.base.pairs"
   
-  df1$Deer <- as.numeric(gsub("LR_|_.*","",samp))
+  df1$Deer <- as.numeric(gsub("X|_.*","",samp))
   df1$Env <- as.numeric(gsub(".*_","",samp))
-  df1$Sample <- gsub("LR_","",samp)
+  df1$Sample <- gsub("X","",samp)
 
   df1 <- merge(df1, genome_sizes[,c("bin","genome.size")], by="bin")
 
@@ -84,4 +101,7 @@ for(i in 1:70){
   if(i==1){full1 <- df1} else { full1<- rbind(full1,df1) }
 }
 
-write.csv(full1, "DEER_v2_Abundance.csv", row.names=F)
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/06_Salmon")
+
+write.csv(full1, paste0("DEER_drep",DREP,"_Abundance.csv"), row.names=F)
+}
