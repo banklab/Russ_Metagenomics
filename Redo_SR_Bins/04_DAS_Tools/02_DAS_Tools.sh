@@ -12,7 +12,7 @@ conda activate das_tools
 #SBATCH --partition=pibu_el8
 
 
-## loop over only the (LR) assemblies 
+## loop over only the (LR) samples 
 for asm in /data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/04_DAS_Tool/Contigs_to_Bins/*_MetaBAT2.tsv
 do
 
