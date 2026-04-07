@@ -1,0 +1,60 @@
+conda activate mosdepth
+
+ALIGN_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment/"
+
+
+
+for bam in "$ALIGN_DIR"*_LR.sorted.bam
+do
+
+filename=$(basename "$bam")
+file2="${filename%%.*}"
+echo $file2
+
+mosdepth $file2 $bam
+
+done
+
+
+
+####
+
+# FORMAT
+
+library(data.table)
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/mosdepth/BED")
+cov_files <- list.files(pattern="_LR.per-base.bed")
+
+for(i in 1:length(cov_files)){
+
+cov_df <- fread(cov_files[i],stringsAsFactors=F)
+
+colnames(cov_df) <- c("Scaffold","start","end","coverage")
+
+cov_df$Sample <- gsub("_LR.*","",cov_files[i])
+cov_df$Deer <- as.numeric(gsub("_.*","",cov_files[i]))
+cov_df$Env <- as.numeric(gsub(".*_","",cov_df$Sample[1]))
+
+cov_df$bin <- gsub(".*asm_","",cov_df$Scaffold)
+
+cov_df$Method <- "SR"
+
+cov_df[grepl("metabat|maxbin|semibin",cov_df$bin),"Method"] <- "LR"
+cov_df[grepl("hybrid",cov_df$bin),"Method"] <- "Hy"
+
+cov_df$bin <- gsub(".*metabat","Me",cov_df$bin)
+cov_df$bin <- gsub(".*maxbin","Ma",cov_df$bin)
+cov_df$bin <- gsub(".*semibin","Se",cov_df$bin)
+
+cov_df$bin <- paste0(cov_df$Method,"_",cov_df$bin)
+  
+ if(i==1){ cov_df2 <- cov_df } else { cov_df2 <- rbind(cov_df2,cov_df) }
+
+}
+
+sp_list <- unique(cov_df2$bin)
+
+for(ii in 1:length(sp_list)){
+sp_cov <- cov_df2[cov_df2$bin==sp_list[ii],]
+write.csv(sp_cov, paste0(sp_list[ii],"_cover.csv"), row.names=F)
+}
