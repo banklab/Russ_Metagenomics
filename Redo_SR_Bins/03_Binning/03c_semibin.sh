@@ -10,7 +10,7 @@ for d in */; do
     for f in "$dir"/output_bins/SemiBin_*.fa; do
         base=$(basename "$f")
         new="semibin_${dir}_bin.${base#SemiBin_}"
-        cp "$f" "$dest/$new"
+        #cp "$f" "$dest/$new"
 	echo $f
 	echo $new
     done
