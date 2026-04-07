@@ -16,7 +16,7 @@ conda activate mosdepth
 ALIGN_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/02_Alignment
 
 
-for bam in "$ALIGN_DIR"/4_5_drep99.bam
+for bam in "$ALIGN_DIR"/*bam
 do
 
 filename=$(basename "$bam")
