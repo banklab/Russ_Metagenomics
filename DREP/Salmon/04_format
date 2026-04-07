@@ -1,12 +1,23 @@
 
 conda activate seqtk
 
-seqtk seq -l0 DEER_v2.fa | awk '/^>/{if(s) print h"\t"length(s); h=$0; s=""; next} {s=$0} END{print h"\t"length(s)}' > DEER_v2_scaffold_lengths.txt
+seqtk seq -l0 DEER_drep80.fa | awk '/^>/{if(s) print h"\t"length(s); h=$0; s=""; next} {s=$0} END{print h"\t"length(s)}' > DEER_drep80_scaffold_lengths.txt
 
 library(data.table)
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE")
-deer <- data.frame(fread("DEER_v2_scaffold_lengths.txt", header=F, stringsAsFactors=F))
+
+drep_levels <- c(80,90,98,99)
+
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/01_References")
+
+for(i in 1:length(drep_levels)){
+
+DREP <- drep_levels[i]
+
+cat(paste0("DEER_drep",DREP,"_scaffold_lengths.txt"),"\n")
+
+deer <- data.frame(fread(paste0("DEER_drep",DREP,"_scaffold_lengths.txt"), header=F, stringsAsFactors=F))
 
 deer$bin <- gsub(".*asm_","",deer$V1)
 
@@ -28,7 +39,9 @@ genome_sizes$bin <- gsub(".*semibin","Se",genome_sizes$bin)
 
 genome_sizes$bin <- paste0(genome_sizes$Method,"_",genome_sizes$bin)
 
-write.csv(genome_sizes, "genome_sizes.csv", row.names=F)
+write.csv(genome_sizes, paste0("genome_sizes_drep",DREP,".csv"), row.names=F)
+
+}
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/12_Salmon")
