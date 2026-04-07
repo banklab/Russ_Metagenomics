@@ -1,10 +1,22 @@
 conda activate mosdepth
 
-ALIGN_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment/"
+
+#!/bin/bash
+#SBATCH --mem=20000M
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=24:00:00
+#SBATCH --mail-user=<russell.jasper@unibe.ch>
+#SBATCH --mail-type=FAIL,END
+#SBATCH --output=slurm-%x.%j.out
+#SBATCH --partition=pibu_el8
 
 
+ALIGN_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/02_Alignment
 
-for bam in "$ALIGN_DIR"*_LR.sorted.bam
+
+for bam in "$ALIGN_DIR"/4_5_drep99.bam
 do
 
 filename=$(basename "$bam")
