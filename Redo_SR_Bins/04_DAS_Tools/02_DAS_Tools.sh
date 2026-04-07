@@ -1,7 +1,7 @@
 conda activate das_tools
 
 #!/bin/bash
-#SBATCH --mem=20000M
+#SBATCH --mem=10000M
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
