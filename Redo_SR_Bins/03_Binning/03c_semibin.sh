@@ -1,7 +1,7 @@
 ## copy files to a common directory
 ## format names so they are congruent with metabat/maxbin names
 
-dest="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/03_SemiBin2/bins"
+dest=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/03_Binning/03_SemiBin2/bins
 
 cd /data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/06_Binning/03_SemiBin2/out
 
