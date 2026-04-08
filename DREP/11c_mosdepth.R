@@ -7,8 +7,6 @@ df <- data.frame(fread(temp_files[i], header=T, stringsAsFactors=F)
 if(i==1){cov_df2<-df} else { cov_df2 <- rbind(cov_df2,df) }
   }
 
-
-
 sp_list <- unique(cov_df2$bin)
 
 for(ii in 1:length(sp_list)){
