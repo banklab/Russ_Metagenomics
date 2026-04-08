@@ -43,13 +43,17 @@ cov_df <- fread(cov_files[i],stringsAsFactors=F)
 
 colnames(cov_df) <- c("Scaffold","start","end","coverage")
 
-cov_df$Sample <- gsub("_LR.*","",cov_files[i])
+cov_df$Sample <- gsub("_drep.*","",cov_files[i])
 cov_df$Deer <- as.numeric(gsub("_.*","",cov_files[i]))
 cov_df$Env <- as.numeric(gsub(".*_","",cov_df$Sample[1]))
 
 cov_df$bin <- gsub(".*asm_","",cov_df$Scaffold)
 
 cov_df$Method <- "SR"
+
+Drep_val <- gsub(".*_drep|\\.per.*","",cov_files[i])
+
+cov_df$DREP <- as.numeric(Drep_val)
   
  if(i==1){ cov_df2 <- cov_df } else { cov_df2 <- rbind(cov_df2,cov_df) }
 
