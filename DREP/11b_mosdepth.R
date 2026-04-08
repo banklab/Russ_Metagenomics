@@ -31,13 +31,3 @@ cov_df$DREP <- as.numeric(Drep_val)
 ENV <- unique(cov_df2$Env)
 
 write.csv(cov_df2, paste0("ENV",ENV,"_temp_mosdepth.csv), row.names=F)
-
-
-##
-
-sp_list <- unique(cov_df2$bin)
-
-for(ii in 1:length(sp_list)){
-sp_cov <- cov_df2[cov_df2$bin==sp_list[ii],]
-write.csv(sp_cov, paste0(sp_list[ii],"_cover.csv"), row.names=F)
-}
