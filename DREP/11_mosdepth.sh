@@ -35,7 +35,7 @@ done
 
 library(data.table)
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/08_mosdepth/BED")
-cov_files <- list.files(pattern="_LR.per-base.bed")
+cov_files <- list.files(pattern="base.bed")
 
 for(i in 1:length(cov_files)){
 
