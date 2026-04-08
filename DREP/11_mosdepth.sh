@@ -59,6 +59,11 @@ cov_df$DREP <- as.numeric(Drep_val)
 
 }
 
+
+
+
+##
+
 sp_list <- unique(cov_df2$bin)
 
 for(ii in 1:length(sp_list)){
