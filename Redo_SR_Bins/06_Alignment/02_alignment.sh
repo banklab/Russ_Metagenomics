@@ -16,7 +16,8 @@ READ_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq"
 OUT_DIR="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/06_Alignment"
 REF="/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/REFERENCES/DEER_SR"
 
-for READ1 in "$READ_DIR"/*R1.dedup.fastq.gz
+## parallel deer 
+for READ1 in "$READ_DIR"/1*R1.dedup.fastq.gz
 do
 
 BASE=$(basename "$READ1")
