@@ -25,8 +25,8 @@ SAMPLE=$(basename "$READ1" .R1.dedup.fastq.gz)
 
 BAM="$OUT_DIR"/"$SAMPLE".bam
         
-bowtie2 -p 12 -x $REF -1 $READ1 -2 "${READ1/.R1./.R2.}" \
-        | samtools sort -@4 -o "$BAM"
+bowtie2 -p 10 -x $REF -1 $READ1 -2 "${READ1/.R1./.R2.}" \
+        | samtools sort -@6 -o "$BAM"
     samtools index "$BAM"
 done
 
