@@ -1,6 +1,6 @@
 library(data.table)
 
-temp_files <- list.files(pattern="temp")
+temp_files <- list.files(pattern="temp_mosdepth.csv")
 
 for(i in 1:length(temp_files)){
 df <- data.frame(fread(temp_files[i], header=T, stringsAsFactors=F)
