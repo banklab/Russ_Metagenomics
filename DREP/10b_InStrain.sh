@@ -37,6 +37,7 @@ ID1=$(basename "$bam")
 ID="${ID1%_*}"
 
 
+## skip the snps that are already done
 if [[ "$ID" =~ ^[0-9]+_(8|10)$ ]]; then
     continue
 fi
