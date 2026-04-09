@@ -46,7 +46,7 @@ fi
 
 SNP_OUT="$OUTPUT_DIR"/"$ID"_drep"$drep"
 
-echo "Mapping $ID to $REF"
+echo "Call snps $ID on $REF"
 
 inStrain profile $bam "$REF_DIR"/"$REF" -o $SNP_OUT -s "$REF_DIR"/"$STB" -g "$REF_DIR"/"$Prodigal" -p 4 --database_mode
 
