@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --mem=2000M
-#SBATCH --time=24:00:00
+#SBATCH --time=12:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=4
 #SBATCH --mail-user=<russell.jasper@unibe.ch>
 #SBATCH --mail-type=FAIL,END
 #SBATCH --output=slurm-%x.%j.out
@@ -19,10 +19,10 @@ for i in {1..7}
 do
 echo "deer $i"
 
-samtools merge - \
+samtools merge -@ 4 - \
   "$i"_"$envA"_drep"$DREP".bam \
   "$i"_"$envB"_drep"$DREP".bam \
-| samtools sort -o deer"$i"_env"$envA"_env"$envB"_drep"$DREP".bam -
+| samtools sort -@ 4 -o deer"$i"_env"$envA"_env"$envB"_drep"$DREP".bam -
 
 samtools index deer"$i"_env"$envA"_env"$envB"_drep"$DREP".bam
 
