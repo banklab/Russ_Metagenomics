@@ -1,3 +1,6 @@
+## InStrain on merged BAM's
+
+
 #!/bin/bash
 #SBATCH --mem=100000M
 #SBATCH --nodes=1
@@ -24,8 +27,8 @@ REF=DEER_drep"$drep".fa
 STB=DEER_drep"$drep".stb  
 Prodigal=DEER_drep"$drep".genes.fna
 
-## SUBSET DEER ##
-for bam in "$BAM_DIR"/1_*drep"$drep".bam
+
+for bam in "$BAM_DIR"/deer*drep"$drep".bam
 do
 
 ID1=$(basename "$bam")
