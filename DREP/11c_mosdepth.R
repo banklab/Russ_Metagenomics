@@ -1,15 +1,12 @@
 library(data.table)
 
-temp_files <- list.files(pattern="temp_mosdepth.csv")
+ENV <- 1
 
-for(i in 1:length(temp_files)){
-df <- data.frame(fread(temp_files[i], header=T, stringsAsFactors=F)
-if(i==1){cov_df2<-df} else { cov_df2 <- rbind(cov_df2,df) }
-  }
+cov_df2 <- fread(paste0("ENV",ENV,"_temp_mosdepth.csv"), header=T, stringsAsFactors=F)
 
 sp_list <- unique(cov_df2$bin)
 
 for(ii in 1:length(sp_list)){
 sp_cov <- cov_df2[cov_df2$bin==sp_list[ii],]
-write.csv(sp_cov, paste0(sp_list[ii],"_cover.csv"), row.names=F)
+write.csv(sp_cov, paste0(sp_list[ii],"_ENV",ENV,"coverage.csv"), row.names=F)
 }
