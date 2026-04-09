@@ -40,4 +40,6 @@ cov_df$DREP <- as.numeric(Drep_val)
 
 ENV <- unique(cov_df2$Env)
 
+cov_df2 <- cov_df2[cov_df2$Method != "SR",] ## get rid of short read genomes
+
 write.csv(cov_df2, paste0("ENV",ENV,"_temp_mosdepth.csv"), row.names=F)
