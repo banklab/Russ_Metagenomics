@@ -18,8 +18,6 @@ cov_df$Env <- as.numeric(gsub(".*_","",cov_df$Sample[1]))
 
 cov_df$bin <- gsub(".*asm_","",cov_df$Scaffold)
 
-cov_df$bin <- gsub(".*asm_","",cov_df$Scaffold)
-
 cov_df$Method <- "SR"
 
 cov_df[grepl("metabat|maxbin|semibin",cov_df$bin),"Method"] <- "LR"
