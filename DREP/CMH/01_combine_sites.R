@@ -241,6 +241,9 @@ species_list <- unique(pool3$bin)
 cat("drep:",drep_val,"\n")
 cat("species:",length(unique(species_list)),"\n")
 
+species_list  <- species_list[!grepl("SR_",species_list)] ## remove short read genomes
+
+
 for(s in 1:length(species_list)){ ## loop over species
   
   SPECIES <- species_list[s]
