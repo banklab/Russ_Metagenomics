@@ -1,14 +1,19 @@
+
+
+drep_val <- 80
+
+dir_path <- paste0("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/04_InStrain/DEER_drep",drep_val,"/")
+
 EnvA <- 8
 EnvB <- 10
 
-
-
 library(data.table)
+
 
 for(DEER in 1:7){
 
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/RAW")
-  snv_file <- data.frame(fread(paste0("deer",DEER,"_env",EnvA,"_env",EnvB,"_LR_InStrain_SNVs.tsv"), header=T, stringsAsFactors = F))
+  setwd(paste0(dir_path,"RAW"))
+  snv_file <- data.frame(fread(paste0("deer",DEER,"_env",EnvA,"_env",EnvB,"_drep",drep_val,"_SNVs.tsv"), header=T, stringsAsFactors = F))
   
   snv_file$bin <- gsub(".*asm_","",snv_file$scaffold) ## make variable for species (bin)
 
@@ -47,11 +52,11 @@ for(DEER in 1:7){
 
   snv_file2$Original <- TRUE ## these are original snps called by InStrain (later I add in sites that were fixed reference, ie, not original)
   
- 
+ snv_file2$DREP <- drep_val
 
  if(DEER==1){full_df <- snv_file2} else {full_df <- rbind(full_df, snv_file2)}
   
 }
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
-write.csv(full_df, paste0("Pooled_Env",EnvA,"_Env",EnvB,"_LR_snps.csv"), row.names = F)
+setwd(paste0(dir_path,"FORMAT"))
+write.csv(full_df, paste0("Pooled_Env",EnvA,"_Env",EnvB,"_drep",drep_val,"_snps.csv"), row.names = F)
