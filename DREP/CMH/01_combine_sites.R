@@ -194,13 +194,13 @@ dir_path2 <- paste0("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READ
 
 ## Pooled
 setwd(dir_path2)
-pool <- data.frame(fread(paste0("Pooled_Env",EnvA,"_Env",EnvB,"_LR_snps.csv"), header=T, stringsAsFactors = F))
+pool <- data.frame(fread(paste0("Pooled_Env",EnvA,"_Env",EnvB,"_drep",drep_val,"_snps.csv"), header=T, stringsAsFactors = F))
 
 
 ## Single
 setwd(dir_path2)
-DF_A <- data.frame(fread(paste0("ENV",EnvA,"_LR_SNPS.csv"), header=T, stringsAsFactors = F))
-DF_B <- data.frame(fread(paste0("ENV",EnvB,"_LR_SNPS.csv"), header=T, stringsAsFactors = F))
+DF_A <- data.frame(fread(paste0("ENV",EnvA,"_drep",drep_val,"_SNPS.csv"), header=T, stringsAsFactors = F))
+DF_B <- data.frame(fread(paste0("ENV",EnvB,"_drep",drep_val,"_SNPS.csv"), header=T, stringsAsFactors = F))
 
 
 
@@ -236,7 +236,8 @@ pool3$Env <- as.numeric(pool3$Env)
 
 species_list <- unique(pool3$bin)
 
-
+cat("drep:",drep_val,"\n")
+cat("species:",length(unique(species_list)),"\n")
 
 for(s in 1:length(species_list)){ ## loop over species
   
