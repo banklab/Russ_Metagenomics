@@ -182,6 +182,8 @@ snps.function <- function(one.site){
 }
 
 
+# source("snps_function.R")
+
 EnvA <- 8 ## choose which environments
 EnvB <- 10
 
