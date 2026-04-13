@@ -1,13 +1,16 @@
 
+drep_val <- 80
 
+dir_path <- paste0("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/04_InStrain/DEER_drep",drep_val,"/")
 
 library(data.table)
+
 
 for(ENV in c(8,10)){
 for(DEER in 1:7){
 
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/RAW")
-  snv_file <- data.frame(fread(paste0(DEER,"_",ENV,"_LR_InStrain_SNVs.tsv"), header=T, stringsAsFactors = F))
+  setwd(paste0(dir_path,"RAW"))
+  snv_file <- data.frame(fread(paste0(DEER,"_",ENV,"_drep",drep_val,"_SNVs.tsv"), header=T, stringsAsFactors = F))
   
   snv_file$bin <- gsub(".*asm_","",snv_file$scaffold) ## make variable for species (bin)
 
@@ -46,26 +49,30 @@ for(DEER in 1:7){
 
   snv_file2$Original <- TRUE ## these are original snps called by InStrain (later I add in sites that were fixed reference, ie, not original)
   
- 
 
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
-  write.csv(snv_file2, paste0(DEER,"_",ENV,"_LR_InStrain_SNVs_format.csv"), row.names = F)
+  snv_file2$DREP <- drep_val
+  
+
+  setwd(paste0(dir_path,"FORMAT"))
+  write.csv(snv_file2, paste0(DEER,"_",ENV,"_drep",drep_val,"_SNVs_format.tsv"), row.names = F)
+
+  cat(DEER,"\n")
   
 }}
 
-
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
+##
+setwd(paste0(dir_path,"FORMAT"))
 for(ENV in c(8,10)){
 for(DEER in 1:7){
 
-  snv_file3 <- data.frame(fread(paste0(DEER,"_",ENV,"_LR_InStrain_SNVs_format.csv"), header=T, stringsAsFactors = F))
+  snv_file3 <- data.frame(fread(paste0(DEER,"_",ENV,"_drep",drep_val,"_SNVs_format.tsv"), header=T, stringsAsFactors = F))
 
   if(DEER==1){full_df <- snv_file3} else {full_df <- rbind(full_df, snv_file3)}
 
   if(length(unique(full_df$ENV))>1){stop("ERROR")}
   
   }
-  write.csv(full_df, paste0("ENV",ENV,"_LR_SNPS.csv"), row.names = F)
+  write.csv(full_df, paste0("ENV",ENV,"_drep",drep_val,"_SNPS.csv"), row.names = F)
 
 }
   
