@@ -28,6 +28,10 @@ for(i in 1:length(file_list)){
   combined_df <- data.frame(fread(file_list[i], header=T, stringsAsFactors = F))
   
   cat("input sites:",length(unique(combined_df$Sp.ID.deer)),"\n")
+
+
+  drep_val <- as.numeric(gsub(".*_drep|_Combined.*","",file_list[i]))
+
   
   
   ## doublecheck DP from FORMATTED sites
@@ -74,6 +78,6 @@ for(i in 1:length(file_list)){
 
   ## keep these sites
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/02_Filtered_Sites")
-  write.csv(filter_df4, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_Filter_snps",length(unique(filter_df4$Sp.ID.deer)),".csv"), row.names = F)
+  write.csv(filter_df4, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_drep",drep_val,"_Filter1.csv"), row.names = F)
   
 }
