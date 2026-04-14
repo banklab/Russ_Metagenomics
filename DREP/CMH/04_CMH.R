@@ -81,7 +81,7 @@ for(i in 1:length(cmh_list2)){
   
   cat(SPECIES,"\n")
   
- setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Filtered_Sites_4")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/03_Filtered_by_Coverage")
  sites_df <- data.frame(fread(cmh_list2[i], header=T, stringsAsFactors = F))
   
   sites_table <- table(sites_df$Sp.ID)
