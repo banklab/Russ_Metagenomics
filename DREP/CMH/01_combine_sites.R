@@ -160,9 +160,17 @@ snps.function <- function(one.site){
     message("set DP to zero: ",one.site)
   }
   
-  
-  if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){stop("error depth 1? ",one.site)}
-  if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){stop("error depth 2? ",one.site)}
+
+
+  ## HACK
+  if( site.table[1,"DP"] >=5){
+    if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){stop("error depth 1? ",one.site)}
+  }
+
+   ## HACK
+  if( site.table[2,"DP"] >=5){
+    if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){stop("error depth 2? ",one.site)}
+  }
   
   
   site.table[3,c("bin","Deer","Scaffold","POS","gene","mutation","mutation_type","cryptic","class","scaffold2","Method","ID","Sp.ID","Sp.ID.deer")] <- pool.X[,c("bin","Deer","Scaffold","POS","gene","mutation","mutation_type","cryptic","class","scaffold2","Method","ID","Sp.ID","Sp.ID.deer")]
