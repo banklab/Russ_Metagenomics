@@ -8,7 +8,7 @@ SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps 
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/02_Filtered_Sites")
-snp_list <- list.files(pattern=(paste0("_Env",EnvA,"xEnv",EnvB,"_Filter_snps")))
+snp_list <- list.files(pattern=(paste0("_Env",EnvA,"xEnv",EnvB,"_drep")))
 snp_count <- as.numeric(gsub(".*snps|\\.csv","",snp_list))
 snp_list2 <- snp_list[snp_count>=SNP_filter]
 
@@ -22,15 +22,22 @@ for(i in 1:length(snp_list2)){
   snp_df$Sample <- paste0(snp_df$Deer,"_",snp_df$Env)
   snp_df$Sample.Scaffold <- paste0(snp_df$Sample,"_",snp_df$Scaffold)
 
+  snp_df$DREP <- as.numeric(gsub(".*_drep|_Filter.*","",snp_list2[i]))
+  
   unique_sample_scaffolds <- unique(snp_df$Sample.Scaffold)
   
   species2 <- gsub("_Env.*","",snp_list2[i])
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/08_mosdepth/BED")
-  cov_df <- fread(paste0(species2,"_cover.csv"), header=T, stringsAsFactors=F)
+  cov_df_list <- list.files(pattern=species2)
+  
+  cov_df1 <- fread(cov_df_list[grepl(EnvA,cov_df_list)], header=T, stringsAsFactors=F)
+  cov_df2 <- fread(cov_df_list[grepl(EnvB,cov_df_list)], header=T, stringsAsFactors=F)
+
+  cov_df <- rbind(cov_df1,cov_df2)
   
   cov_df$size <- cov_df$end - cov_df$start
-  cov_df$Sample.Scaffold <- paste0(cov_df$Sample,"_",cov_df$Scaffold)
+  cov_df$Sample.Scaffold <- paste0(cov_df$Sample,"_",cov_df$Scaffold,"_drep",cov_df$DREP)
   
   cov_df2 <- cov_df[cov_df$coverage>0,]
 
@@ -84,7 +91,7 @@ for(i in 1:length(snp_list2)){
     
   } else { snps_filtered <- snp_df } ## nothing to filter  
   
-  filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_Coverage_Filter_snps",length(unique(snps_filtered$Sp.ID.deer)),".csv")
+  filename <- paste0(species2,"_Env",EnvA,"xEnv",EnvB,"_drep",snps_filtered$DREP[1],"_Coverage_Filter_snps",length(unique(snps_filtered$Sp.ID.deer)),".csv")
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/03_Filtered_by_Coverage")
   write.csv(snps_filtered, filename, row.names=F)
