@@ -81,8 +81,11 @@ for(i in 1:length(cmh_list2)){
   
   cat(SPECIES,"\n")
   
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/03_Filtered_by_Coverage")
+ setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/03_Filtered_by_Coverage")
  sites_df <- data.frame(fread(cmh_list2[i], header=T, stringsAsFactors = F))
+
+  drep_val <- as.numeric(gsub(".*_drep|_Coverage.*","",cmh_list2[i]))
+
   
   sites_table <- table(sites_df$Sp.ID)
   
@@ -102,7 +105,7 @@ setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/
   
   num_tests <- sum(!is.na(cmh_results$pvalue))
   
- setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/CMH_4")
- write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_snps",num_tests,"_CMH4_LR.csv"), row.names = F)
+ setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/04_CMH")
+ write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB,"_drep",drep_val,"_tests",num_tests,"_CMH.csv"), row.names = F)
   
 }
