@@ -13,9 +13,9 @@ VAR_Filter <- 0.05
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/Combined_Sites")
-file_list <- list.files(pattern="_Combined_Sites.csv"))
+file_list <- list.files(pattern="_Combined_Sites.csv")
 
-file_list <- file_list[grepl(paste0("_Env",EnvA,"xEnv",EnvB,"_drep"),file_list]
+file_list <- file_list[grepl(paste0("_Env",EnvA,"xEnv",EnvB,"_drep"),file_list)]
 
                              
 for(i in 1:length(file_list)){
@@ -70,7 +70,9 @@ for(i in 1:length(file_list)){
   ## I think(?) these sites are only called by instrain in the first place because different base than reference base
   ## ie, MAF is less than 5%, so wouldn't be called normally
   # max(these_are_filtered_out$ref_freq)
-  
+
+
+  ## keep these sites
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/02_Filtered_Sites")
   write.csv(filter_df4, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_Filter_snps",length(unique(filter_df4$Sp.ID.deer)),".csv"), row.names = F)
   
