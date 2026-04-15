@@ -12,7 +12,7 @@ Depth_Filter <- 5
 VAR_Filter <- 0.05
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/Combined_Sites")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/01_Combined_Sites")
 file_list <- list.files(pattern="_Combined_Sites.csv")
 
 file_list <- file_list[grepl(paste0("_Env",EnvA,"xEnv",EnvB,"_drep"),file_list)]
@@ -24,7 +24,7 @@ for(i in 1:length(file_list)){
   
   cat(SPECIES,"\n")
   
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/Combined_Sites")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/01_Combined_Sites")
   combined_df <- data.frame(fread(file_list[i], header=T, stringsAsFactors = F))
   
   cat("input sites:",length(unique(combined_df$Sp.ID.deer)),"\n")
