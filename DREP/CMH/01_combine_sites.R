@@ -295,7 +295,7 @@ for(s in 1:length(species_list)){ ## loop over species
   if( length(unique(combined_sites$Sp.ID.deer)) != sum(length(format_sites),length(all_sites)) ){message(paste0("error final size ",SPECIES));break}
   
   
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/Combined_Sites")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/01_Combined_Sites")
   write.csv(combined_sites, paste0(SPECIES, "_Env",EnvA,"xEnv",EnvB,"_drep",drep_val,"_Combined_Sites.csv"), row.names = F)
   
   cat("done\n")
