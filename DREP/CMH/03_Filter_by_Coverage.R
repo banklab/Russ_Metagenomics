@@ -31,8 +31,8 @@ for(i in 1:length(snp_list2)){
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/08_mosdepth/BED")
   cov_df_list <- list.files(pattern=species2)
   
-  cov_df1 <- fread(cov_df_list[grepl(EnvA,cov_df_list)], header=T, stringsAsFactors=F)
-  cov_df2 <- fread(cov_df_list[grepl(EnvB,cov_df_list)], header=T, stringsAsFactors=F)
+  cov_df1 <- fread(cov_df_list[grepl(paste0("ENV",EnvA,"_"),cov_df_list)], header=T, stringsAsFactors=F)
+  cov_df2 <- fread(cov_df_list[grepl(paste0("ENV",EnvB,"_"),cov_df_list)], header=T, stringsAsFactors=F)
 
   cov_df <- rbind(cov_df1,cov_df2)
   
