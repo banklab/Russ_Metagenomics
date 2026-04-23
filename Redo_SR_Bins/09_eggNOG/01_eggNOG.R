@@ -18,7 +18,7 @@ for(i in 1:length(sample_list)){
   sh_name <- paste0(samp2,"_eggnog.sh")
 
   setwd(INPUT_DIR)
-  files_here <- length(list.files(pattern=glob2rx(paste0(samp2,"*faa"))))
+  files_here <- length(list.files(pattern=glob2rx(paste0(samp2,"*faa")))) ## oops time estimate is too much for files ending in 1 (it also gets 10)
   setwd(OUTPUT_DIR)
 
   HOURS <- 3*as.numeric(files_here)
