@@ -18,7 +18,7 @@ for(i in 1:length(sample_list)){
   sh_name <- paste0(samp2,"_eggnog.sh")
 
   setwd(INPUT_DIR)
-  files_here <- length(list.files(pattern=glob2rx(paste0(samp2,"*faa")))) ## oops time estimate is too much for files ending in 1 (it also gets 10)
+  files_here <- length(list.files(pattern=glob2rx(paste0(samp2,"_*faa")))) ## oops time estimate is too much for files ending in 1 (it also gets 10)
   setwd(OUTPUT_DIR)
 
   HOURS <- 3*as.numeric(files_here)
@@ -36,7 +36,7 @@ for(i in 1:length(sample_list)){
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
    write ("#SBATCH --partition=pibu_el8", sh_name, append = TRUE)
- write (paste0("for i in ",INPUT_DIR,"/",samp2,"*faa"), sh_name, append = TRUE)
+ write (paste0("for i in ",INPUT_DIR,"/",samp2,"_*faa"), sh_name, append = TRUE)
 write ("do", sh_name, append = TRUE)
  write ("file2=$(basename $i)", sh_name, append = TRUE)
 write ("file3=$(echo $file2 | perl -pe 's/fa.genes.faa/genes/')", sh_name, append = TRUE)
