@@ -35,6 +35,7 @@ for(i in 1:length(sample_list)){
   write ("#SBATCH --mail-user=<russell.jasper@unibe.ch>", sh_name, append = TRUE)
   write ("#SBATCH --mail-type=FAIL,END", sh_name, append = TRUE)
   write ("#SBATCH --output=slurm-%x.%j.out", sh_name, append = TRUE)
+   write ("#SBATCH --partition=pibu_el8", sh_name, append = TRUE)
  write (paste0("for i in ",INPUT_DIR,"/",samp2,"*faa"), sh_name, append = TRUE)
 write ("do", sh_name, append = TRUE)
  write ("file2=$(basename $i)", sh_name, append = TRUE)
