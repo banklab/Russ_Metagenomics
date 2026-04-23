@@ -15,7 +15,7 @@ OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/09_Salm
 
 
 
-INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/06_Salmon/03_Trim
+INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/09_Salmon/03_Trim
 
 
 ## subset by deer
