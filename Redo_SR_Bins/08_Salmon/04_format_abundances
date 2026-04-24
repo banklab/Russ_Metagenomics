@@ -1,12 +1,12 @@
 
 conda activate seqtk
 
-seqtk seq -l0 DEER_v2.fa | awk '/^>/{if(s) print h"\t"length(s); h=$0; s=""; next} {s=$0} END{print h"\t"length(s)}' > DEER_v2_scaffold_lengths.txt
+seqtk seq -l0 DEER_SR.fa | awk '/^>/{if(s) print h"\t"length(s); h=$0; s=""; next} {s=$0} END{print h"\t"length(s)}' > DEER_SR_scaffold_lengths.txt
 
 library(data.table)
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE")
-deer <- data.frame(fread("DEER_v2_scaffold_lengths.txt", header=F, stringsAsFactors=F))
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/REFERENCES")
+deer <- data.frame(fread("DEER_SR_scaffold_lengths.txt", header=F, stringsAsFactors=F))
 
 deer$bin <- gsub(".*asm_","",deer$V1)
 
@@ -19,35 +19,22 @@ genome_sizes$bin2 <- row.names(genome_sizes)
 
 genome_sizes$Method <- "SR"
 
-genome_sizes[grepl("metabat|maxbin|semibin",genome_sizes$bin),"Method"] <- "LR"
-genome_sizes[grepl("hybrid",genome_sizes$bin),"Method"] <- "Hy"
-
-genome_sizes$bin <- gsub(".*metabat","Me",genome_sizes$bin)
-genome_sizes$bin <- gsub(".*maxbin","Ma",genome_sizes$bin)
-genome_sizes$bin <- gsub(".*semibin","Se",genome_sizes$bin)
-
 genome_sizes$bin <- paste0(genome_sizes$Method,"_",genome_sizes$bin)
 
-write.csv(genome_sizes, "genome_sizes.csv", row.names=F)
+write.csv(genome_sizes, "genome_sizes_SR.csv", row.names=F)
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/12_Salmon")
-abund <- data.frame(fread("bin_abundance_table_DEER_v2.tab", header=T, stringsAsFactors=F))
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/09_Salmon")
+abund <- data.frame(fread("bin_abundance_table_DEER_SR.tab", header=T, stringsAsFactors=F))
 
 abund$bin <- gsub("_deer", "",abund$Genomic.bins)
 
 abund$Method <- "SR"
 
-abund[grepl("metabat|maxbin|semibin",abund$bin),"Method"] <- "LR"
-abund[grepl("hybrid",abund$bin),"Method"] <- "Hy"
-
-abund$bin <- gsub(".*metabat","Me",abund$bin)
-abund$bin <- gsub(".*maxbin","Ma",abund$bin)
-abund$bin <- gsub(".*semibin","Se",abund$bin)
 
 abund$bin <- paste0(abund$Method,"_",abund$bin)
 
-samples <- colnames(abund)[grepl("LR_",colnames(abund))]
+samples <- colnames(abund)[grepl("X",colnames(abund))]
 
 for(i in 1:70){
   
@@ -57,9 +44,9 @@ for(i in 1:70){
   
   colnames(df1)[2] <- "Abundance.base.pairs"
   
-  df1$Deer <- as.numeric(gsub("LR_|_.*","",samp))
+  df1$Deer <- as.numeric(gsub("X|_.*","",samp))
   df1$Env <- as.numeric(gsub(".*_","",samp))
-  df1$Sample <- gsub("LR_","",samp)
+  df1$Sample <- gsub("X","",samp)
 
   df1 <- merge(df1, genome_sizes[,c("bin","genome.size")], by="bin")
 
@@ -71,4 +58,4 @@ for(i in 1:70){
   if(i==1){full1 <- df1} else { full1<- rbind(full1,df1) }
 }
 
-write.csv(full1, "DEER_v2_Abundance.csv", row.names=F)
+write.csv(full1, "DEER_SR_Abundance.csv", row.names=F)
