@@ -194,6 +194,7 @@ snps.function <- function(one.site){
 EnvA <- 1
 EnvB <- 3
 
+cat("Env",EnvA,"by",EnvB,"\n")
 
 
 
