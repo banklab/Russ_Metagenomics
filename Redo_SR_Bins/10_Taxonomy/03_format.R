@@ -7,7 +7,7 @@ setwd("")
 DF <- data.frame(fread("gtdbtk.bac120.summary.tsv", header=T, stringsAsFactors = F, sep="\t"))
 DF2 <- data.frame(fread("gtdbtk.ar53.summary.tsv", header=T, stringsAsFactors = F, sep="\t"))
 
-DF$bin <- gsub("metabat_|maxbin_|semibin_","",DF$user_genome) ## extract taxonomy information for Bacteria
+DF$bin <- DF$user_genome
 
 DF$Method <- "SR"
 
@@ -23,7 +23,7 @@ DF$Genus <- gsub(".*g__|;s__.*","",DF$classification)
 DF$Species <- gsub(".*s__","",DF$classification)
 
 
-DF2$bin <- gsub("metabat_|maxbin_|semibin_","",DF2$user_genome) ## extract taxonomy information for Archaea
+DF2$bin <- DF2$user_genome
 
 DF2$Method <- "SR"
 
