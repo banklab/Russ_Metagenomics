@@ -12,10 +12,10 @@ Depth_Filter <- 5
 VAR_Filter <- 0.05
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/01_Combined_Sites")
-file_list <- list.files(pattern="_Combined_Sites.csv")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/01_Combined_Sites")
+file_list <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_Combined_Sites.csv"))
 
-file_list <- file_list[grepl(paste0("_Env",EnvA,"xEnv",EnvB,"_drep"),file_list)]
+cat("Env",EnvA,"by",EnvB,"\n")
 
                              
 for(i in 1:length(file_list)){
@@ -24,13 +24,10 @@ for(i in 1:length(file_list)){
   
   cat(SPECIES,"\n")
   
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/01_Combined_Sites")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/01_Combined_Sites")
   combined_df <- data.frame(fread(file_list[i], header=T, stringsAsFactors = F))
   
   cat("input sites:",length(unique(combined_df$Sp.ID.deer)),"\n")
-
-
-  drep_val <- as.numeric(gsub(".*_drep|_Combined.*","",file_list[i]))
 
   
   
@@ -77,7 +74,7 @@ for(i in 1:length(file_list)){
 
 
   ## keep these sites
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/DREP/09_CMH/02_Filtered_Sites")
-  write.csv(filter_df4, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_drep",drep_val,"_Filter_snps",length(unique(filter_df4$Sp.ID.deer)),".csv"), row.names = F)
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/02_Filtered_Sites")
+  write.csv(filter_df4, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_Filter_snps",length(unique(filter_df4$Sp.ID.deer)),".csv"), row.names = F)
   
 }
