@@ -190,15 +190,15 @@ EnvB <- 10
 
 ## Pooled
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain/FORMAT")
-pool <- data.frame(fread(paste0("Pooled_Env",EnvA,"_Env",EnvB,"_LR_snps.csv"), header=T, stringsAsFactors = F))
+pool <- data.frame(fread(paste0("Pooled_Env",EnvA,"_Env",EnvB,"_SR_snps.csv"), header=T, stringsAsFactors = F))
 
 if( identical(paste0("Env",EnvA,"_Env",EnvB),unique(pool$Env))==FALSE ){stop("pooled data?")}
 
 
 ## Single
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain/FORMAT")
-DF_A <- data.frame(fread(paste0("ENV",EnvA,"_LR_SNPS.csv"), header=T, stringsAsFactors = F))
-DF_B <- data.frame(fread(paste0("ENV",EnvB,"_LR_SNPS.csv"), header=T, stringsAsFactors = F))
+DF_A <- data.frame(fread(paste0("ENV",EnvA,"_SR_SNPS.csv"), header=T, stringsAsFactors = F))
+DF_B <- data.frame(fread(paste0("ENV",EnvB,"_SR_SNPS.csv"), header=T, stringsAsFactors = F))
 
 if( identical(EnvA,as.numeric(unique(DF_A$Env)))==FALSE ){stop("env a data?")}
 if( identical(EnvB,as.numeric(unique(DF_B$Env)))==FALSE ){stop("env b data?")}
