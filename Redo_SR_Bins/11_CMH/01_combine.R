@@ -189,14 +189,14 @@ EnvB <- 10
 
 
 ## Pooled
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain")
 pool <- data.frame(fread(paste0("Pooled_Env",EnvA,"_Env",EnvB,"_LR_snps.csv"), header=T, stringsAsFactors = F))
 
 if( identical(paste0("Env",EnvA,"_Env",EnvB),unique(pool$Env))==FALSE ){stop("pooled data?")}
 
 
 ## Single
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/FORMAT")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain/FORMAT")
 DF_A <- data.frame(fread(paste0("ENV",EnvA,"_LR_SNPS.csv"), header=T, stringsAsFactors = F))
 DF_B <- data.frame(fread(paste0("ENV",EnvB,"_LR_SNPS.csv"), header=T, stringsAsFactors = F))
 
@@ -282,7 +282,7 @@ for(s in 1:length(species_list)){ ## loop over species
   if( length(unique(combined_sites$Sp.ID.deer)) != sum(length(format_sites),length(all_sites)) ){message(paste0("error final size ",SPECIES));break}
   
   
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/Combined_Sites")
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/12_CMH/01_Combined_Sites")
   write.csv(combined_sites, paste0(SPECIES, "_Env",EnvA,"xEnv",EnvB,"_Combined_Sites.csv"), row.names = F)
   # write.csv(new_sites_df, paste0(SPECIES, "_Env",EnvA,"xEnv",EnvB, "_NEW_Sites.csv"), row.names = F)
   
