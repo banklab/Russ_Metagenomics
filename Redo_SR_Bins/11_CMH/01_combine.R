@@ -189,7 +189,7 @@ EnvB <- 10
 
 
 ## Pooled
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain/FORMAT")
 pool <- data.frame(fread(paste0("Pooled_Env",EnvA,"_Env",EnvB,"_LR_snps.csv"), header=T, stringsAsFactors = F))
 
 if( identical(paste0("Env",EnvA,"_Env",EnvB),unique(pool$Env))==FALSE ){stop("pooled data?")}
