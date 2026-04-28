@@ -1,5 +1,7 @@
 library(data.table)
 
+
+## parallel by ENV
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/mosdepth/BED2")
 cov_files <- list.files(pattern="_10_LR.per-base.bed")
 
