@@ -164,7 +164,28 @@ snps.function <- function(one.site){
 
  if(site.table[1,"DP"]>4){
 
- 
+  if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){
+   
+   ## fix polymorphic sites where a 3rd base was -1 DP (can't fix where I adjusted above because all the other enviroments are already run)
+
+   site.table[1,c("A","C","G","T")] <- site.table[3,c("A","C","G","T")] - site.table[2,c("A","C","G","T")]
+
+  site.table[1,c("A","C","G","T")][site.table[1,c("A","C","G","T")]<0] <- 0
+
+     site.table[1,"DP"] <- sum(site.table[1,c("A","C","G","T")])
+
+    order.alleles <- sort(unlist(site.table[1, c("A","C","G","T")]), decreasing = TRUE)
+
+     site.table[1,"Maj.Freq"] <- order.alleles[1] / site.table[1,"DP"]
+     site.table[1,"Min.Freq"] <- order.alleles[2] / site.table[1,"DP"]
+     site.table[1,"Min2"] <- order.alleles[3] / site.table[1,"DP"]
+     site.table[1,"Min3"] <- order.alleles[4] / site.table[1,"DP"]
+
+
+     message("ERROR CHECK: ",one.site,"\n")
+     
+  }
+   
    
   if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){stop("error depth 1? ",one.site)}
  }
@@ -174,7 +195,7 @@ snps.function <- function(one.site){
 
    if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){
    
-   ## fix polymorphic sites where a 3rd base was -1 DP (can't fix where I adjusted above because all the other enviroments are already run
+   ## fix polymorphic sites where a 3rd base was -1 DP (can't fix where I adjusted above because all the other enviroments are already run)
 
    site.table[2,c("A","C","G","T")] <- site.table[3,c("A","C","G","T")] - site.table[1,c("A","C","G","T")]
 
