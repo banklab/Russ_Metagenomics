@@ -164,12 +164,18 @@ snps.function <- function(one.site){
 
  if(site.table[1,"DP"]>4){
 
+   if ( site.table[1,"Maj.Freq"] < 0.90 ){ return(NULL) } ## don't add back in sites that aren't actually fixed
+
+   
   if( sum(site.table[1,c("A","C","G","T")]) != site.table[1,"DP"] ){stop("error depth 1? ",one.site)}
  }
 
 
  if(site.table[2,"DP"]>4){
 
+if ( site.table[2,"Maj.Freq"] < 0.90 ){ return(NULL) } ## don't add back in sites that aren't actually fixed
+
+   
   if( sum(site.table[2,c("A","C","G","T")]) != site.table[2,"DP"] ){stop("error depth 2? ",one.site)}
  }  
    
