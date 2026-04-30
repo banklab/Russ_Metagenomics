@@ -3,7 +3,7 @@ library(data.table)
 
 
 
-SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
+SNP_filter <- 15e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/02_Filtered_Sites")
@@ -45,7 +45,12 @@ if(EnvA==EnvB){stop("awklenew")}
    
   cov_df$Sample.Scaffold <- paste0(cov_df$Sample,"_",cov_df$Scaffold)
 
+if( length(unique(cov_df$Env)) != 2 ){stop("cov envs")}
 
+  if( EnvA %in%  unique(cov_df$Env) == FALSE ){stop("cov env a")}
+  if( EnvB %in%  unique(cov_df$Env) == FALSE ){stop("cov env b")}
+  
+ 
   
   cov_df2 <- cov_df[cov_df$coverage>0,]
 
