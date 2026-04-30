@@ -71,6 +71,6 @@ for(i in 1:length(file_list)){
 
   ## keep these sites
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/02_Filtered_Sites")
-  write.csv(filter_df4, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB, "_Filter_snps",length(unique(filter_df4$Sp.ID.deer)),".csv"), row.names = F)
+  write.csv(filter_df4, paste0(gsub("Combined_.*","Filter_snps",file_list[i]),length(unique(filter_df4$Sp.ID.deer)),".csv"), row.names = F)
   
 }
