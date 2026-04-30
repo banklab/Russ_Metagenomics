@@ -3,7 +3,7 @@ library(data.table)
 
 
 
-SNP_filter <- 25e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
+SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/02_Filtered_Sites")
