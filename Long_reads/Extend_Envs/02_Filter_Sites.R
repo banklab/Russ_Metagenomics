@@ -3,9 +3,6 @@
 library(data.table)
 
 
-EnvA <- 5
-EnvB <- 6
-
 ## depth filter for a SINGLE population
 Depth_Filter <- 5
 ## VAR freq filter for a SINGLE population
@@ -13,9 +10,8 @@ VAR_Filter <- 0.05
 
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/01_Combined_Sites")
-file_list <- list.files(pattern=paste0("_Env",EnvA,"xEnv",EnvB,"_Combined_Sites.csv"))
+file_list <- list.files(pattern="_Combined_Sites.csv")
 
-cat("Env",EnvA,"by",EnvB,"\n")
 
                              
 for(i in 1:length(file_list)){
