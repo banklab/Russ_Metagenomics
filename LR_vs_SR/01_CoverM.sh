@@ -3,7 +3,9 @@
 
 BAM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/09_Alignment
 
-for bam in "$BAM_DIR"/2_*LR.sorted.bam
+
+## parallel by deer
+for bam in "$BAM_DIR"/1_*LR.sorted.bam
 do
 
 
@@ -22,5 +24,5 @@ coverm genome \
 
 done
 
---genome-fasta-files *.fa
+
 ## SR
