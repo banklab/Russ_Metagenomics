@@ -104,10 +104,10 @@ cmh.function <- function(one.site){
   cat("input sites:",length(sites),"\n")
   
   Sys.time() 
-  cmh_list <- lapply(sites, FUN=cmh.function)
+  cmh_list_out <- lapply(sites, FUN=cmh.function)
   Sys.time()
   
-  cmh_results <- as.data.frame(do.call(rbind, cmh_list))
+  cmh_results <- as.data.frame(do.call(rbind, cmh_list_out))
   
   num_tests <- sum(!is.na(cmh_results$pvalue))
   
