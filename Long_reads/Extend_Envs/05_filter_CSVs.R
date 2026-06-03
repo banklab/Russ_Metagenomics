@@ -7,7 +7,7 @@ SNP_filter <- 18e3
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/04_CMH")
 cmh_files <- list.files(pattern=".csv")
-snp_count <- as.numeric(gsub(".*tests|_CMH.*","",cmh_files))
+snp_count <- as.numeric(gsub(".*tests|.*snps|_CMH.*","",cmh_files))
 cmh_files2 <- cmh_files[snp_count>=SNP_filter]
 
 
@@ -20,7 +20,7 @@ for(i in 1:length(cmh_files2)){
   EnvA <- as.numeric(gsub(".*_Env|xEnv.*", "", cmh_files2[i]))
   EnvB <- as.numeric(gsub(".*xEnv|_tests.*", "", cmh_files2[i]))
 
-  num_test <- as.numeric(gsub(".*_tests|_CMH.*", "", cmh_files2[i]))
+  num_test <- as.numeric(gsub(".*_tests|.*snps|_CMH.*", "", cmh_files2[i]))
 
   cmh_df$bin <- species2
   cmh_df$EnvA <- EnvA
