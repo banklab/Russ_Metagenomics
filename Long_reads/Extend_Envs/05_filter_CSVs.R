@@ -20,7 +20,7 @@ for(i in 1:length(cmh_files2)){
   species2 <- gsub("_Env.*", "", cmh_files2[i])
 
   EnvA <- as.numeric(gsub(".*_Env|xEnv.*", "", cmh_files2[i]))
-  EnvB <- as.numeric(gsub(".*xEnv|_tests.*", "", cmh_files2[i]))
+  EnvB <- as.numeric(gsub(".*xEnv|_tests.*|_snps.*", "", cmh_files2[i]))
 
   num_test <- as.numeric(gsub(".*_tests|.*snps|_CMH.*", "", cmh_files2[i]))
 
