@@ -3,6 +3,9 @@ library(data.table)
 
 
 
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/CoverM")
+cover_df <- fread("DEER_SR28_CoverM.csv", header=T, stringsAsFactors=F)
+
 SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
 
 
@@ -32,13 +35,13 @@ if(EnvA==EnvB){stop("awklenew")}
   
   species2 <- gsub("_Env.*","",snp_list2[i])
 
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/mosdepth/BED2")
-  cov_df_list <- list.files(pattern=paste0(species2,"_ENV"))
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/mosdepth/BED")
+  if(length(list.files(pattern=species2))>1){stop("ajnds")}
   
-  cov_df1 <- fread(cov_df_list[grepl(paste0("ENV",EnvA,"_"),cov_df_list)], header=T, stringsAsFactors=F)
-  cov_df2 <- fread(cov_df_list[grepl(paste0("ENV",EnvB,"_"),cov_df_list)], header=T, stringsAsFactors=F)
+  cov_df <- fread(list.files(pattern=species2), header=T, stringsAsFactors=F)
 
-  cov_df <- rbind(cov_df1,cov_df2)
+
+  cov_df$Scaffold <- as.numeric(gsub("NODE_|_length.*","",cov_df$Scaffold))
   
   cov_df$size <- cov_df$end - cov_df$start
   
@@ -106,7 +109,7 @@ if( length(unique(cov_df$Env)) != 2 ){stop("cov envs")}
   
   filename <- paste0(gsub("_Filter_snps.*","_Coverage_Filter_snps",snp_list2[i]),length(unique(snps_filtered$Sp.ID.deer)),".csv")
   
- setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/03_Filtered_by_Coverage")
+ setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/12_CMH/03_Filtered_by_Coverage")
   write.csv(snps_filtered, filename, row.names=F)
 
   cat(species2,"\n")
