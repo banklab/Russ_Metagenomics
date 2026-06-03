@@ -3,7 +3,7 @@
 library(data.table)
 
 
-SNP_filter <- 18e3
+SNP_filter <- 28e3
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/04_CMH")
 cmh_files <- list.files(pattern=".csv")
