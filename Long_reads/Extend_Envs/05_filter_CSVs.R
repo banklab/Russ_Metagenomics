@@ -35,7 +35,9 @@ for(i in 1:length(cmh_files2)){
   }
 
 
-cmh_all$rep <- paste0(cmh_all$bin,"_",cmh_all$EnvA,"_",cmh_all$EnvB)
+cmh_all$contrast <- paste0(cmh_all$EnvA,"_x_",cmh_all$EnvB)
+cmh_all$contrast.bin <- paste0(cmh_all$contrast,"_",cmh_all$bin)
+
 
 
 write.csv(cmh_all, "CMH_environments.csv", row.names=F)
