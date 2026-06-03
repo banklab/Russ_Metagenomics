@@ -10,6 +10,8 @@ cmh_files <- list.files(pattern=".csv")
 snp_count <- as.numeric(gsub(".*tests|.*snps|_CMH.*","",cmh_files))
 cmh_files2 <- cmh_files[snp_count>=SNP_filter]
 
+cmh_files2 <- cmh_files2[!grepl("SR_",cmh_files2)]
+
 
 for(i in 1:length(cmh_files2)){
 
