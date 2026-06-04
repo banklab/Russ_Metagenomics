@@ -35,11 +35,13 @@ if(EnvA==EnvB){stop("awklenew")}
   
   species2 <- gsub("_Env.*","",snp_list2[i])
   cat(species2,"\n")
+
+  cov_file <- paste0(species2,"_SR")
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/mosdepth/BED")
-  if(length(list.files(pattern=species2))>1){stop("ajnds")}
+  if(length(list.files(pattern=cov_file))>1){stop("too many coverage df?")}
   
-  cov_df <- fread(list.files(pattern=species2), header=T, stringsAsFactors=F)
+  cov_df <- fread(list.files(pattern=cov_file), header=T, stringsAsFactors=F)
 
 
   cov_df$Scaffold <- as.numeric(gsub("NODE_|_length.*","",cov_df$Scaffold))
