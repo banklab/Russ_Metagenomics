@@ -112,6 +112,6 @@ cmh.function <- function(one.site){
   num_tests <- sum(!is.na(cmh_results$pvalue))
   
  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/12_CMH/04_CMH")
- write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB,"_tests",num_tests,"_CMH.csv"), row.names = F)
+ write.csv(cmh_results, paste0(SPECIES,"_Env",EnvA,"xEnv",EnvB,"_tests",num_tests,"_SR28_CMH.csv"), row.names = F)
   
 }
