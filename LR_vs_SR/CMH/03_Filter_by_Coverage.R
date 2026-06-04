@@ -34,7 +34,8 @@ if(EnvA==EnvB){stop("awklenew")}
   unique_sample_scaffolds <- unique(snp_df$Sample.Scaffold)
   
   species2 <- gsub("_Env.*","",snp_list2[i])
-
+  cat(species2,"\n")
+  
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/mosdepth/BED")
   if(length(list.files(pattern=species2))>1){stop("ajnds")}
   
@@ -112,7 +113,7 @@ if( length(unique(cov_df$Env)) != 2 ){stop("cov envs")}
  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/12_CMH/03_Filtered_by_Coverage")
   write.csv(snps_filtered, filename, row.names=F)
 
-  cat(species2,"\n")
+
   cat("IN:",length(unique(snp_df$Sp.ID.deer)),"\n")
   cat("OUT:",length(unique(snps_filtered$Sp.ID.deer)),"\n")
   cat("%:",round(dim(snps_filtered)[1]/dim(snp_df)[1],4),"\n")
