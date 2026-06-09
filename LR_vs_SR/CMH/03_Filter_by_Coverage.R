@@ -3,9 +3,6 @@ library(data.table)
 
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/CoverM")
-cover_df <- fread("DEER_SR28_CoverM.csv", header=T, stringsAsFactors=F)
-
 SNP_filter <- 20e3 ## only using species with at least x number of USEABLE snps (snps that can go into cmh test)
 
 
