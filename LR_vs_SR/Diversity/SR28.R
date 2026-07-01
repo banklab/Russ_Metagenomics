@@ -84,6 +84,11 @@ setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/REFEREN
 genome_size <- read.csv("genome_sizes_SR.csv", header=T, stringsAsFactors=F)
 
 
+if( length(setdiff(unique(diversity_df$bin),genome_size$bin))>0 ){stop("species names1")}
+if( length(setdiff(genome_size$bin, unique(diversity_df$bin)))>0 ){stop("species names2")}
+
+
+
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain/FORMAT")
 snp_file_list <- list.files(pattern="_SR_InStrain_SNVs_format.csv")
 
