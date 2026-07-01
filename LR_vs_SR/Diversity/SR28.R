@@ -97,11 +97,15 @@ for(i in 1:length(snp_file_list)){
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain/FORMAT")
   snp_DF <- data.frame(fread(snp_file_list[i], header=T, stringsAsFactors = F))
+
+   if( i==1){
+    if( length(setdiff(unique(snp_DF$bin), unique(diversity_df$bin)))>0 ){stop("species names3")}
+    }
   
   species_list <- unique(snp_DF$bin)
   
   DEER <- as.numeric(gsub("_.*","",snp_file_list[i]))
-  ENV <- as.numeric(gsub(".*_","",gsub("_InStrain.*|_SR28_.*","",snp_file_list[i])))
+  ENV <- as.numeric(gsub(".*_","",gsub("_InStrain.*|_SR.*","",snp_file_list[i])))
   
   Sys.time()
   for(j in 1:length(species_list)){
