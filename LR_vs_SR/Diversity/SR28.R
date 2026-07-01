@@ -66,8 +66,8 @@ pi_w.function <- function(one.site){ ## calculate pi per locus
 
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/CoverM")
-diversity_df <- data.frame(fread("DEER_LR28_CoverM.csv", header=T, stringsAsFactors = F))
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/CoverM")
+diversity_df <- data.frame(fread("DEER_SR28_CoverM.csv", header=T, stringsAsFactors = F))
 
 diversity_df$genome.pi <- NA
 diversity_df$diallelic <- NA
