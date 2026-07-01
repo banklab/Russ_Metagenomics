@@ -84,6 +84,11 @@ setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/REFERE
 genome_size <- read.csv("genome_sizes_LR_ONLY.csv", header=T, stringsAsFactors=F)
 
 
+if( length(setdiff(unique(diversity_df$bin),genome_size$bin))>0 ){stop("species names1")}
+if( length(setdiff(genome_size$bin, unique(diversity_df$bin)))>0 ){stop("species names2")}
+
+
+
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/FORMAT")
 snp_file_list <- list.files(pattern="_LR28_InStrain_SNVs_format.csv")
 
@@ -92,8 +97,17 @@ for(i in 1:length(snp_file_list)){
   
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/FORMAT")
   snp_DF <- data.frame(fread(snp_file_list[i], header=T, stringsAsFactors = F))
+
+  snp_DF$bin <- paste0("LR_",gsub(".*_asm_","",snp_DF$Scaffold))
   
   species_list <- unique(snp_DF$bin)
+
+  if( i==1){
+    if( length(setdiff(unique(snp_DF$bin), unique(diversity_df$bin)))>0 ){stop("species names3")}
+    }
+  
+  
+
   
   DEER <- as.numeric(gsub("_.*","",snp_file_list[i]))
   ENV <- as.numeric(gsub(".*_","",gsub("_InStrain.*|_LR28_.*","",snp_file_list[i])))
