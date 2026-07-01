@@ -96,6 +96,8 @@ if( length(setdiff(genome_size$bin, unique(diversity_df$bin)))>0 ){stop("species
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/FORMAT")
 snp_file_list <- list.files(pattern="_LR28_InStrain_SNVs_format.csv")
 
+snp_file_list <- snp_file_list[grepl(paste0(unique(diversity_df$Sample),"_LR28_InStrain_SNVs_format.csv", collapse="|"), snp_file_list)]
+
 
 for(i in 1:length(snp_file_list)){
   
