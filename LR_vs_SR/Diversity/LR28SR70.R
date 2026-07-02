@@ -73,6 +73,11 @@ diversity_df$Deer <- as.numeric(gsub("_.*","",diversity_df$Sample))
 diversity_df$Env <- as.numeric(gsub(".*_","",diversity_df$Sample))
 
 
+diversity_df$bin <- gsub("metabat_","Me_",diversity_df$bin)
+diversity_df$bin <- gsub("maxbin_","Ma_",diversity_df$bin)
+diversity_df$bin <- gsub("semibin_","Se_",diversity_df$bin)
+
+
 diversity_df$genome.pi <- NA
 diversity_df$diallelic <- NA
 diversity_df$multiallelic <- NA
@@ -87,6 +92,7 @@ diversity_df$Intergenic.SNV <- NA
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/REFERENCE")
 genome_size <- read.csv("genome_sizes.csv", header=T, stringsAsFactors=F)
 
+  
 
 if( length(setdiff(unique(diversity_df$bin),genome_size$bin))>0 ){stop("species names1")}
 if( length(setdiff(genome_size$bin, unique(diversity_df$bin)))>0 ){stop("species names2")}
@@ -114,7 +120,7 @@ for(i in 1:length(snp_file_list)){
 
   
   DEER <- as.numeric(gsub("_.*","",snp_file_list[i]))
-  ENV <- as.numeric(gsub(".*_","",gsub("_InStrain.*|_LR28_.*","",snp_file_list[i])))
+  ENV <- as.numeric(gsub(".*_","",gsub("_InStrain.*|_LR_.*","",snp_file_list[i])))
   
   Sys.time()
   for(j in 1:length(species_list)){
