@@ -15,6 +15,13 @@ for(i in 1:length(cmh_list2)){
 
 cmh_df <- fread(cmh_list2[i], header=T, stringsAsFactors=F)
 
+envA <- as.numeric(gsub(".*_Env|xEnv.*","",cmh_list2[i]))
+  envB <- as.numeric(gsub(".*xEnv|_tests.*","",cmh_list2[i]))
+
+cmh_df$EnvA <- envA
+  cmh_df$EnvB <- envB
+
+  
 cmh_df$bin <- gsub("_Env.*","",cmh_list2[i])
   
 snp_count1 <- as.numeric(gsub(".*_tests|.*snps|_CMH.csv","",cmh_list2[i]))
@@ -38,6 +45,12 @@ cmhA_list2 <- cmhA_list[snp_count>=SNP_filter]
 for(i in 1:length(cmhA_list2)){
 
 cmhA_df <- fread(cmhA_list2[i], header=T, stringsAsFactors=F)
+
+  envAA <- as.numeric(gsub(".*_Env|xEnv.*","",cmhA_list2[i]))
+  envBB <- as.numeric(gsub(".*xEnv|_tests.*","",cmhA_list2[i]))
+
+cmhA_df$EnvA <- envAA
+  cmhA_df$EnvB <- envBB
 
   
 cmhA_df$bin <- gsub("_Env.*","",cmhA_list2[i])
@@ -65,6 +78,13 @@ for(i in 1:length(cmhB_list2)){
 
 cmhB_df <- fread(cmhB_list2[i], header=T, stringsAsFactors=F)
 
+    envAAA <- as.numeric(gsub(".*_Env|xEnv.*","",cmhB_list2[i]))
+  envBBB <- as.numeric(gsub(".*xEnv|_tests.*","",cmhB_list2[i]))
+
+cmhB_df$EnvA <- envAAA
+  cmhB_df$EnvB <- envBBB
+
+
   cmhB_df$bin <- gsub("_Env.*","",cmhB_list2[i])
 
 snp_count111 <- as.numeric(gsub(".*_tests|.*snps|__SR70_CMH.csv","",cmhB_list2[i]))
@@ -89,6 +109,16 @@ for(i in 1:length(cmhC_list2)){
 
 cmhC_df <- fread(cmhC_list2[i], header=T, stringsAsFactors=F)
 
+  
+    envAAAA <- as.numeric(gsub(".*_Env|xEnv.*","",cmhC_list2[i]))
+  envBBBB <- as.numeric(gsub(".*xEnv|_tests.*","",cmhC_list2[i]))
+
+cmhC_df$EnvA <- envAAAA
+  cmhC_df$EnvB <- envBBBB
+
+
+
+  
     cmhC_df$bin <- gsub("_Env.*","",cmhC_list2[i])
 
 snp_count1111 <- as.numeric(gsub(".*_tests|.*snps|_SR28_CMH.csv","",cmhC_list2[i]))
