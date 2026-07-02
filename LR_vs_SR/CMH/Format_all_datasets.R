@@ -35,6 +35,38 @@ if(i==1){ cmh_df2 <- cmh_df } else { cmh_df2 <- rbind(cmh_df2,cmh_df) }
   }
 
 
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/11_InStrain/CMH_4")
+cmhD_list <- list.files(pattern="_CMH4_LR.csv")
+snp_count <- as.numeric(gsub(".*_tests|.*snps|_CMH4_LR.csv","",cmhD_list))
+
+cmhD_list2 <- cmhD_list[snp_count>=SNP_filter]
+
+for(i in 1:length(cmhD_list2)){
+
+cmhD_df <- fread(cmhD_list2[i], header=T, stringsAsFactors=F)
+
+    envA_2 <- as.numeric(gsub(".*_Env|xEnv.*","",cmhD_list2[i]))
+  envB_2 <- as.numeric(gsub(".*xEnv|_tests.*|_snps.*","",cmhD_list2[i]))
+
+cmhD_df$EnvA <- envA_2
+  cmhD_df$EnvB <- envB_2
+
+  
+cmhD_df$bin <- gsub("_Env.*","",cmhD_list2[i])
+
+snp_count1b <- as.numeric(gsub(".*_tests|.*snps|_CMH4_LR.csv","",cmhD_list2[i]))
+
+cmhD_df$tests <- snp_count1b
+
+cmhD_df$Data <- "LR28SR70"
+
+if(i==1){ cmhD_df2 <- cmhD_df } else { cmhD_df2 <- rbind(cmhD_df2,cmhD_df) }
+  
+  }
+
+
+
+
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/03_CMH_on_SR_alignments/04_CMH")
 cmhA_list <- list.files(pattern="_CMH.csv")
@@ -134,7 +166,7 @@ if(i==1){ cmhC_df2 <- cmhC_df } else { cmhC_df2 <- rbind(cmhC_df2,cmhC_df) }
 
 
 
-cmh_all_things <- rbind(cmh_df2, cmhA_df2,cmhB_df2,cmhC_df2)
+cmh_all_things <- rbind(cmh_df2, cmhD_df2, cmhA_df2,cmhB_df2,cmhC_df2)
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/CMH")
 write.csv(cmh_all_things, "CMH_methods.csv", row.names=F)
