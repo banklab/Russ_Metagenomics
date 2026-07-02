@@ -55,9 +55,9 @@ if(i==1){ cmhA_df2 <- cmhA_df } else { cmhA_df2 <- rbind(cmhA_df2,cmhA_df) }
 
 
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/LONG_READS/16_CMH/04_CMH")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/SR70/01_CMH/07_CMH")
 cmhB_list <- list.files(pattern="_CMH.csv")
-snp_count <- as.numeric(gsub(".*_tests|.*snps|_CMH.csv","",cmhB_list))
+snp_count <- as.numeric(gsub(".*_tests|.*snps|_SR70_CMH.csv","",cmhB_list))
 
 cmhB_list2 <- cmhB_list[snp_count>=SNP_filter]
 
@@ -67,7 +67,7 @@ cmhB_df <- fread(cmhB_list2[i], header=T, stringsAsFactors=F)
 
   cmhB_df$bin <- gsub("_Env.*","",cmhB_list2[i])
 
-snp_count111 <- as.numeric(gsub(".*_tests|.*snps|_CMH.csv","",cmhB_list2[i]))
+snp_count111 <- as.numeric(gsub(".*_tests|.*snps|__SR70_CMH.csv","",cmhB_list2[i]))
 
 cmhB_df$tests <- snp_count111
 
