@@ -134,3 +134,12 @@ if(i==1){ cmhC_df2 <- cmhC_df } else { cmhC_df2 <- rbind(cmhC_df2,cmhC_df) }
 
 
 
+cmh_all_things <- rbind(cmh_df2, cmhA_df2,cmhB_df2,cmhC_df2)
+
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/CMH")
+write.csv(cmh_all_things, "CMH_methods.csv", row.names=F)
+
+
+
+
+
