@@ -87,7 +87,7 @@ cmhB_df$EnvA <- envAAA
 
   cmhB_df$bin <- gsub("_Env.*","",cmhB_list2[i])
 
-snp_count111 <- as.numeric(gsub(".*_tests|.*snps|__SR70_CMH.csv","",cmhB_list2[i]))
+snp_count111 <- as.numeric(gsub(".*_tests|.*snps|_SR70_CMH.csv","",cmhB_list2[i]))
 
 cmhB_df$tests <- snp_count111
 
