@@ -41,3 +41,5 @@ if(j == 1){ cluster_df2 <- cluster_df } else { cluster_df2 <- rbind(cluster_df2,
 
 }
 
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep")
+write.csv(cluster_df2, "Methods_Clusters.csv", row.names=F)
