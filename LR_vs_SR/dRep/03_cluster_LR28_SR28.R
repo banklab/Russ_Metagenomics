@@ -36,4 +36,6 @@ for(i in 1:length(cluster_list)){
 
 cluster_df1 <- cluster_df[rowSums(cluster_df[,3:4])>0,]
 
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep")
+write.csv(cluster_df1, "Methods_LR28vSR28_Clusters.csv", row.names=F)
 
