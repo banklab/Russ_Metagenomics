@@ -2,7 +2,6 @@
 ## drep levels for CLUSTERING - this is still METHODS project ##
 drep_list <- c(80,90,95,98,99)
 
-drep_list <- c(95,98,99)
 
 
 for(j in 1:length(drep_list)){
@@ -35,8 +34,8 @@ for(i in 1:length(cluster_list)){
 
 }
 
-table(table(cdb$secondary_cluster))
-table(rowSums(cluster_df[,-c(1:2)]))
+cat(table(table(cdb$secondary_cluster)),"\n")
+cat(table(rowSums(cluster_df[,-c(1:2)])),"\n","\n")
 
 if(j == 1){ cluster_df2 <- cluster_df } else { cluster_df2 <- rbind(cluster_df2,cluster_df) }
 
