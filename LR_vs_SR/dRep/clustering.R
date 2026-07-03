@@ -40,7 +40,7 @@ for(i in 1:length(cluster_list)){
 }
 
 cat(table(table(cdb$secondary_cluster)),"\n")
-cat(table(rowSums(cluster_df[,-c(1:2)])),"\n","\n")
+cat(table(rowSums(cluster_df[,c(3:6)])),"\n","\n")
 
 if(j == 1){ cluster_df2 <- cluster_df } else { cluster_df2 <- rbind(cluster_df2,cluster_df) }
 
