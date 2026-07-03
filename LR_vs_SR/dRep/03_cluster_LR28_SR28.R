@@ -12,7 +12,7 @@ table(table(cdb$secondary_cluster))
 
 cluster_list <- unique(cdb$secondary_cluster)
 
-cluster_df <- data.frame(array(NA, dim=c(length(cluster_list), 10), dimnames=list(c(),c("drep","cluster","LR28SR70","LR28","SR70","SR28","n.LR28SR70","n.LR28","n.SR70","n.SR28"))))
+cluster_df <- data.frame(array(NA, dim=c(length(cluster_list), 6), dimnames=list(c(),c("drep","cluster","LR28","SR28","LR28.genome","SR28.genome"))))
 cluster_df$drep <- choose_drep
 
 for(i in 1:length(cluster_list)){
@@ -21,17 +21,19 @@ for(i in 1:length(cluster_list)){
 
   cluster_df[i,"cluster"] <- cluster_list[i]
 
- cluster_df[i,"LR28SR70"] <- sum(sum(cluster1$Method=="LR28SR70")>0)
  cluster_df[i,"LR28"] <- sum(sum(cluster1$Method=="LR28")>0)
- cluster_df[i,"SR70"] <- sum(sum(cluster1$Method=="SR70")>0)
  cluster_df[i,"SR28"] <- sum(sum(cluster1$Method=="SR28")>0)
 
-  cluster_df[i,"n.LR28SR70"] <- sum(cluster1$Method=="LR28SR70")
- cluster_df[i,"n.LR28"] <- sum(cluster1$Method=="LR28")
- cluster_df[i,"n.SR70"] <- sum(cluster1$Method=="SR70")
- cluster_df[i,"n.SR28"] <- sum(cluster1$Method=="SR28")
-
+  if(sum(sum(cluster1$Method=="LR28")>0)){
+  cluster_df[i,"LR28.genome"] <- cluster1[cluster1$Method=="LR28","genome"]
+    }
+  
+   if(sum(sum(cluster1$Method=="SR28")>0)){
+ cluster_df[i,"SR28.genome"] <- cluster1[cluster1$Method=="SR28","genome"]
+}
+  
 }
 
-cat(table(table(cdb$secondary_cluster)),"\n")
-cat(table(rowSums(cluster_df[,c(3:6)])),"\n","\n")
+cluster_df1 <- cluster_df[rowSums(cluster_df[,3:4])>0,]
+
+
