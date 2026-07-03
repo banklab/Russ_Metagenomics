@@ -2,7 +2,7 @@
 
 choose_drep <- 95
 
-setwd(paste0("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep/02_drep",choose_drep,"/data_tables"))
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep/04_drep95_onlyLR28_SR28/data_tables")
 cdb <- read.csv("Cdb.csv")
 
 cdb$Method <- sub("_.*", "", cdb$genome)
