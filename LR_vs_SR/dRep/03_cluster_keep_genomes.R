@@ -2,7 +2,9 @@
 
 choose_drep <- 95
 
-setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep/04_drep95_onlyLR28_SR28/data_tables")
+setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep/02_drep95/data_tables")
+#setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep/04_drep95_onlyLR28_SR28/data_tables") ## only LR28 vs SR28
+
 cdb <- read.csv("Cdb.csv")
 
 cdb$Method <- sub("_.*", "", cdb$genome)
@@ -44,8 +46,6 @@ for(i in 1:length(cluster_list)){
   
 }
 
-cluster_df1 <- cluster_df[rowSums(cluster_df[,3:4])>0,]
-
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/dRep")
-write.csv(cluster_df1, "Methods_Clusters_keep_genomes.csv", row.names=F)
+write.csv(cluster_df, "Methods_Clusters_keep_genomes.csv", row.names=F)
 
