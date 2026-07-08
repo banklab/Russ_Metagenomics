@@ -6,6 +6,8 @@ library(data.table)
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/CoverM")
 coverage <- read.csv("DEER_LR28_CoverM.csv", header=T, stringsAsFactors = F)
 
+species_list <- unique(coverage$bin)
+
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/REFERENCES")
 genome_sizes <- read.csv("genome_sizes_LR_ONLY.csv", header=T, stringsAsFactors = F)
 
@@ -18,8 +20,20 @@ for(i in 1:length(instrain_list)){
   
   snp_df <- fread(instrain_list[i], header=T, stringsAsFactors = F)
   
+  snp_df$bin <- gsub("Me_","metabat_",snp_df$bin)
+  snp_df$bin <- gsub("Ma_","maxbin_",snp_df$bin)
+  snp_df$bin <- gsub("Se_","semibin_",snp_df$bin)
+
   snp_count <- data.frame(table(snp_df$bin))
   colnames(snp_count) <- c("bin","snp.count")
+
+  missing_species <- data.frame(setdiff(species_list,snp_count$bin))
+colnames(missing_species) <- "bin"
+missing_species$snp.count <- 0
+
+snp_count <- rbind(snp_count,missing_species)
+
+if(dim(snp_count)[1] != 503){stop("aksdn")}
   
   intergenic_snps <- snp_df[snp_df$mutation_type=="I",]
   
@@ -37,10 +51,6 @@ for(i in 1:length(instrain_list)){
   
   if( min(snp_count3$intergenic.count) <0 ){stop("negative snps?")}
   
-  
-  snp_count3$bin <- gsub("Me_","metabat_",snp_count3$bin)
-  snp_count3$bin <- gsub("Ma_","maxbin_",snp_count3$bin)
-  snp_count3$bin <- gsub("Se_","semibin_",snp_count3$bin)
   
   
   sample2 <- gsub("_LR28_.*|_SR_.*","",instrain_list[i])
