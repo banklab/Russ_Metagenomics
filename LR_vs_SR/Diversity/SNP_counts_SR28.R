@@ -3,8 +3,6 @@
 library(data.table)
 
 
-
-
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/CoverM")
 coverage <- read.csv("DEER_SR28_CoverM.csv", header=T, stringsAsFactors = F)
 
@@ -33,9 +31,6 @@ snp_count <- rbind(snp_count,missing_species)
 
 if(dim(snp_count)[1] != 373){stop("aksdn")}
 
-  
-  snp_count <- data.frame(table(snp_df$bin))
-  colnames(snp_count) <- c("bin","snp.count")
   
   intergenic_snps <- snp_df[snp_df$mutation_type=="I",]
   
