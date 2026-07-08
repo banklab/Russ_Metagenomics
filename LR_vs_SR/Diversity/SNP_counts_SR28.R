@@ -8,6 +8,9 @@ library(data.table)
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/CoverM")
 coverage <- read.csv("DEER_SR28_CoverM.csv", header=T, stringsAsFactors = F)
 
+species_list <- unique(coverage$bin)
+
+
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/REFERENCES")
 genome_sizes <- read.csv("genome_sizes_SR.csv", header=T, stringsAsFactors = F)
 
