@@ -21,6 +21,18 @@ instrain_list <- list.files(pattern="SR_InStrain_SNVs_format.csv")
 for(i in 1:length(instrain_list)){
   
   snp_df <- fread(instrain_list[i], header=T, stringsAsFactors = F)
+
+  snp_count <- data.frame(table(snp_df$bin))
+  colnames(snp_count) <- c("bin","snp.count")
+
+  missing_species <- data.frame(setdiff(species_list,snp_count$bin))
+colnames(missing_species) <- "bin"
+missing_species$snp.count <- 0
+
+snp_count <- rbind(snp_count,missing_species)
+
+if(dim(snp_count)[1] != 373){stop("aksdn")}
+
   
   snp_count <- data.frame(table(snp_df$bin))
   colnames(snp_count) <- c("bin","snp.count")
