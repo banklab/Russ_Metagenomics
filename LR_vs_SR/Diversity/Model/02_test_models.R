@@ -27,7 +27,7 @@ AIC_df[,1] <- c("null","methods only")
 AIC_df[,2:3] <- AIC(snp_mod_null,snp_mod_methods)
 AIC_df[,4] <- BIC(snp_mod_null,snp_mod_methods)$BIC
 
-explanatory_vars <- c('Method_f','Gut.region', 'CoverM.abundance_z','genome.size_z','completeness_z','contamination_z','Coding_Density_z','Average_Gene_Length_z','GC_Content_z','N50_z','Mapping.rate_z')
+explanatory_vars <- c('Method_f','Gut.region', 'Tax.Phylum', 'CoverM.abundance_z','genome.size_z','completeness_z','contamination_z','Coding_Density_z','Average_Gene_Length_z','GC_Content_z','N50_z','Mapping.rate_z')
 
 
 minimum_vars <- 1
