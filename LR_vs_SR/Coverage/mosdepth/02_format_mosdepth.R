@@ -52,7 +52,6 @@ cov_df$bin2 <- paste0(cov_df$Method,"_",cov_df$bin2)
   
  if(i==1){ cov_df2 <- cov_df } else { cov_df2 <- rbind(cov_df2,cov_df) }
 
-cat(i,"\n")
 
 }
 
