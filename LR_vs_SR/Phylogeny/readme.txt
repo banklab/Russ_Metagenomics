@@ -11,3 +11,9 @@ zgrep "^>" gtdbtk.ar53.user_msa.fasta.gz | wc -l
 14
 
 Only my genomes - ie, not rooting them to tree of life
+
+
+
+Also remind myself
+Phylogeny analyses - sensitive to contamination
+Redo 2nd tree with even stricter contam threshold? -- see if they are concordant?
