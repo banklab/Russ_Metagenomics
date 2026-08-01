@@ -10,4 +10,4 @@ zgrep "^>" gtdbtk.bac120.user_msa.fasta.gz | wc -l
 zgrep "^>" gtdbtk.ar53.user_msa.fasta.gz | wc -l
 14
 
-Only my MAG's - not rooting my genomes to tree of life
+Only my genomes - ie, not rooting them to tree of life
