@@ -1,4 +1,6 @@
 
+## predict 16S from MAGs
+
 
 for f in MAGs/*.fa
 do
