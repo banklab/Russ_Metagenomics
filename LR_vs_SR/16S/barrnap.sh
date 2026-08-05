@@ -13,11 +13,11 @@
 for f in 01_LR28_genomes/*.fa
 do
     base=$(basename "$f" .fa)
-    barrnap --kingdom bac "$f" > "02_Barrnap/LR_28_${base}.gff"
+    barrnap --kingdom bac "$f" > "02_Barrnap/LR28_${base}.gff"
 done
 
 for f in 01_SR28_genomes/*.fa
 do
     base=$(basename "$f" .fa)
-    barrnap --kingdom bac "$f" > "02_Barrnap/SR_28_${base}.gff"
+    barrnap --kingdom bac "$f" > "02_Barrnap/SR28_${base}.gff"
 done
