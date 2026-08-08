@@ -9,3 +9,11 @@
 # https://docs.qiime2.org/2024.10/data-resources/
 
 
+module load BLAST+/2.15.0-gompi-2021a
+makeblastdb \
+    -in SILVA_SSURef_NR99.nocontam.masked.trimmed.NR99.fasta \
+    -dbtype nucl \
+    -out SILVA_SSURef_NR99
+
+
+    
