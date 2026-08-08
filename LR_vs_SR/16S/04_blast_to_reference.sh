@@ -33,7 +33,7 @@ blastn \
     -query $f \
     -db "$DATABASE"/SILVA_SSURef_NR99 \
     -out "$blastfile" \
-    -outfmt "6 qseqid sseqid pident length qcovs evalue bitscore" \
+   -outfmt '6 qseqid sseqid pident length qcovs evalue bitscore stitle' \
     -max_target_seqs 10 \
     -evalue 1e-20
 done
