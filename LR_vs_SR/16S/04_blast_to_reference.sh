@@ -36,3 +36,6 @@ blastn \
     -outfmt "6 qseqid sseqid pident length qcovs evalue bitscore" \
     -max_target_seqs 10 \
     -evalue 1e-20
+done
+
+    
