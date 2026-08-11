@@ -25,14 +25,14 @@ done
 
 module load BEDTools/2.30.0-GCC-10.3.0
 
-ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/16S/TEMP
+ASM_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/01_Assembly
 OUT_DIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/16S/05_extracted_sequences
 
 
-for f in SR28_contigs*16S.gff
+for f in SR28_scaffolds*16S.gff
 do
 
-ID="${f#SR28_contigs_}"
+ID="${f#SR28_scaffolds_}"
 ID="${ID%_16S.gff}"
 
 bedtools getfasta \
@@ -40,6 +40,6 @@ bedtools getfasta \
     -bed $f \
     -s \
     -name \
-    > "$OUT_DIR"/SR28_"$ID"_contigs_16S.fa
+    > "$OUT_DIR"/SR28_"$ID"_scaffolds_16S.fa
 
 done
