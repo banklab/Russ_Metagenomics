@@ -36,7 +36,7 @@ ID="${f#SR28_scaffolds_}"
 ID="${ID%_16S.gff}"
 
 bedtools getfasta \
-    -fi "$ASM_DIR"/"$ID"_deer.asm_contigs.fasta \
+    -fi "$ASM_DIR"/"$ID"_deer.asm/"$ID"_scaffolds_filtered_NoNorm.fasta \
     -bed $f \
     -s \
     -name \
