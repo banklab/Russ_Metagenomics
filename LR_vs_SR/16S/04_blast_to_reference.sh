@@ -51,7 +51,7 @@ for f in SR28_*_scaffolds_16S.fa
 
 do
 
-base=$(basename "$f" _contigs_16S.fa)
+base=$(basename "$f" _scaffolds_16S.fa)
 blastfile="$OUT_DIR"/"$base"_vs_16S_SILVA.out
 
 blastn \
