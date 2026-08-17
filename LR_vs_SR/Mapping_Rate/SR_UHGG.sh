@@ -10,6 +10,7 @@
 #SBATCH --partition=pibu_el8 
 
 module load Bowtie2/2.4.4-GCC-10.3.0
+module load SAMtools/1.13-GCC-10.3.0
 
 INDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/04_FastUniq
 #OUTDIR=/data/projects/p898_Deer_RAS_metagenomics/04_Deer/METHODS/Mapping_Databases/UHGG
@@ -19,7 +20,7 @@ do
 
  ID=$(basename "$i" .R1.dedup.fastq.gz)
 
-bowtie2 -x UHGG_reps.fasta.bt -1 "$i" -2 "${i/.R1./.R2.}" -S /dev/null 2> "$ID"_UHGG_mapping_stats1.txt
+bowtie2 -x UHGG_reps.fasta.bt -1 "$i" -2 "${i/.R1./.R2.}" | samtools flagstat - > "${ID}_UHGG_mapping_stats_SR.txt"
 
 
 done
