@@ -20,7 +20,7 @@ do
 
  ID=$(basename "$i" .R1.dedup.fastq.gz)
 
-bowtie2 -x UHGG_reps.fasta.bt -1 "$i" -2 "${i/.R1./.R2.}" | samtools flagstat - > "${ID}_UHGG_mapping_stats_SR.txt"
+bowtie2 -x UHGG_reps.fasta.bt2 -1 "$i" -2 "${i/.R1./.R2.}" | samtools flagstat - > "${ID}_UHGG_mapping_stats_SR.txt"
 
 
 done
