@@ -20,6 +20,6 @@ do
 
  ID=$(basename "$i" .fastq)
 
-minimap2 -ax map-hifi UHGG_reps.mmi "$i" --split-prefix="$ID"_UHGG_split | samtools flagstat - > "${ID}_UHGG_mapping_stats_LR.txt"
+minimap2 -ax map-hifi UHGG_reps.mmi "$i" --split-prefix="$ID"_REF_split | samtools flagstat - > "${ID}_UHGG_mapping_stats_LR.txt"
        
 done
