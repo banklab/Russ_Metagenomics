@@ -110,8 +110,8 @@ grep 'No IS element was found for' slurm-isescan_*LR*out
 ise_zero_SR <- data.frame(array(0, dim=c(6,3),dimnames=list(c(),c("Method.genome","IS.total","IS.percent.genome"))))
 ise_zero_SR$Method.genome <- paste0("SR28_",c("metabat_2_2_bin.131.fa", "metabat_2_3_bin.62.fa", "metabat_4_10_bin.60.fa", "metabat_4_8_bin.62.fa", "metabat_4_8_bin.78_sub.fa", "metabat_6_9_bin.127.fa"))
 
-ise_zero_LR <- data.frame(array(0, dim=c(6,3),dimnames=list(c(),c("Method.genome","IS.total","IS.percent.genome"))))
-ise_zero_LR$Method.genome <- paste0("LR28_",c("maxbin_2_1_bin.007.fa", "metabat_4_10_bin.273.fa", "metabat_4_3_bin.351.fa", "metabat_4_9_bin.150.fa", "metabat_4_9_bin.60.fa", "metabat_6_10_bin.249_sub.fa"))
+ise_zero_LR <- data.frame(array(0, dim=c(7,3),dimnames=list(c(),c("Method.genome","IS.total","IS.percent.genome"))))
+ise_zero_LR$Method.genome <- paste0("LR28_",c("semibin_4_4_bin.165.fa","maxbin_2_1_bin.007.fa", "metabat_4_10_bin.273.fa", "metabat_4_3_bin.351.fa", "metabat_4_9_bin.150.fa", "metabat_4_9_bin.60.fa", "metabat_6_10_bin.249_sub.fa"))
 
 
 ise_full2 <- rbind(ise_full,ise_zero_SR,ise_zero_LR)
