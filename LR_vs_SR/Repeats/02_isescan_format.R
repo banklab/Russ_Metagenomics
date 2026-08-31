@@ -104,6 +104,9 @@ ise4_results$Method.genome <- paste0("LR28_",ise4_results$Method.genome)
 ise_full <- rbind(ise_results,ise2_results,ise3_results,ise4_results)
 
 ## ADD ZEROS
+grep 'No IS element was found for' slurm-isescan_*SR*out
+grep 'No IS element was found for' slurm-isescan_*LR*out
+
 ise_zero_SR <- data.frame(array(0, dim=c(6,3),dimnames=list(c(),c("Method.genome","IS.total","IS.percent.genome"))))
 ise_zero_SR$Method.genome <- paste0("SR28_",c("metabat_2_2_bin.131.fa", "metabat_2_3_bin.62.fa", "metabat_4_10_bin.60.fa", "metabat_4_8_bin.62.fa", "metabat_4_8_bin.78_sub.fa", "metabat_6_9_bin.127.fa"))
 
