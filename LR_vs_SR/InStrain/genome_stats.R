@@ -74,4 +74,4 @@ gene_df2$Deer <- as.numeric(gsub("_.*","",gene_df2$Sample))
 gene_df2$Env <- as.numeric(gsub(".*_","",gene_df2$Sample))
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/REDO_SR_Binning/08_InStrain")
-write.csv(gene_df2, "GENE_SR_results.csv", row.names = F)
+write.csv(gene_df2, "Genome_SR_results.csv", row.names = F)
