@@ -18,9 +18,8 @@ for(i in 1:length(instrain_list)){
   
   gene_df$Method <- "LR28"
   
-  gene_df$bin <- paste0("LR28_", gsub(".*_asm_","",gene_df$scaffold))
+gene_df$bin <- paste0("LR28_", gsub("\\.fa","",gene_df$genome))
   
-  colnames(gene_df)[1] <- "Scaffold"
   
   gene_df$Sample <- gsub("_InStrain","",instrain_list[i])
   
@@ -58,9 +57,7 @@ for(i in 1:length(instrain_list)){
   
   gene_df$Method <- "SR28"
   
-  gene_df$bin <- paste0("SR28_", gsub(".*_asm_","",gene_df$scaffold))
-  
-  colnames(gene_df)[1] <- "Scaffold"
+  gene_df$bin <- paste0("SR28_", gsub("\\.fa","",gene_df$genome))
   
   
   gene_df$Sample <- gsub("_SR_InStrain","",instrain_list[i])
