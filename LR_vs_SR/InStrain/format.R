@@ -1,6 +1,83 @@
 
 
 library(data.table)
+res <- data.frame(array(NA, dim = c(1,9)))
+
+pi_w.function <- function(one.site){ ## calculate pi per locus
+  
+  alleles <- as.numeric(one.site[c("A","C","G","T")])
+  
+  allele.words <- names(one.site[c("A","C","G","T")][order(as.numeric(one.site[c("A","C","G","T")]),decreasing=T)])
+  
+  major.llele <- sort(alleles, decreasing = T)[1]
+  minor.llele <- sort(alleles, decreasing = T)[2]
+  
+  ## multiallelic check
+  if(sum(alleles>0)<=2){ ## pi for biallelic loci
+    
+    allele.pop.size <- sum(as.numeric(major.llele),as.numeric(minor.llele))
+    
+    p <- as.numeric(major.llele) / allele.pop.size
+    q <- as.numeric(minor.llele) / allele.pop.size
+    
+    pairwise.diff <- p * q * allele.pop.size^2
+    
+    pi_w <- ( pairwise.diff / (choose(allele.pop.size,2)) )
+    
+  } else { ## MULTIALLELIC
+    
+    minor2.llele <- sort(alleles, decreasing = T)[3]
+    
+    if(sum(alleles>0)<4){ ## 3 alleles
+      
+      allele.pop.size3 <- sum(as.numeric(major.llele),as.numeric(minor.llele),as.numeric(minor2.llele))
+      
+      p <- as.numeric(major.llele) / allele.pop.size3
+      q <- as.numeric(minor.llele) / allele.pop.size3
+      r <- as.numeric(minor2.llele) / allele.pop.size3
+      
+      pairwise.diff2 <- ( p*q + p*r + q*r ) * allele.pop.size3^2
+      
+      pi_w <- ( pairwise.diff2 / (choose(allele.pop.size3,2)) )
+      
+      res[,6] <- allele.words[3]
+      res[,7] <- r
+      
+    } else { ## 4 alleles
+      
+      minor3.llele <- sort(alleles, decreasing = T)[4]
+      
+      allele.pop.size4 <- sum(as.numeric(major.llele),as.numeric(minor.llele),as.numeric(minor2.llele),as.numeric(minor3.llele))
+      
+      p <- as.numeric(major.llele) / allele.pop.size4
+      q <- as.numeric(minor.llele) / allele.pop.size4
+      r <- as.numeric(minor2.llele) / allele.pop.size4
+      s <- as.numeric(minor3.llele) / allele.pop.size4
+      
+      pairwise.diff3 <- ( p*q + p*r + p*s + q*r + q*s + r*s ) * allele.pop.size4^2
+      
+      pi_w <- ( pairwise.diff3 / (choose(allele.pop.size4,2)) )
+      
+      res[,6] <- allele.words[3]
+      res[,7] <- r
+      res[,8] <- allele.words[4]
+      res[,9] <- s
+      
+    }
+    
+  } ## multiallelic
+  
+   res[,1] <- pi_w
+  res[,2] <- allele.words[1]
+  res[,3] <- p
+  res[,4] <- allele.words[2]
+  res[,5] <- q
+  
+  return(res)
+  
+}
+
+
 
 for(ENV in c(1:6,8:10)){
 for(DEER in c(2,4,6,7){
@@ -38,10 +115,17 @@ for(DEER in c(2,4,6,7){
 
   snv_file2$Original <- TRUE 
   
- 
+ pi_and_freqs <- lapply(seq_len(nrow(snv_file2)), function(k) {
+  pi_w.function(snv_file2[k, ])
+}) 
+pi_and_freqs2 <- as.data.frame(do.call(rbind, pi_and_freqs))
+
+colnames(pi_and_freqs2) <- c("pi","Maj.allele","Maj.freq","Min1.allele","Min1.freq","Min2.allele","Min2.freq","Min3.allele","Min3.freq")
+
+snv_file3 <- cbind(snv_file2, pi_and_freqs2)
 
   setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/FORMAT")
-  write.csv(snv_file2, paste0(DEER,"_",ENV,"_LR28_InStrain_SNVs_format.csv"), row.names = F)
+  write.csv(snv_file3, paste0(DEER,"_",ENV,"_LR28_InStrain_SNVs_format.csv"), row.names = F)
   
 }}
 
