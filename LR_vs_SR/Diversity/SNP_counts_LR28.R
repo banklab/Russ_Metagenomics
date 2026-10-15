@@ -6,10 +6,15 @@ library(data.table)
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/CoverM")
 coverage <- read.csv("DEER_LR28_CoverM.csv", header=T, stringsAsFactors = F)
 
+coverage$bin <- gsub("LR_","LR28_",coverage$bin)
+coverage$Method <- "LR28"
+
 species_list <- unique(coverage$bin)
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/REFERENCES")
 genome_sizes <- read.csv("genome_sizes_LR_ONLY.csv", header=T, stringsAsFactors = F)
+
+genome_sizes$bin <- gsub("LR_","LR28_",genome_sizes$bin)
 
 setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/FORMAT")
 instrain_list <- list.files(pattern="LR28_InStrain_SNVs_format.csv")
