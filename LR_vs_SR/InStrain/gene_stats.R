@@ -5,7 +5,7 @@ library(data.table)
 pacbio_samples <- c('2_1','2_10','2_2','2_3','2_4','2_5','2_8','2_9','4_1','4_10','4_2','4_3','4_4','4_5','4_6','4_8','4_9','6_1','6_10','6_2','6_3','6_4','6_5','6_6','6_8','6_9','7_5','7_6')
 
 
-instrain_list <- paste0(pacbio_samples,"_InStrain")
+instrain_list <- paste0(pacbio_samples,"_LR28_InStrain")
 
 
 for(i in 1:length(instrain_list)){
@@ -22,7 +22,7 @@ for(i in 1:length(instrain_list)){
   
   colnames(gene_df)[1] <- "Scaffold"
   
-  gene_df$Sample <- gsub("_InStrain","",instrain_list[i])
+  gene_df$Sample <- gsub("_LR28_InStrain","",instrain_list[i])
   
   if(i==1){ gene_df2 <- gene_df } else { gene_df2 <- rbind(gene_df2,gene_df) }
   
