@@ -78,12 +78,7 @@ pi_w.function <- function(one.site){ ## calculate pi per locus
 }
 
 
-
-#### FIX
-
 instrain_files <- list.files(pattern="_InStrain_SNVs.tsv")
-instrain_files <- instrain_files[!grepl("deer",instrain_files)]
-###
 
 
 for(i in 1:length(instrain_files)){
@@ -92,14 +87,12 @@ SAMPLE <- gsub("_LR.*|_SR.*","",instrain_files[i])
 DEER <- as.numeric(gsub("_.*","",SAMPLE))
  ENV <- as.numeric(gsub(".*_","",SAMPLE))
  
-  #setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/RAW")
-  #snv_file <- data.frame(fread(paste0(DEER,"_",ENV,"_LR28_InStrain_SNVs.tsv"), header=T, stringsAsFactors = F))
-   snv_file <- data.frame(fread(paste0(DEER,"_",ENV,"_SR_InStrain_SNVs.tsv"), header=T, stringsAsFactors = F))
- 
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/RAW")
+  snv_file <- data.frame(fread(paste0(DEER,"_",ENV,"_LR28_InStrain_SNVs.tsv"), header=T, stringsAsFactors = F))
+   
   snv_file$bin <- gsub(".*asm_","",snv_file$scaffold) ## make variable for species (bin)
 
-  #snv_file$Method <- "LR28"
- snv_file$Method <- "SR28"
+  snv_file$Method <- "LR28"
 
   snv_file$bin <- paste0(snv_file$Method,"_",snv_file$bin)
   
