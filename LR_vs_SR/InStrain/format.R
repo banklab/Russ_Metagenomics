@@ -135,21 +135,3 @@ snv_file3 <- cbind(snv_file2, pi_and_freqs2)
   cat(i,"\n")
   
 }
-
-
-### FIX ###
-#  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/FORMAT")
-#for(ENV in c(1:6,8:10)){
-#for(DEER in c(2,4,6,7){
-
- # snv_file3 <- data.frame(fread(paste0(DEER,"_",ENV,"_LR28_InStrain_SNVs_format.csv"), header=T, stringsAsFactors = F))
-
-  #if(DEER==1){full_df <- snv_file3} else {full_df <- rbind(full_df, snv_file3)}
-
-  #if(length(unique(full_df$ENV))>1){stop("ERROR")}
-  
-  #}
- # write.csv(full_df, paste0("ENV",ENV,"_LR28_SNPS.csv"), row.names = F)
-
-#}
-  
