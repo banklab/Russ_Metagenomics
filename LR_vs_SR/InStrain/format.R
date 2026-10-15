@@ -129,8 +129,10 @@ colnames(pi_and_freqs2) <- c("pi","Maj.allele","Maj.freq","Min1.allele","Min1.fr
 
 snv_file3 <- cbind(snv_file2, pi_and_freqs2)
 
-  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/FORMAT")
-  write.csv(snv_file3, paste0(DEER,"_",ENV,"_LR28_InStrain_SNVs_format.csv"), row.names = F)
+  setwd("/data/projects/p898_Deer_RAS_metagenomics/04_Deer/Outliers_LR_ONLY/02_InStrain_SR_alignments/METHODS")
+  write.csv(snv_file3, paste0(DEER,"_",ENV,"_LR28_InStrain_SNVs_methods.csv"), row.names = F)
+
+  cat(i,"\n")
   
 }
 
