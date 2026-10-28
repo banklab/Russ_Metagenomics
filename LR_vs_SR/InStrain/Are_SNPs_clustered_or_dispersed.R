@@ -29,6 +29,8 @@ for(i in 1:28){
       n_pairs     = n() - 1,
       .groups     = "drop"
     )
+
+snp_spacing$Sample <- choose_sample
   
   if(i==1){ snp_spacing2 <- snp_spacing } else { snp_spacing2 <- rbind(snp_spacing2,snp_spacing) }
   
@@ -69,6 +71,8 @@ for(i in 1:28){
       n_pairs     = n() - 1,
       .groups     = "drop"
     )
+
+  snp_spacing$Sample <- choose_sample
 
   if(i==1){ snp_spacing2 <- snp_spacing } else { snp_spacing2 <- rbind(snp_spacing2,snp_spacing) }
 
