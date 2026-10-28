@@ -37,7 +37,7 @@ for(i in 1:28){
   if(i==1){ decay2 <- decay } else { decay2 <- rbind(decay2,decay) }
 }
 
-decay2$bin <- paste0(decay2$Method,"_",decay2$bin)
+#decay2$bin <- paste0(decay2$Method,"_",decay2$bin)
 
 write.csv(decay2,"LR28_Linkage.csv", row.names = F)
 
